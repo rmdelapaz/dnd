@@ -332,7 +332,7 @@
                 <button class="quick-btn" onclick="quickRoll('1d20', 'skill')">Skill Check</button>
                 <button class="quick-btn" onclick="quickRoll('4d6', 'stats')">Ability Scores (4d6)</button>
                 <button class="quick-btn" onclick="quickRoll('1d100')">Percentile (d100)</button>
-                <button class="quick-btn" onclick="quickRoll('2d6+6', 'init')">Initiative (2d6+6)</button>
+                <button class="quick-btn" onclick="quickRoll('1d20+0', 'init')">Initiative (1d20)</button>
             </div>
         </div>
         
@@ -388,7 +388,7 @@
                     <div class="die-name">d20</div>
                     <div class="die-controls">
                         <button class="die-btn" onclick="changeDieCount('d20', -1)">-</button>
-                        <input type="number" class="die-count" id="d20-count" value="1" min="0" max="99">
+                        <input type="number" class="die-count" id="d20-count" value="0" min="0" max="99">
                         <button class="die-btn" onclick="changeDieCount('d20', 1)">+</button>
                     </div>
                 </div>
@@ -454,7 +454,13 @@
         function quickRoll(diceString, type = '') {
             clearAll();
             
-            // Parse dice string (e.g., "1d20", "4d6", "2d6+6")
+            // Special handling for ability score rolls
+            if (type === 'stats') {
+                rollAbilityScore();
+                return;
+            }
+            
+            // Parse dice string (e.g., "1d20", "4d6", "1d100")
             const parts = diceString.split('+');
             const dicepart = parts[0];
             const bonus = parts[1] ? parseInt(parts[1]) : 0;
@@ -470,12 +476,74 @@
                 document.getElementById('modifier').value = bonus;
             }
             
-            // Set appropriate advantage for certain roll types
-            if (type === 'save' || type === 'skill') {
-                // These could use advantage/disadvantage
+            rollDice();
+        }
+        
+        function rollAbilityScore() {
+            // Roll 4d6 and keep the highest 3
+            const rolls = [];
+            for (let i = 0; i < 4; i++) {
+                rolls.push(Math.floor(Math.random() * 6) + 1);
             }
             
-            rollDice();
+            // Sort rolls in descending order and take the top 3
+            rolls.sort((a, b) => b - a);
+            const keptRolls = rolls.slice(0, 3);
+            const droppedRoll = rolls[3];
+            const total = keptRolls.reduce((sum, roll) => sum + roll, 0);
+            
+            // Create roll objects for display
+            const allRollsForDisplay = rolls.map(roll => ({
+                value: roll,
+                type: 'd6',
+                sides: 6,
+                dropped: roll === droppedRoll && rolls.filter(r => r === droppedRoll).length === 1
+            }));
+            
+            displayAbilityScoreResults(allRollsForDisplay, total, keptRolls, droppedRoll);
+        }
+        
+        function displayAbilityScoreResults(rolls, total, keptRolls, droppedRoll) {
+            const resultsDiv = document.getElementById('results');
+            const totalDiv = document.getElementById('total-result');
+            const breakdownDiv = document.getElementById('breakdown');
+            const diceDisplay = document.getElementById('dice-display');
+            const specialText = document.getElementById('special-text');
+            
+            // Display total
+            totalDiv.textContent = total;
+            
+            // Create breakdown text
+            const allRollsText = rolls.map(r => r.value).join(', ');
+            const keptRollsText = keptRolls.join(', ');
+            breakdownDiv.textContent = `4d6: ${allRollsText} | Kept: ${keptRollsText} | Dropped: ${droppedRoll}`;
+            
+            // Display individual dice
+            diceDisplay.innerHTML = '';
+            rolls.forEach(roll => {
+                const die = document.createElement('div');
+                die.className = 'result-die';
+                die.style.backgroundColor = roll.dropped ? '#666' : dieColors[roll.type];
+                die.style.borderColor = roll.dropped ? '#444' : dieColors[roll.type];
+                die.style.opacity = roll.dropped ? '0.5' : '1';
+                die.textContent = roll.value;
+                
+                if (roll.dropped) {
+                    die.style.textDecoration = 'line-through';
+                }
+                
+                diceDisplay.appendChild(die);
+            });
+            
+            // Special text for ability scores
+            specialText.innerHTML = '';
+            if (total >= 15) {
+                specialText.innerHTML += '<div class="critical-text">🌟 EXCELLENT ABILITY SCORE! 🌟</div>';
+            } else if (total <= 8) {
+                specialText.innerHTML += '<div class="fumble-text">😬 LOW ABILITY SCORE 😬</div>';
+            }
+            
+            resultsDiv.style.display = 'block';
         }
         
         function rollDice() {
@@ -592,12 +660,19 @@
         }
         
         function clearAll() {
+            // Reset all dice counts to 0
             const diceTypes = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'];
             diceTypes.forEach(dieType => {
-                document.getElementById(dieType + '-count').value = dieType === 'd20' ? 1 : 0;
+                document.getElementById(dieType + '-count').value = 0;
             });
+            
+            // Reset modifier
             document.getElementById('modifier').value = 0;
+            
+            // Reset advantage to normal
             setAdvantage('normal');
+            
+            // Hide results
             document.getElementById('results').style.display = 'none';
         }
         
