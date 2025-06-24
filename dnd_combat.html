@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Combat Tactics and Strategy</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Combat Tactics and Strategy</h1>
+        <p><em>From Dice Rolling to Battlefield Mastery</em></p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>The Art of War in Fantasy</h2>
+            <p>Combat in D&D isn't just about rolling dice and dealing damage – it's a complex tactical puzzle that rewards creative thinking, teamwork, and strategic planning. Think of it like chess, but with fireballs, and every piece has a personality.</p>
+            
+            <div class="analogy-box">
+                <h3>The Sports Team Analogy</h3>
+                <p>D&D combat is like playing basketball with your friends against a skilled opponent. You need individual skill (your character's abilities), but victory comes from teamwork, positioning, reading the situation, and adapting your strategy. The best teams don't just have the strongest players – they have players who work together effectively.</p>
+            </div>
+        </section>
+
+        <section class="action-economy">
+            <h2>Action Economy: The Currency of Combat</h2>
+            <p>In D&D, time is literally power. Understanding action economy – who can do what and when – is the foundation of all tactical thinking. It's like understanding the rules of a chess game before you start moving pieces.</p>
+
+            <div class="mermaid">
+                graph TD
+                    A[Your Turn] --> B[Movement - 30 feet typical]
+                    A --> C[Action - Main activity]
+                    A --> D[Bonus Action - If available]
+                    A --> E[Reaction - Response to triggers]
+                    A --> F[Free Actions - Speaking, etc.]
+                    
+                    C --> G[Attack]
+                    C --> H[Cast a Spell]
+                    C --> I[Dash - Double movement]
+                    C --> J[Dodge - Harder to hit]
+                    C --> K[Help - Aid an ally]
+                    C --> L[Hide - Stealth attempt]
+                    C --> M[Ready - Prepare an action]
+                    C --> N[Search - Look for something]
+                    
+                    style A fill:#FFE4B5
+                    style C fill:#98FB98
+            </div>
+
+            <div class="action-breakdown">
+                <h3>Understanding Each Action Type</h3>
+                
+                <div class="action-type">
+                    <h4>Movement - Your Tactical Positioning</h4>
+                    <p><strong>Real-world parallel:</strong> Like a basketball player moving around the court to get a better shot</p>
+                    <ul>
+                        <li><strong>Standard speed:</strong> 30 feet for most characters (6 seconds of movement)</li>
+                        <li><strong>Split movement:</strong> Move 15 feet, attack, then move 15 more feet</li>
+                        <li><strong>Opportunity attacks:</strong> Leaving an enemy's reach triggers a free attack</li>
+                        <li><strong>Difficult terrain:</strong> Costs double movement (mud, stairs, crowds)</li>
+                    </ul>
+                </div>
+
+                <div class="action-type">
+                    <h4>Action - Your Main Event</h4>
+                    <p><strong>Real-world parallel:</strong> The primary thing you do in those 6 seconds, like throwing a punch in a fight</p>
+                    <div class="action-options">
+                        <p><strong>Attack:</strong> Strike with weapon or unarmed. Extra attacks at higher levels.</p>
+                        <p><strong>Cast a Spell:</strong> Most spells require your full action to cast.</p>
+                        <p><strong>Dash:</strong> Move again (total: double your speed). Great for escaping or closing distance.</p>
+                        <p><strong>Dodge:</strong> All attacks against you have disadvantage until your next turn.</p>
+                        <p><strong>Help:</strong> Give an ally advantage on their next roll. Teamwork in action!</p>
+                        <p><strong>Hide:</strong> Attempt to become unseen. Requires cover or concealment.</p>
+                        <p><strong>Ready:</strong> "I'll shoot when the orc comes around the corner." Prepare a response.</p>
+                    </div>
+                </div>
+
+                <div class="action-type">
+                    <h4>Bonus Action - Your Quick Move</h4>
+                    <p><strong>Real-world parallel:</strong> Like a quick jab while throwing a haymaker</p>
+                    <ul>
+                        <li>Only usable if you have a specific feature that grants one</li>
+                        <li><strong>Examples:</strong> Rogue's Cunning Action, Fighter's Second Wind, some spells</li>
+                        <li>Can't use multiple bonus actions per turn</li>
+                    </ul>
+                </div>
+
+                <div class="action-type">
+                    <h4>Reaction - Your Instant Response</h4>
+                    <p><strong>Real-world parallel:</strong> Like flinching when someone throws something at you</p>
+                    <ul>
+                        <li>Triggered by specific events, usable once per round</li>
+                        <li><strong>Opportunity attack:</strong> When enemy leaves your reach</li>
+                        <li><strong>Counterspell:</strong> Interrupt an enemy's spellcasting</li>
+                        <li><strong>Shield spell:</strong> Boost AC when attacked</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="action-economy-importance">
+                <h3>Why Action Economy Wins Fights</h3>
+                <p>Consider this scenario: Four 1st-level characters vs. one 4th-level enemy</p>
+                
+                <div class="comparison-chart">
+                    <canvas id="actionEconomyCanvas" width="600" height="300"></canvas>
+                </div>
+
+                <p><strong>The party gets:</strong> 4 actions, 4 movements, potential bonus actions and reactions</p>
+                <p><strong>The enemy gets:</strong> 1 action, 1 movement, potential bonus action and reaction</p>
+                <p><strong>Result:</strong> The party can overwhelm through sheer volume of actions, even if individually weaker</p>
+            </div>
+
+            <script>
+                function drawActionEconomyChart() {
+                    const canvas = document.getElementById('actionEconomyCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw party actions (left side)
+                    ctx.fillStyle = '#4CAF50';
+                    for (let i = 0; i < 4; i++) {
+                        ctx.fillRect(50 + i * 60, 100, 50, 100);
+                        ctx.fillStyle = '#fff';
+                        ctx.font = '12px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(`P${i+1}`, 75 + i * 60, 140);
+                        ctx.fillText('Action', 75 + i * 60, 155);
+                        ctx.fillStyle = '#4CAF50';
+                    }
+                    
+                    // Draw enemy action (right side)
+                    ctx.fillStyle = '#F44336';
+                    ctx.fillRect(450, 60, 80, 140);
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('BOSS', 490, 125);
+                    ctx.fillText('Action', 490, 145);
+                    
+                    // Labels
+                    ctx.fillStyle = '#000';
+                    ctx.font = '18px Arial';
+                    ctx.fillText('Party (4 actions per round)', 170, 50);
+                    ctx.fillText('Enemy (1 action per round)', 490, 30);
+                    
+                    // VS
+                    ctx.font = '24px Arial';
+                    ctx.fillText('VS', 350, 150);
+                }
+                
+                window.addEventListener('load', drawActionEconomyChart);
+            </script>
+        </section>
+
+        <section class="positioning">
+            <h2>Positioning: The Geography of Battle</h2>
+            <p>Where you stand in combat is often more important than what weapon you carry. Good positioning can mean the difference between victory and a trip to the afterlife.</p>
+
+            <div class="tactical-grid">
+                <h3>The Battlefield Grid</h3>
+                <p>D&D uses a grid system where each square represents 5 feet. Understanding spatial relationships is crucial:</p>
+                
+                <div class="grid-example">
+                    <canvas id="tacticalCanvas" width="400" height="400"></canvas>
+                    <div class="grid-controls">
+                        <button onclick="showMeleeRange()">Show Melee Range</button>
+                        <button onclick="showRangedAdvantage()">Show Ranged Advantage</button>
+                        <button onclick="showAreaEffect()">Show Area Effect</button>
+                        <button onclick="clearCanvas()">Clear</button>
+                    </div>
+                    <div id="gridExplanation"></div>
+                </div>
+            </div>
+
+            <div class="positioning-principles">
+                <h3>Key Positioning Principles</h3>
+                
+                <div class="principle">
+                    <h4>High Ground Advantage</h4>
+                    <p><strong>Real-world parallel:</strong> Like Obi-Wan vs. Anakin – elevation provides tactical superiority</p>
+                    <ul>
+                        <li>Ranged attackers gain better line of sight</li>
+                        <li>Harder for enemies to reach you</li>
+                        <li>Often provides cover from other angles</li>
+                        <li>DM may grant advantage for superior positioning</li>
+                    </ul>
+                </div>
+
+                <div class="principle">
+                    <h4>Control the Chokepoints</h4>
+                    <p><strong>Real-world parallel:</strong> Like the Battle of Thermopylae – narrow passages limit enemy numbers</p>
+                    <ul>
+                        <li>Doorways force enemies to approach one at a time</li>
+                        <li>Bridges create natural defensive positions</li>
+                        <li>Corridors prevent flanking maneuvers</li>
+                        <li>Your tank can block multiple enemies</li>
+                    </ul>
+                </div>
+
+                <div class="principle">
+                    <h4>Protect Your Squishies</h4>
+                    <p><strong>Real-world parallel:</strong> Like bodyguards protecting a VIP in a crowd</p>
+                    <ul>
+                        <li>Keep wizards and other low-AC characters behind cover</li>
+                        <li>Use tough characters as mobile cover</li>
+                        <li>Create overlapping fields of protection</li>
+                        <li>Have escape routes planned</li>
+                    </ul>
+                </div>
+
+                <div class="principle">
+                    <h4>Flanking and Positioning</h4>
+                    <p><strong>Real-world parallel:</strong> Like wolves hunting – attack from multiple angles</p>
+                    <ul>
+                        <li>Surround enemies to limit their movement</li>
+                        <li>Attack from behind for potential advantage</li>
+                        <li>Split enemy attention between multiple threats</li>
+                        <li>Use movement to avoid being surrounded yourself</li>
+                    </ul>
+                </div>
+            </div>
+
+            <script>
+                function setupTacticalCanvas() {
+                    const canvas = document.getElementById('tacticalCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Draw grid
+                    ctx.strokeStyle = '#ddd';
+                    ctx.lineWidth = 1;
+                    for (let i = 0; i <= 8; i++) {
+                        // Vertical lines
+                        ctx.beginPath();
+                        ctx.moveTo(i * 50, 0);
+                        ctx.lineTo(i * 50, 400);
+                        ctx.stroke();
+                        
+                        // Horizontal lines
+                        ctx.beginPath();
+                        ctx.moveTo(0, i * 50);
+                        ctx.lineTo(400, i * 50);
+                        ctx.stroke();
+                    }
+                    
+                    // Draw characters
+                    // Fighter in center
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.fillRect(175, 175, 50, 50);
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('F', 200, 205);
+                    
+                    // Wizard behind
+                    ctx.fillStyle = '#2196F3';
+                    ctx.fillRect(175, 125, 50, 50);
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText('W', 200, 155);
+                    
+                    // Enemies
+                    ctx.fillStyle = '#F44336';
+                    ctx.fillRect(275, 175, 50, 50);
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText('E1', 300, 205);
+                    
+                    ctx.fillStyle = '#F44336';
+                    ctx.fillRect(275, 225, 50, 50);
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText('E2', 300, 255);
+                }
+                
+                function showMeleeRange() {
+                    setupTacticalCanvas();
+                    const canvas = document.getElementById('tacticalCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Show fighter's melee range
+                    ctx.fillStyle = 'rgba(76, 175, 80, 0.3)';
+                    ctx.fillRect(125, 125, 150, 150);
+                    
+                    document.getElementById('gridExplanation').innerHTML = 
+                        '<p><strong>Melee Range:</strong> Fighter (F) can attack any adjacent square (green area). Each square = 5 feet.</p>';
+                }
+                
+                function showRangedAdvantage() {
+                    setupTacticalCanvas();
+                    const canvas = document.getElementById('tacticalCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Show wizard's clear shot
+                    ctx.strokeStyle = '#2196F3';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(200, 150);
+                    ctx.lineTo(300, 200);
+                    ctx.stroke();
+                    
+                    document.getElementById('gridExplanation').innerHTML = 
+                        '<p><strong>Ranged Advantage:</strong> Wizard (W) has clear line of sight to enemy, while fighter provides cover and blocks enemy movement.</p>';
+                }
+                
+                function showAreaEffect() {
+                    setupTacticalCanvas();
+                    const canvas = document.getElementById('tacticalCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Show fireball area
+                    ctx.fillStyle = 'rgba(255, 193, 7, 0.5)';
+                    ctx.beginPath();
+                    ctx.arc(300, 225, 75, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    document.getElementById('gridExplanation').innerHTML = 
+                        '<p><strong>Area Effect:</strong> Fireball (20-foot radius) can hit multiple enemies while avoiding allies through careful positioning.</p>';
+                }
+                
+                function clearCanvas() {
+                    setupTacticalCanvas();
+                    document.getElementById('gridExplanation').innerHTML = '';
+                }
+                
+                window.addEventListener('load', setupTacticalCanvas);
+            </script>
+        </section>
+
+        <section class="team-roles">
+            <h2>Team Roles: The Party as a Unit</h2>
+            <p>A successful D&D party is like a well-oiled machine where each part has a specific function. Understanding your role and supporting others makes everyone more effective.</p>
+
+            <div class="mermaid">
+                graph TD
+                    A[Balanced Party] --> B[Tank/Defender]
+                    A --> C[Damage Dealer]
+                    A --> D[Healer/Support]
+                    A --> E[Controller/Utility]
+                    
+                    B --> F[Protect allies]
+                    B --> G[Absorb damage]
+                    B --> H[Control positioning]
+                    
+                    C --> I[Eliminate threats]
+                    C --> J[Focus fire]
+                    C --> K[Exploit weaknesses]
+                    
+                    D --> L[Keep party alive]
+                    D --> M[Remove conditions]
+                    D --> N[Buff allies]
+                    
+                    E --> O[Battlefield control]
+                    E --> P[Problem solving]
+                    E --> Q[Crowd control]
+                    
+                    style A fill:#FFE4B5
+                    style B fill:#FF6B6B
+                    style C fill:#4ECDC4
+                    style D fill:#45B7D1
+                    style E fill:#96CEB4
+            </div>
+
+            <div class="role-details">
+                <h3>The Four Pillars of Party Composition</h3>
+                
+                <div class="role-card">
+                    <h4>Tank/Defender - The Shield</h4>
+                    <p><strong>Primary job:</strong> Protect the party by absorbing damage and controlling enemy movement</p>
+                    <p><strong>Real-world parallel:</strong> A bouncer at a club or a hockey goalie</p>
+                    
+                    <div class="role-tactics">
+                        <h5>Key Tactics:</h5>
+                        <ul>
+                            <li><strong>Body blocking:</strong> Position yourself between enemies and allies</li>
+                            <li><strong>Opportunity control:</strong> Use your reach to threaten multiple squares</li>
+                            <li><strong>Taunt and distract:</strong> Make yourself the most attractive target</li>
+                            <li><strong>Damage mitigation:</strong> Use shields, armor, and defensive abilities</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="role-classes">
+                        <p><strong>Best classes:</strong> Fighter, Paladin, Barbarian, some Clerics</p>
+                        <p><strong>Key stats:</strong> High AC, lots of hit points, good Constitution saves</p>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <h4>Damage Dealer - The Sword</h4>
+                    <p><strong>Primary job:</strong> Eliminate threats quickly and efficiently</p>
+                    <p><strong>Real-world parallel:</strong> A sniper or a surgeon – precise and deadly</p>
+                    
+                    <div class="role-tactics">
+                        <h5>Key Tactics:</h5>
+                        <ul>
+                            <li><strong>Target prioritization:</strong> Focus on the biggest threats first</li>
+                            <li><strong>Positioning for advantage:</strong> Flanking, high ground, cover</li>
+                            <li><strong>Resource management:</strong> Save your best abilities for important moments</li>
+                            <li><strong>Vulnerability exploitation:</strong> Learn enemy weaknesses</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="role-classes">
+                        <p><strong>Best classes:</strong> Rogue, Ranger, Fighter, Warlock, Sorcerer</p>
+                        <p><strong>Key stats:</strong> High damage output, good accuracy, mobility</p>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <h4>Healer/Support - The Heart</h4>
+                    <p><strong>Primary job:</strong> Keep the party functioning and enhance their capabilities</p>
+                    <p><strong>Real-world parallel:</strong> A medic on a battlefield or a coach during a game</p>
+                    
+                    <div class="role-tactics">
+                        <h5>Key Tactics:</h5>
+                        <ul>
+                            <li><strong>Preventive care:</strong> Buff before fights, position safely</li>
+                            <li><strong>Triage healing:</strong> Heal the most critical injuries first</li>
+                            <li><strong>Condition removal:</strong> Cure diseases, poisons, and curses</li>
+                            <li><strong>Resource monitoring:</strong> Track party health and abilities</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="role-classes">
+                        <p><strong>Best classes:</strong> Cleric, Druid, Bard, some Paladins</p>
+                        <p><strong>Key stats:</strong> Strong spellcasting, good Wisdom, spell slots</p>
+                    </div>
+                </div>
+
+                <div class="role-card">
+                    <h4>Controller/Utility - The Brain</h4>
+                    <p><strong>Primary job:</strong> Manipulate the battlefield and solve complex problems</p>
+                    <p><strong>Real-world parallel:</strong> A chess grandmaster or a military strategist</p>
+                    
+                    <div class="role-tactics">
+                        <h5>Key Tactics:</h5>
+                        <ul>
+                            <li><strong>Crowd control:</strong> Sleep, hold, or disable multiple enemies</li>
+                            <li><strong>Battlefield shaping:</strong> Create walls, difficult terrain, barriers</li>
+                            <li><strong>Information gathering:</strong> Scout, detect, and analyze</li>
+                            <li><strong>Problem solving:</strong> Use magic or skills for creative solutions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="role-classes">
+                        <p><strong>Best classes:</strong> Wizard, Bard, Druid, some Clerics</p>
+                        <p><strong>Key stats:</strong> Versatile spell list, high mental stats, clever player</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="combat-scenarios">
+            <h2>Common Combat Scenarios and Solutions</h2>
+            <p>Every fight presents unique challenges. Here's how to handle the most common tactical situations you'll encounter:</p>
+
+            <div class="scenario-gallery">
+                <div class="scenario">
+                    <h3>Scenario 1: The Doorway Defense</h3>
+                    <p><strong>Situation:</strong> Enemies are trying to rush through a narrow doorway</p>
+                    
+                    <div class="scenario-solution">
+                        <h4>Optimal Strategy:</h4>
+                        <ul>
+                            <li><strong>Tank position:</strong> Stand in the doorway, force enemies to go through you</li>
+                            <li><strong>Ranged support:</strong> Position archers/casters behind with clear shots</li>
+                            <li><strong>Flanking prevention:</strong> Watch for alternative routes (windows, other doors)</li>
+                            <li><strong>Area denial:</strong> Use spells like Web or Spike Growth in the doorway</li>
+                        </ul>
+                        
+                        <p><strong>Real-world parallel:</strong> Like defending a castle gate – control the entry point</p>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <h3>Scenario 2: Surrounded!</h3>
+                    <p><strong>Situation:</strong> Enemies have you surrounded in an open area</p>
+                    
+                    <div class="scenario-solution">
+                        <h4>Optimal Strategy:</h4>
+                        <ul>
+                            <li><strong>Back-to-back formation:</strong> Protect each other's flanks</li>
+                            <li><strong>Prioritize mobility:</strong> Use Dash actions to break out</li>
+                            <li><strong>Area effects:</strong> Hit multiple enemies with one spell/ability</li>
+                            <li><strong>Create chaos:</strong> Fear, sleep, or confusion effects</li>
+                        </ul>
+                        
+                        <p><strong>Real-world parallel:</strong> Like a SWAT team surrounded – tight formation and coordinated movement</p>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <h3>Scenario 3: The Flying Enemy</h3>
+                    <p><strong>Situation:</strong> Dragon, flying wizard, or other aerial threat</p>
+                    
+                    <div class="scenario-solution">
+                        <h4>Optimal Strategy:</h4>
+                        <ul>
+                            <li><strong>Ranged focus:</strong> Everyone with bows/spells targets flyer</li>
+                            <li><strong>Spread out:</strong> Avoid being clustered for area attacks</li>
+                            <li><strong>Force landing:</strong> Grapple, net, or spells that ground enemies</li>
+                            <li><strong>Cover usage:</strong> Use buildings, trees, or rocks for protection</li>
+                        </ul>
+                        
+                        <p><strong>Real-world parallel:</strong> Like anti-aircraft warfare – focused fire and cover</p>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <h3>Scenario 4: The Powerful Solo Enemy</h3>
+                    <p><strong>Situation:</strong> One very strong enemy (boss fight)</p>
+                    
+                    <div class="scenario-solution">
+                        <h4>Optimal Strategy:</h4>
+                        <ul>
+                            <li><strong>Action economy abuse:</strong> Use your numbers advantage</li>
+                            <li><strong>Debuff stacking:</strong> Multiple characters apply different penalties</li>
+                            <li><strong>Hit-and-run:</strong> Attack and retreat to avoid retaliation</li>
+                            <li><strong>Environmental hazards:</strong> Lure enemy into traps or difficult terrain</li>
+                        </ul>
+                        
+                        <p><strong>Real-world parallel:</strong> Like a pack hunting a much larger predator</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="when-not-to-fight">
+            <h2>When NOT to Fight: The Art of Avoiding Combat</h2>
+            <p>Sometimes the best battle is the one you never fight. Smart adventurers know when to talk, sneak, or run instead of drawing swords.</p>
+
+            <div class="alternative-solutions">
+                <h3>The Four Alternatives to Combat</h3>
+                
+                <div class="mermaid">
+                    graph LR
+                        A[Encounter Challenge] --> B[Negotiation]
+                        A --> C[Stealth]
+                        A --> D[Retreat]
+                        A --> E[Environmental Solution]
+                        
+                        B --> F[Diplomacy]
+                        B --> G[Intimidation]
+                        B --> H[Bribery]
+                        B --> I[Information Exchange]
+                        
+                        C --> J[Sneak Past]
+                        C --> K[Distraction]
+                        C --> L[Invisibility]
+                        C --> M[Disguise]
+                        
+                        D --> N[Strategic Withdrawal]
+                        D --> O[Fighting Retreat]
+                        D --> P[Teleportation]
+                        D --> Q[Dimension Door]
+                        
+                        E --> R[Trap Activation]
+                        E --> S[Environmental Hazard]
+                        E --> T[Collapsing Structure]
+                        E --> U[Natural Obstacles]
+                        
+                        style A fill:#FFE4B5
+                        style B fill:#98FB98
+                        style C fill:#87CEEB
+                        style D fill:#DDA0DD
+                        style E fill:#F0E68C
+                </div>
+
+                <div class="alternative-details">
+                    <h4>Negotiation: The Pen is Mightier</h4>
+                    <p><strong>When to use:</strong> Intelligent enemies, moral conflicts, resource disputes</p>
+                    <ul>
+                        <li><strong>Find common ground:</strong> What do they really want?</li>
+                        <li><strong>Offer alternatives:</strong> Trade, information, future favors</li>
+                        <li><strong>Appeal to logic:</strong> Show them why fighting hurts everyone</li>
+                        <li><strong>Know when to walk away:</strong> Some enemies can't be reasoned with</li>
+                    </ul>
+
+                    <h4>Stealth: The Invisible Solution</h4>
+                    <p><strong>When to use:</strong> Overwhelming odds, mission requires secrecy, reconnaissance</p>
+                    <ul>
+                        <li><strong>Scout first:</strong> Understand patrol patterns and blind spots</li>
+                        <li><strong>Create distractions:</strong> Noise, illusions, or diversions</li>
+                        <li><strong>Move as a group:</strong> Help each other stay hidden</li>
+                        <li><strong>Have backup plans:</strong> What if you're discovered?</li>
+                    </ul>
+
+                    <h4>Strategic Retreat: Live to Fight Another Day</h4>
+                    <p><strong>When to use:</strong> Outmatched, low resources, better opportunities elsewhere</p>
+                    <ul>
+                        <li><strong>Recognize the signs:</strong> When things are going badly</li>
+                        <li><strong>Cover your withdrawal:</strong> Rearguard actions and blocking terrain</li>
+                        <li><strong>Don't break formation:</strong> Stay together during retreat</li>
+                        <li><strong>Learn from failure:</strong> Plan better for the next encounter</li>
+                    </ul>
+
+                    <h4>Environmental Solutions: Let the World Help</h4>
+                    <p><strong>When to use:</strong> Creative opportunities, environmental hazards available</p>
+                    <ul>
+                        <li><strong>Leverage the terrain:</strong> Cliffs, rivers, unstable structures</li>
+                        <li><strong>Use existing hazards:</strong> Activate traps against enemies</li>
+                        <li><strong>Create obstacles:</strong> Avalanches, floods, fires</li>
+                        <li><strong>Think creatively:</strong> What would MacGyver do?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="practice-activities">
+            <h2>Practice Activities</h2>
+            
+            <div class="activity">
+                <h3>Activity 1: Action Economy Analysis</h3>
+                <p>Compare these two combat scenarios and determine which party has the advantage:</p>
+                <div class="scenario-comparison">
+                    <p><strong>Scenario A:</strong> 4 level-1 characters vs. 1 level-4 character</p>
+                    <p><strong>Scenario B:</strong> 2 level-2 characters vs. 2 level-2 characters</p>
+                </div>
+                <p><em>Consider: Number of actions, survivability, and tactical options</em></p>
+                <details>
+                    <summary>Click for analysis</summary>
+                    <p><strong>Scenario A favors the party:</strong> 4 actions vs 1 action per round gives massive advantage despite individual weakness</p>
+                    <p><strong>Scenario B is roughly equal:</strong> Same action economy, comes down to tactics and luck</p>
+                </details>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 2: Positioning Puzzle</h3>
+                <p>You're a 4-person party entering a 20x20 room with enemies in each corner. Design your formation and movement strategy.</p>
+                <ul>
+                    <li>Fighter (tank), Wizard (controller), Cleric (healer), Rogue (damage)</li>
+                    <li>Enemies: 2 archers, 1 warrior, 1 spellcaster</li>
+                    <li>Room has pillars providing cover</li>
+                </ul>
+                <p><em>Think about: Who needs protection? Who needs line of sight? How do you avoid being surrounded?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 3: Role Assignment</h3>
+                <p>For each party composition, identify the primary role of each character:</p>
+                <ul>
+                    <li><strong>Party 1:</strong> Human Fighter, Elf Wizard, Dwarf Cleric, Halfling Rogue</li>
+                    <li><strong>Party 2:</strong> Dragonborn Paladin, Human Bard, Tiefling Warlock, Half-Orc Barbarian</li>
+                    <li><strong>Party 3:</strong> Elf Ranger, Human Sorcerer, Dwarf Fighter, Gnome Wizard</li>
+                </ul>
+                <p><em>Consider: What's each character best at? Are there any gaps in party coverage?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 4: Alternative Solution Brainstorm</h3>
+                <p>For each situation, brainstorm three non-combat solutions:</p>
+                <ul>
+                    <li><strong>Situation 1:</strong> Guards blocking the bridge, demanding a toll you can't afford</li>
+                    <li><strong>Situation 2:</strong> Ancient dragon sleeping on a pile of treasure you need</li>
+                    <li><strong>Situation 3:</strong> Rival adventuring party claims they found the dungeon first</li>
+                </ul>
+                <p><em>Think creatively: What skills do your characters have? What resources are available?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 5: Tactical Scenario Planning</h3>
+                <p>Plan your party's strategy for this encounter:</p>
+                <div class="tactical-scenario">
+                    <p><strong>Setup:</strong> Your party approaches a bandit camp with 6 enemies around a campfire in a forest clearing</p>
+                    <p><strong>Environment:</strong> Trees provide cover, creek on one side, cliff on another</p>
+                    <p><strong>Objectives:</strong> Rescue the prisoner, minimize casualties, avoid alerting nearby patrols</p>
+                    <p><strong>Your party:</strong> Tank, healer, damage dealer, scout</p>
+                </div>
+                <p>Plan your approach, positioning, and first three rounds of actions.</p>
+            </div>
+        </section>
+
+        <section class="advanced-tactics">
+            <h2>Advanced Tactical Concepts</h2>
+            
+            <div class="advanced-concept">
+                <h3>The Alpha Strike</h3>
+                <p>Coordinating your party to eliminate the biggest threat in the first round</p>
+                <ul>
+                    <li>Identify the most dangerous enemy</li>
+                    <li>Focus all damage on one target</li>
+                    <li>Use buffs and debuffs to maximize success</li>
+                    <li>Accept that other enemies will get free shots</li>
+                </ul>
+            </div>
+
+            <div class="advanced-concept">
+                <h3>The Fighting Retreat</h3>
+                <p>Moving backwards while maintaining defensive capabilities</p>
+                <ul>
+                    <li>Designate a rearguard to slow pursuit</li>
+                    <li>Use ranged attacks while moving</li>
+                    <li>Create obstacles behind you</li>
+                    <li>Have a specific destination in mind</li>
+                </ul>
+            </div>
+
+            <div class="advanced-concept">
+                <h3>The Hammer and Anvil</h3>
+                <p>Trapping enemies between two forces</p>
+                <ul>
+                    <li>Split your party into two groups</li>
+                    <li>One group engages directly (anvil)</li>
+                    <li>Other group flanks or attacks from behind (hammer)</li>
+                    <li>Coordinate timing for maximum effect</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="common-mistakes">
+            <h2>Common Tactical Mistakes</h2>
+            
+            <div class="mistake-list">
+                <h3>The Lone Wolf</h3>
+                <p><strong>Problem:</strong> One character charges ahead alone</p>
+                <p><strong>Why it fails:</strong> Gets surrounded, no support, wastes party action economy</p>
+                <p><strong>Solution:</strong> Move as a coordinated unit, communicate plans</p>
+
+                <h3>The Healing Trap</h3>
+                <p><strong>Problem:</strong> Spending every turn healing damage instead of preventing it</p>
+                <p><strong>Why it fails:</strong> Reactive instead of proactive, never gains advantage</p>
+                <p><strong>Solution:</strong> Control, buff, and eliminate threats; heal only when necessary</p>
+
+                <h3>The Tunnel Vision</h3>
+                <p><strong>Problem:</strong> Focusing only on damage dealing, ignoring positioning and objectives</p>
+                <p><strong>Why it fails:</strong> Misses opportunities, vulnerable to tactics</p>
+                <p><strong>Solution:</strong> Consider the whole battlefield, not just your target</p>
+
+                <h3>The Resource Hoarder</h3>
+                <p><strong>Problem:</strong> Saving spells and abilities "for later"</p>
+                <p><strong>Why it fails:</strong> Underperforms when resources could make a difference</p>
+                <p><strong>Solution:</strong> Use resources to prevent problems, not just react to them</p>
+            </div>
+        </section>
+
+        <section class="next-steps">
+            <h2>What's Coming Next?</h2>
+            <p>Now that you understand tactical combat, our next lesson will explore magic and spellcasting – the most complex and versatile system in D&D. You'll learn how spells work, how to manage spell slots, and how magic can solve problems both in and out of combat.</p>
+            
+            <div class="preview-box">
+                <h3>Next Lesson Preview:<a href="/dnd_magic.html">Magic and Spellcasting</a></h3>
+                <ul>
+                    <li>Understanding spell slots and spell levels</li>
+                    <li>Components: verbal, somatic, and material</li>
+                    <li>Schools of magic and their specialties</li>
+                    <li>Concentration and spell duration</li>
+                    <li>Ritual casting and magical utility</li>
+                    <li>Counterspelling and magical combat</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="resources">
+            <h2>Tactical Resources</h2>
+            <ul>
+                <li><strong>Battle Maps:</strong> Physical or digital grids for visualizing combat</li>
+                <li><strong>Miniatures:</strong> Visual representation of character positions</li>
+                <li><strong>Initiative Trackers:</strong> Apps or cards to manage turn order</li>
+                <li><strong>Tactical Guides:</strong> Online resources for advanced strategies</li>
+                <li><strong>Military History:</strong> Real-world tactics that apply to fantasy combat</li>
+                <li><strong>Chess Resources:</strong> Positional thinking and strategy guides</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><em>Remember: The best tactics are the ones your party can execute together. Communication and coordination beat perfect strategy every time!</em></p>
+    </footer>
+</body>
+</html>

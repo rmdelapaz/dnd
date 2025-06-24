@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Magic and Spellcasting</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Magic and Spellcasting</h1>
+        <p><em>Weaving Reality with Words and Will</em></p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>The Fundamental Force of Fantasy</h2>
+            <p>Magic in D&D isn't just about flashy effects – it's a complex system that represents the fundamental forces of creation, destruction, and transformation. Think of spellcasters as programmers of reality, writing code that bends the laws of physics to their will.</p>
+            
+            <div class="analogy-box">
+                <h3>The Smartphone Analogy</h3>
+                <p>Your character's magic is like a smartphone with limited battery life. You have various "apps" (spells) that consume different amounts of battery (spell slots) when you use them. More powerful apps drain more battery, and once you're out of power, you need to recharge (long rest) to use them again. Just like how you might use a calculator app for simple math but need a more sophisticated app for complex tasks, different spells require different levels of magical energy.</p>
+            </div>
+        </section>
+
+        <section class="spell-slots">
+            <h2>Spell Slots: Your Magical Energy</h2>
+            <p>Spell slots represent your character's daily magical energy. Think of them as ammunition for a gun, fuel for a car, or stamina for an athlete – a finite resource that powers your abilities.</p>
+
+            <div class="mermaid">
+                graph TD
+                    A[Spellcaster] --> B[Spell Slots Available]
+                    B --> C[Level 1 Slots]
+                    B --> D[Level 2 Slots]
+                    B --> E[Level 3 Slots]
+                    B --> F[Higher Level Slots]
+                    
+                    C --> G[Many slots, weak spells]
+                    D --> H[Fewer slots, stronger spells]
+                    E --> I[Even fewer, very powerful]
+                    F --> J[Rare slots, reality-bending]
+                    
+                    G --> K[Magic Missile, Cure Wounds]
+                    H --> L[Fireball, Invisibility]
+                    I --> M[Lightning Bolt, Counterspell]
+                    J --> N[Polymorph, Wall of Fire]
+                    
+                    style A fill:#FFE4B5
+                    style C fill:#98FB98
+                    style D fill:#87CEEB
+                    style E fill:#DDA0DD
+                    style F fill:#F0E68C
+            </div>
+
+            <div class="slot-progression">
+                <h3>How Spell Slots Work</h3>
+                <div class="slot-explanation">
+                    <p><strong>Spell Level ≠ Character Level</strong></p>
+                    <p>This is crucial to understand: a 3rd-level spell can be cast by a 5th-level wizard. Spell level indicates power, not the caster's experience.</p>
+                    
+                    <div class="level-comparison">
+                        <table>
+                            <tr>
+                                <th>Character Level</th>
+                                <th>Spell Slots Available</th>
+                                <th>Highest Spell Level</th>
+                                <th>Real-World Parallel</th>
+                            </tr>
+                            <tr>
+                                <td>1st Level</td>
+                                <td>Two 1st-level slots</td>
+                                <td>1st</td>
+                                <td>Learning to drive: basic moves only</td>
+                            </tr>
+                            <tr>
+                                <td>3rd Level</td>
+                                <td>Four 1st, two 2nd</td>
+                                <td>2nd</td>
+                                <td>Experienced driver: highway driving</td>
+                            </tr>
+                            <tr>
+                                <td>5th Level</td>
+                                <td>Four 1st, three 2nd, two 3rd</td>
+                                <td>3rd</td>
+                                <td>Professional driver: racing capability</td>
+                            </tr>
+                            <tr>
+                                <td>9th Level</td>
+                                <td>Multiple slots up to 5th level</td>
+                                <td>5th</td>
+                                <td>Stunt driver: incredible maneuvers</td>
+                            </tr>
+                            <tr>
+                                <td>17th Level</td>
+                                <td>Full progression up to 9th</td>
+                                <td>9th</td>
+                                <td>Supernatural ability: defying physics</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upcasting">
+                <h3>Upcasting: More Power for More Cost</h3>
+                <p>You can cast lower-level spells using higher-level slots for increased effect. It's like using premium gas in a regular car – costs more but provides benefits.</p>
+                
+                <div class="upcasting-examples">
+                    <h4>Upcasting Examples</h4>
+                    <ul>
+                        <li><strong>Magic Missile (1st level):</strong> 3 darts normally, +1 dart per slot level above 1st</li>
+                        <li><strong>Cure Wounds (1st level):</strong> 1d8+modifier healing, +1d8 per slot level above 1st</li>
+                        <li><strong>Fireball (3rd level):</strong> 8d6 damage normally, +1d6 per slot level above 3rd</li>
+                    </ul>
+                </div>
+
+                <div class="slot-calculator">
+                    <h4>Upcasting Calculator</h4>
+                    <label for="baseSpellLevel">Base Spell Level: </label>
+                    <select id="baseSpellLevel">
+                        <option value="1">1st Level</option>
+                        <option value="2">2nd Level</option>
+                        <option value="3">3rd Level</option>
+                    </select>
+                    
+                    <label for="castAtLevel">Cast at Level: </label>
+                    <select id="castAtLevel">
+                        <option value="1">1st Level</option>
+                        <option value="2">2nd Level</option>
+                        <option value="3">3rd Level</option>
+                        <option value="4">4th Level</option>
+                        <option value="5">5th Level</option>
+                    </select>
+                    
+                    <button onclick="calculateUpcasting()">Calculate Effect</button>
+                    <div id="upcastingResult"></div>
+                </div>
+            </div>
+
+            <script>
+                function calculateUpcasting() {
+                    const baseLevel = parseInt(document.getElementById('baseSpellLevel').value);
+                    const castLevel = parseInt(document.getElementById('castAtLevel').value);
+                    const result = document.getElementById('upcastingResult');
+                    
+                    if (castLevel < baseLevel) {
+                        result.innerHTML = '<p style="color: red;">Cannot cast a spell at a lower level than its base level!</p>';
+                        return;
+                    }
+                    
+                    const levelDifference = castLevel - baseLevel;
+                    
+                    let examples = [];
+                    
+                    if (baseLevel === 1) {
+                        if (levelDifference === 0) {
+                            examples = [
+                                'Magic Missile: 3 darts',
+                                'Cure Wounds: 1d8 + modifier healing',
+                                'Burning Hands: 3d6 fire damage'
+                            ];
+                        } else {
+                            examples = [
+                                `Magic Missile: ${3 + levelDifference} darts`,
+                                `Cure Wounds: ${1 + levelDifference}d8 + modifier healing`,
+                                `Burning Hands: ${3 + levelDifference}d6 fire damage`
+                            ];
+                        }
+                    } else if (baseLevel === 2) {
+                        if (levelDifference === 0) {
+                            examples = [
+                                'Scorching Ray: 3 rays',
+                                'Web: 20-foot cube',
+                                'Hold Person: 1 target'
+                            ];
+                        } else {
+                            examples = [
+                                `Scorching Ray: ${3 + levelDifference} rays`,
+                                'Web: same area (no scaling)',
+                                `Hold Person: ${1 + levelDifference} targets`
+                            ];
+                        }
+                    } else if (baseLevel === 3) {
+                        if (levelDifference === 0) {
+                            examples = [
+                                'Fireball: 8d6 fire damage',
+                                'Lightning Bolt: 8d6 lightning damage',
+                                'Counterspell: counters 3rd level or lower'
+                            ];
+                        } else {
+                            examples = [
+                                `Fireball: ${8 + levelDifference}d6 fire damage`,
+                                `Lightning Bolt: ${8 + levelDifference}d6 lightning damage`,
+                                `Counterspell: counters ${3 + levelDifference}rd level or lower automatically`
+                            ];
+                        }
+                    }
+                    
+                    result.innerHTML = `
+                        <h5>Upcasting from ${baseLevel}${getOrdinal(baseLevel)} to ${castLevel}${getOrdinal(castLevel)} level:</h5>
+                        <ul>${examples.map(ex => `<li>${ex}</li>`).join('')}</ul>
+                        <p><em>Bonus levels: +${levelDifference}</em></p>
+                    `;
+                }
+                
+                function getOrdinal(num) {
+                    const suffixes = ['th', 'st', 'nd', 'rd'];
+                    const remainder = num % 100;
+                    return suffixes[(remainder - 20) % 10] || suffixes[remainder] || suffixes[0];
+                }
+            </script>
+        </section>
+
+        <section class="spell-components">
+            <h2>Spell Components: The Language of Magic</h2>
+            <p>Every spell requires specific components to cast – think of them as the ingredients in a recipe or the syntax in a programming language. Get them wrong, and the spell fails.</p>
+
+            <div class="component-types">
+                <h3>The Three Components</h3>
+                
+                <div class="component-card">
+                    <h4>Verbal (V) - The Words of Power</h4>
+                    <p><strong>What it means:</strong> Specific incantations, mystical words, or sounds</p>
+                    <p><strong>Real-world parallel:</strong> Like voice commands for smart devices or speaking a password</p>
+                    
+                    <div class="component-details">
+                        <h5>Mechanical Effects:</h5>
+                        <ul>
+                            <li><strong>Can't cast if silenced:</strong> Magical silence, gag, or underwater</li>
+                            <li><strong>Others can hear you:</strong> Casting isn't subtle</li>
+                            <li><strong>Language doesn't matter:</strong> It's mystical sounds, not conversation</li>
+                        </ul>
+                        
+                        <h5>Example Situations:</h5>
+                        <ul>
+                            <li>"I want to cast Fireball, but I'm gagged by the bandits"</li>
+                            <li>"Can I cast healing word while underwater?" (No, verbal component)</li>
+                            <li>"The guards hear me chanting as I cast Charm Person"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h4>Somatic (S) - The Gestures of Magic</h4>
+                    <p><strong>What it means:</strong> Precise hand movements, gestures, or body positions</p>
+                    <p><strong>Real-world parallel:</strong> Like sign language or conducting an orchestra</p>
+                    
+                    <div class="component-details">
+                        <h5>Mechanical Effects:</h5>
+                        <ul>
+                            <li><strong>Need free hand:</strong> Can't cast if both hands are occupied</li>
+                            <li><strong>Shield exception:</strong> Can use the same hand that holds a focus</li>
+                            <li><strong>Restrained problems:</strong> Tied up = no somatic components</li>
+                        </ul>
+                        
+                        <h5>Hand Management Examples:</h5>
+                        <ul>
+                            <li><strong>Sword + Shield:</strong> Can't cast somatic spells without War Caster feat</li>
+                            <li><strong>Staff + Free Hand:</strong> Staff is focus, hand is free for gestures</li>
+                            <li><strong>Two-Handed Weapon:</strong> Can briefly let go with one hand</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <h4>Material (M) - The Physical Focus</h4>
+                    <p><strong>What it means:</strong> Physical objects that channel or focus magical energy</p>
+                    <p><strong>Real-world parallel:</strong> Like a radio antenna or a lens focusing sunlight</p>
+                    
+                    <div class="component-details">
+                        <h5>Types of Material Components:</h5>
+                        <ul>
+                            <li><strong>Spellcasting Focus:</strong> Wand, staff, crystal, holy symbol (reusable)</li>
+                            <li><strong>Component Pouch:</strong> Contains all common spell materials</li>
+                            <li><strong>Specific Materials:</strong> Diamonds for resurrection, pearls for identify</li>
+                            <li><strong>Consumed Components:</strong> Materials with a gold cost are used up</li>
+                        </ul>
+                        
+                        <h5>Cost Examples:</h5>
+                        <ul>
+                            <li><strong>Revivify:</strong> Diamond worth 300 gp (consumed)</li>
+                            <li><strong>Chromatic Orb:</strong> Diamond worth 50 gp (not consumed)</li>
+                            <li><strong>Most spells:</strong> No cost, covered by focus or pouch</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-interactions">
+                <h3>Component Interactions in Practice</h3>
+                
+                <canvas id="componentCanvas" width="600" height="400"></canvas>
+                <div class="component-scenarios">
+                    <button onclick="showScenario('normal')">Normal Casting</button>
+                    <button onclick="showScenario('silenced')">Silenced Caster</button>
+                    <button onclick="showScenario('restrained')">Restrained Caster</button>
+                    <button onclick="showScenario('underwater')">Underwater</button>
+                </div>
+                <div id="scenarioExplanation"></div>
+            </div>
+
+            <script>
+                function drawComponentBase() {
+                    const canvas = document.getElementById('componentCanvas');
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw wizard
+                    ctx.fillStyle = '#4A90E2';
+                    ctx.fillRect(280, 200, 40, 100);
+                    ctx.beginPath();
+                    ctx.arc(300, 180, 20, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Hat
+                    ctx.fillStyle = '#2E5A8A';
+                    ctx.beginPath();
+                    ctx.moveTo(285, 170);
+                    ctx.lineTo(300, 140);
+                    ctx.lineTo(315, 170);
+                    ctx.closePath();
+                    ctx.fill();
+                    
+                    return ctx;
+                }
+                
+                function showScenario(type) {
+                    const ctx = drawComponentBase();
+                    const explanation = document.getElementById('scenarioExplanation');
+                    
+                    switch(type) {
+                        case 'normal':
+                            // Draw speech bubble (verbal)
+                            ctx.fillStyle = '#FFE4B5';
+                            ctx.beginPath();
+                            ctx.ellipse(400, 150, 80, 30, 0, 0, 2 * Math.PI);
+                            ctx.fill();
+                            ctx.fillStyle = '#000';
+                            ctx.font = '12px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('Fireball!', 400, 155);
+                            
+                            // Draw hand gesture (somatic)
+                            ctx.strokeStyle = '#FFD700';
+                            ctx.lineWidth = 3;
+                            ctx.beginPath();
+                            ctx.arc(350, 220, 20, 0, Math.PI);
+                            ctx.stroke();
+                            
+                            // Draw focus (material)
+                            ctx.fillStyle = '#8B4513';
+                            ctx.fillRect(250, 200, 5, 40);
+                            ctx.fillStyle = '#FFD700';
+                            ctx.beginPath();
+                            ctx.arc(252, 195, 8, 0, 2 * Math.PI);
+                            ctx.fill();
+                            
+                            explanation.innerHTML = '<h4>Normal Casting</h4><p>All components available: Verbal (speech), Somatic (hand gestures), Material (staff focus). Spell casts successfully!</p>';
+                            break;
+                            
+                        case 'silenced':
+                            // X over mouth
+                            ctx.strokeStyle = '#FF0000';
+                            ctx.lineWidth = 4;
+                            ctx.beginPath();
+                            ctx.moveTo(290, 175);
+                            ctx.lineTo(310, 185);
+                            ctx.moveTo(310, 175);
+                            ctx.lineTo(290, 185);
+                            ctx.stroke();
+                            
+                            // Hand gesture still works
+                            ctx.strokeStyle = '#FFD700';
+                            ctx.lineWidth = 3;
+                            ctx.beginPath();
+                            ctx.arc(350, 220, 20, 0, Math.PI);
+                            ctx.stroke();
+                            
+                            // Focus still works
+                            ctx.fillStyle = '#8B4513';
+                            ctx.fillRect(250, 200, 5, 40);
+                            ctx.fillStyle = '#FFD700';
+                            ctx.beginPath();
+                            ctx.arc(252, 195, 8, 0, 2 * Math.PI);
+                            ctx.fill();
+                            
+                            explanation.innerHTML = '<h4>Silenced Caster</h4><p>Cannot speak, so Verbal component fails. Can only cast spells without Verbal components (like Shield or Misty Step).</p>';
+                            break;
+                            
+                        case 'restrained':
+                            // Ropes around arms
+                            ctx.strokeStyle = '#8B4513';
+                            ctx.lineWidth = 6;
+                            ctx.beginPath();
+                            ctx.moveTo(265, 220);
+                            ctx.lineTo(335, 220);
+                            ctx.moveTo(265, 240);
+                            ctx.lineTo(335, 240);
+                            ctx.stroke();
+                            
+                            // Speech bubble works
+                            ctx.fillStyle = '#FFE4B5';
+                            ctx.beginPath();
+                            ctx.ellipse(400, 150, 80, 30, 0, 0, 2 * Math.PI);
+                            ctx.fill();
+                            ctx.fillStyle = '#000';
+                            ctx.font = '12px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('Verbal only!', 400, 155);
+                            
+                            explanation.innerHTML = '<h4>Restrained Caster</h4><p>Arms are tied, preventing Somatic components. Can only cast spells that are purely Verbal (very few exist) or have no Somatic requirement.</p>';
+                            break;
+                            
+                        case 'underwater':
+                            // Water bubbles
+                            ctx.fillStyle = 'rgba(135, 206, 235, 0.3)';
+                            ctx.fillRect(0, 0, 600, 400);
+                            
+                            for (let i = 0; i < 10; i++) {
+                                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                                ctx.beginPath();
+                                ctx.arc(Math.random() * 600, Math.random() * 400, Math.random() * 10 + 5, 0, 2 * Math.PI);
+                                ctx.fill();
+                            }
+                            
+                            // X over mouth for verbal
+                            ctx.strokeStyle = '#FF0000';
+                            ctx.lineWidth = 4;
+                            ctx.beginPath();
+                            ctx.moveTo(290, 175);
+                            ctx.lineTo(310, 185);
+                            ctx.moveTo(310, 175);
+                            ctx.lineTo(290, 185);
+                            ctx.stroke();
+                            
+                            explanation.innerHTML = '<h4>Underwater Casting</h4><p>Cannot speak clearly underwater, so Verbal components fail. Somatic and Material components work fine. Great time for Shield, Misty Step, or other non-verbal spells!</p>';
+                            break;
+                    }
+                }
+                
+                window.addEventListener('load', () => showScenario('normal'));
+            </script>
+        </section>
+
+        <section class="schools-of-magic">
+            <h2>Schools of Magic: The Eight Traditions</h2>
+            <p>All spells belong to one of eight schools of magic, each representing a different approach to manipulating reality. Think of them like different programming languages – each has its strengths and specialties.</p>
+
+            <div class="mermaid">
+                mindmap
+                  root((Schools of Magic))
+                    Evocation
+                      Fire
+                      Lightning
+                      Force
+                      Damage
+                    Abjuration
+                      Protection
+                      Banishment
+                      Wards
+                      Defense
+                    Conjuration
+                      Summoning
+                      Creation
+                      Teleportation
+                      Transport
+                    Divination
+                      Knowledge
+                      Scrying
+                      Future
+                      Detection
+                    Enchantment
+                      Mind Control
+                      Charm
+                      Sleep
+                      Emotion
+                    Illusion
+                      Deception
+                      Invisibility
+                      Phantasms
+                      Tricks
+                    Necromancy
+                      Death
+                      Undead
+                      Life Force
+                      Animation
+                    Transmutation
+                      Change
+                      Polymorph
+                      Enhancement
+                      Alteration
+            </div>
+
+            <div class="school-details">
+                <h3>The Eight Schools Explained</h3>
+                
+                <div class="school-grid">
+                    <div class="school-card evocation">
+                        <h4>Evocation - The Blaster</h4>
+                        <p><strong>Philosophy:</strong> Raw magical energy shaped into devastating effects</p>
+                        <p><strong>Real-world parallel:</strong> Heavy artillery or power tools</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Fireball, Lightning Bolt, Magic Missile</p>
+                            <p><strong>What it's good for:</strong> Dealing damage, creating light, pure destruction</p>
+                            <p><strong>Wizard specialist:</strong> Evoker gets powerful damage bonuses</p>
+                        </div>
+                    </div>
+
+                    <div class="school-card abjuration">
+                        <h4>Abjuration - The Defender</h4>
+                        <p><strong>Philosophy:</strong> Protective magic and barriers against harm</p>
+                        <p><strong>Real-world parallel:</strong> Security systems or medical treatments</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Shield, Counterspell, Dispel Magic</p>
+                            <p><strong>What it's good for:</strong> Defense, removing curses, banishing outsiders</p>
+                            <p><strong>Wizard specialist:</strong> Abjurer becomes nearly untouchable</p>
+                        </div>
+                    </div>
+
+                    <div class="school-card conjuration">
+                        <h4>Conjuration - The Summoner</h4>
+                        <p><strong>Philosophy:</strong> Bringing things from elsewhere or creating matter</p>
+                        <p><strong>Real-world parallel:</strong> Logistics and transportation</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Misty Step, Conjure Animals, Teleport</p>
+                            <p><strong>What it's good for:</strong> Mobility, summoning allies, creating objects</p>
+                            <p><strong>Wizard specialist:</strong> Conjurer excels at battlefield control</p>
+                        </div>
+                    </div>
+
+                    <div class="school-card divination">
+                        <h4>Divination - The Oracle</h4>
+                        <p><strong>Philosophy:</strong> Gathering information and seeing beyond normal limits</p>
+                        <p><strong>Real-world parallel:</strong> Intelligence gathering or research</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Detect Magic, Scrying, Locate Object</p>
+                            <p><strong>What it's good for:</strong> Information gathering, finding things, prediction</p>
+                            <p><strong>Wizard specialist:</strong> Diviner can manipulate luck and fate</p>
+                        </div>
+                    </div>
+
+                    <div class="school-card enchantment">
+                        <h4>Enchantment - The Manipulator</h4>
+                        <p><strong>Philosophy:</strong> Influencing minds and controlling behavior</p>
+                        <p><strong>Real-world parallel:</strong> Psychology or persuasion techniques</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Charm Person, Sleep, Suggestion</p>
+                            <p><strong>What it's good for:</strong> Social encounters, crowd control, interrogation</p>
+                            <p><strong>Wizard specialist:</strong> Enchanter becomes master of minds</p>
+                        </div>
+                    </div>
+
+                    <div class="school-card illusion">
+                        <h4>Illusion - The Trickster</h4>
+                        <p><strong>Philosophy:</strong> Deception through false sensory information</p>
+                        <p><strong>Real-world parallel:</strong> Stage magic or special effects</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Invisibility, Mirror Image, Major Image</p>
+                            <p><strong>What it's good for:</strong> Stealth, deception, misdirection</p>
+                            <p><strong>Wizard specialist:</strong> Illusionist becomes master of reality perception</p>
+                        </div>
+                    </div>
+
+                    <div class="school-card necromancy">
+                        <h4>Necromancy - The Life Manipulator</h4>
+                        <p><strong>Philosophy:</strong> Control over life, death, and undeath</p>
+                        <p><strong>Real-world parallel:</strong> Medicine (both healing and understanding death)</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Animate Dead, Speak with Dead, Vampiric Touch</p>
+                            <p><strong>What it's good for:</strong> Healing, harming, communicating with dead</p>
+                            <p><strong>Wizard specialist:</strong> Necromancer gains power over death itself</p>
+                        </div>
+                    </div>
+
+                    <div class="school-card transmutation">
+                        <h4>Transmutation - The Changer</h4>
+                        <p><strong>Philosophy:</strong> Altering the fundamental properties of things</p>
+                        <p><strong>Real-world parallel:</strong> Chemistry or engineering</p>
+                        <div class="school-spells">
+                            <p><strong>Signature spells:</strong> Alter Self, Polymorph, Fly</p>
+                            <p><strong>What it's good for:</strong> Buffing allies, changing terrain, shapeshifting</p>
+                            <p><strong>Wizard specialist:</strong> Transmuter becomes master of change</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="concentration">
+            <h2>Concentration: Managing Magical Focus</h2>
+            <p>Concentration is D&D's way of preventing spellcasters from stacking too many powerful effects. Think of it like juggling – you can only keep so many balls in the air at once.</p>
+
+            <div class="concentration-mechanics">
+                <h3>How Concentration Works</h3>
+                
+                <div class="concentration-rules">
+                    <div class="rule-card">
+                        <h4>The Basic Rule</h4>
+                        <ul>
+                            <li>Only ONE concentration spell at a time</li>
+                            <li>Casting a new concentration spell ends the previous one</li>
+                            <li>Some spells require concentration, others don't</li>
+                            <li>Duration varies: 1 minute to 24 hours</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule-card">
+                        <h4>Breaking Concentration</h4>
+                        <ul>
+                            <li><strong>Taking damage:</strong> Constitution save (DC 10 or half damage, whichever is higher)</li>
+                            <li><strong>Incapacitation:</strong> Unconscious, stunned, or paralyzed</li>
+                            <li><strong>Death:</strong> Obviously breaks concentration</li>
+                            <li><strong>Voluntary:</strong> You can end it anytime (no action required)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concentration-calculator">
+                    <h3>Concentration Save Calculator</h3>
+                    <label for="damageAmount">Damage Taken: </label>
+                    <input type="number" id="damageAmount" value="10" min="1">
+                    
+                    <label for="constitutionMod">Constitution Modifier: </label>
+                    <input type="number" id="constitutionMod" value="2" min="-5" max="10">
+                    
+                    <label for="proficientConSave">Proficient in Constitution saves? </label>
+                    <input type="checkbox" id="proficientConSave">
+                    
+                    <label for="characterLevel">Character Level: </label>
+                    <input type="number" id="characterLevel" value="5" min="1" max="20">
+                    
+                    <button onclick="calculateConcentration()">Calculate Concentration DC</button>
+                    <div id="concentrationResult"></div>
+                </div>
+            </div>
+
+            <div class="concentration-strategy">
+                <h3>Concentration Strategy</h3>
+                
+                <div class="strategy-tips">
+                    <h4>Maintaining Concentration</h4>
+                    <ul>
+                        <li><strong>Stay behind cover:</strong> Avoid taking damage when possible</li>
+                        <li><strong>Use Shield spell:</strong> Prevent hits entirely</li>
+                        <li><strong>War Caster feat:</strong> Advantage on concentration saves</li>
+                        <li><strong>Resilient (Constitution):</strong> Proficiency in Constitution saves</li>
+                        <li><strong>Position carefully:</strong> Stay out of area effects</li>
+                    </ul>
+
+                    <h4>Choosing What to Concentrate On</h4>
+                    <ul>
+                        <li><strong>Long-term buffs:</strong> Bless, Haste, Polymorph</li>
+                        <li><strong>Battlefield control:</strong> Web, Hypnotic Pattern, Wall spells</li>
+                        <li><strong>Damage over time:</strong> Flaming Sphere, Call Lightning</li>
+                        <li><strong>Utility effects:</strong> Fly, Invisibility, Detect Magic</li>
+                    </ul>
+                </div>
+            </div>
+
+            <script>
+                function calculateConcentration() {
+                    const damage = parseInt(document.getElementById('damageAmount').value);
+                    const conMod = parseInt(document.getElementById('constitutionMod').value);
+                    const isProficient = document.getElementById('proficientConSave').checked;
+                    const level = parseInt(document.getElementById('characterLevel').value);
+                    
+                    const profBonus = Math.ceil(level / 4) + 1;
+                    const dc = Math.max(10, Math.floor(damage / 2));
+                    const saveBonus = conMod + (isProficient ? profBonus : 0);
+                    const needToRoll = Math.max(1, dc - saveBonus);
+                    const successRate = Math.max(0, Math.min(100, (21 - needToRoll) * 5));
+                    
+                    const result = document.getElementById('concentrationResult');
+                    result.innerHTML = `
+                        <h5>Concentration Save Results:</h5>
+                        <p><strong>DC:</strong> ${dc} (${Math.floor(damage / 2)} from damage, minimum 10)</p>
+                        <p><strong>Your save bonus:</strong> +${saveBonus} (${conMod} CON ${isProficient ? '+ ' + profBonus + ' proficiency' : ''})</p>
+                        <p><strong>Need to roll:</strong> ${needToRoll}+ on d20</p>
+                        <p><strong>Success rate:</strong> ${successRate}%</p>
+                        <p><em>${successRate >= 75 ? 'Very likely to maintain' : successRate >= 50 ? 'Good chance to maintain' : successRate >= 25 ? 'Risky but possible' : 'Very likely to lose concentration'}</em></p>
+                    `;
+                }
+                
+                window.addEventListener('load', calculateConcentration);
+            </script>
+        </section>
+
+        <section class="spellcasting-classes">
+            <h2>Different Types of Spellcasters</h2>
+            <p>Not all magic users are created equal. Each spellcasting class approaches magic differently, like different instruments in an orchestra – they all make music, but in their own unique way.</p>
+
+            <div class="caster-comparison">
+                <table>
+                    <tr>
+                        <th>Class</th>
+                        <th>Casting Ability</th>
+                        <th>Spells Known/Prepared</th>
+                        <th>Magic Style</th>
+                        <th>Real-World Parallel</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Wizard</strong></td>
+                        <td>Intelligence</td>
+                        <td>Spellbook + preparation</td>
+                        <td>Scholarly magic</td>
+                        <td>University professor</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sorcerer</strong></td>
+                        <td>Charisma</td>
+                        <td>Limited spells known</td>
+                        <td>Innate magical talent</td>
+                        <td>Natural artist</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Warlock</strong></td>
+                        <td>Charisma</td>
+                        <td>Very few spells</td>
+                        <td>Otherworldly pact</td>
+                        <td>Corporate employee</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cleric</strong></td>
+                        <td>Wisdom</td>
+                        <td>All spells + preparation</td>
+                        <td>Divine channeling</td>
+                        <td>Religious minister</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Druid</strong></td>
+                        <td>Wisdom</td>
+                        <td>All spells + preparation</td>
+                        <td>Nature magic</td>
+                        <td>Environmental scientist</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bard</strong></td>
+                        <td>Charisma</td>
+                        <td>Limited spells known</td>
+                        <td>Musical magic</td>
+                        <td>Performance artist</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="caster-details">
+                <h3>Understanding Each Casting Style</h3>
+                
+                <div class="caster-type">
+                    <h4>Prepared Casters (Wizard, Cleric, Druid)</h4>
+                    <p><strong>How it works:</strong> You know many spells but choose a limited number each day</p>
+                    <p><strong>Analogy:</strong> Like having a huge music library but only loading certain songs onto your portable device</p>
+                    <p><strong>Advantage:</strong> Incredible versatility and adaptability</p>
+                    <p><strong>Disadvantage:</strong> Need to anticipate what you'll need</p>
+                </div>
+
+                <div class="caster-type">
+                    <h4>Known Casters (Sorcerer, Bard, Warlock)</h4>
+                    <p><strong>How it works:</strong> You permanently know a limited number of spells</p>
+                    <p><strong>Analogy:</strong> Like knowing a smaller repertoire of songs by heart</p>
+                    <p><strong>Advantage:</strong> Always have your best spells available</p>
+                    <p><strong>Disadvantage:</strong> Limited versatility, hard to change</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="ritual-casting">
+            <h2>Ritual Casting: Free Magic with a Cost</h2>
+            <p>Some spells can be cast as rituals, taking longer but not using spell slots. It's like cooking a meal slowly in a crockpot instead of quickly in a microwave – same result, different resource cost.</p>
+
+            <div class="ritual-explanation">
+                <h3>How Rituals Work</h3>
+                <ul>
+                    <li><strong>Extra time:</strong> Takes 10 minutes longer than normal casting</li>
+                    <li><strong>No spell slot:</strong> Doesn't consume magical energy</li>
+                    <li><strong>Same effect:</strong> Works exactly like the normal version</li>
+                    <li><strong>Limited spells:</strong> Only certain spells have the ritual tag</li>
+                </ul>
+
+                <h4>Popular Ritual Spells</h4>
+                <div class="ritual-spells">
+                    <ul>
+                        <li><strong>Detect Magic:</strong> See magical auras and enchantments</li>
+                        <li><strong>Identify:</strong> Learn the properties of magic items</li>
+                        <li><strong>Find Familiar:</strong> Summon a magical animal companion</li>
+                        <li><strong>Comprehend Languages:</strong> Understand any written language</li>
+                        <li><strong>Alarm:</strong> Set a magical security system</li>
+                        <li><strong>Tiny Hut:</strong> Create a magical camping shelter</li>
+                    </ul>
+                </div>
+
+                <h4>When to Use Rituals</h4>
+                <ul>
+                    <li><strong>Out of combat:</strong> When you have 10+ minutes to spare</li>
+                    <li><strong>Exploration:</strong> Detect magic on everything you find</li>
+                    <li><strong>Resting:</strong> Set up protective spells during long rests</li>
+                    <li><strong>Investigation:</strong> Identify mysterious items</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="counterspell-mechanics">
+            <h2>Counterspell: Magical Dueling</h2>
+            <p>Counterspell represents magical combat at its purest – wizard duels where quick thinking and resource management determine the winner.</p>
+
+            <div class="counterspell-system">
+                <h3>How Counterspell Works</h3>
+                
+                <div class="counterspell-steps">
+                    <div class="step">
+                        <h4>Step 1: Recognize the Spell</h4>
+                        <p>Use your reaction when you see someone casting within 60 feet</p>
+                        <p><em>Note: You don't automatically know what spell they're casting</em></p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Step 2: Choose Your Counterspell Level</h4>
+                        <p>Cast Counterspell using a 3rd-level or higher spell slot</p>
+                        <p><em>Higher levels = better chance to counter powerful spells</em></p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Step 3: Automatic Success or Ability Check</h4>
+                        <ul>
+                            <li><strong>Automatic:</strong> If your Counterspell level ≥ target spell level</li>
+                            <li><strong>Ability check:</strong> If your Counterspell level &lt; target spell level</li>
+                            <li><strong>Check DC:</strong> 10 + target spell level</li>
+                            <li><strong>Roll:</strong> 1d20 + spellcasting ability modifier</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="counterspell-example">
+                    <h4>Counterspell in Action</h4>
+                    <div class="duel-scenario">
+                        <p><strong>Scenario:</strong> Enemy wizard casts Fireball (3rd level). You want to counter it.</p>
+                        <p><strong>Option 1:</strong> Cast Counterspell at 3rd level → Automatic success</p>
+                        <p><strong>Option 2:</strong> Cast Counterspell at 3rd level vs higher-level Fireball → Need ability check</p>
+                        <p><strong>Result:</strong> If successful, the Fireball fizzles harmlessly</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="practice-activities">
+            <h2>Practice Activities</h2>
+            
+            <div class="activity">
+                <h3>Activity 1: Spell Slot Management</h3>
+                <p>You're a 5th-level wizard with these spell slots: Four 1st, three 2nd, two 3rd. Plan your spells for a day that includes:</p>
+                <ul>
+                    <li>Morning: Exploring an ancient library</li>
+                    <li>Afternoon: Social gathering with nobles</li>
+                    <li>Evening: Expecting combat with cultists</li>
+                </ul>
+                <p><em>What spells do you prepare? When do you use spell slots vs. save them?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 2: Component Challenges</h3>
+                <p>For each situation, determine which spells you CAN and CANNOT cast:</p>
+                <ul>
+                    <li><strong>Situation A:</strong> Sword in one hand, shield in the other, no spellcasting focus</li>
+                    <li><strong>Situation B:</strong> Hands tied behind back, mouth gagged</li>
+                    <li><strong>Situation C:</strong> Holding a torch, component pouch on belt</li>
+                    <li><strong>Situation D:</strong> Underwater, staff in hand</li>
+                </ul>
+                <p><em>Consider: What components does each spell need?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 3: School Specialization</h3>
+                <p>Match each problem with the best school of magic to solve it:</p>
+                <ul>
+                    <li>Need to cross a chasm quickly</li>
+                    <li>Want to make enemies fight each other</li>
+                    <li>Must find a hidden secret door</li>
+                    <li>Need to protect against incoming arrows</li>
+                    <li>Want to deal massive damage to multiple enemies</li>
+                </ul>
+                <details>
+                    <summary>Click for answers</summary>
+                    <ul>
+                        <li>Conjuration (Misty Step, Dimension Door)</li>
+                        <li>Enchantment (Suggestion, Charm Person)</li>
+                        <li>Divination (Detect Magic, Locate Object)</li>
+                        <li>Abjuration (Shield, Protection from Arrows)</li>
+                        <li>Evocation (Fireball, Lightning Bolt)</li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 4: Concentration Priorities</h3>
+                <p>You can only concentrate on one spell. Rank these situations by which concentration spell to maintain:</p>
+                <ul>
+                    <li><strong>Scenario A:</strong> Haste on the fighter vs. Web trapping three enemies</li>
+                    <li><strong>Scenario B:</strong> Invisibility on yourself vs. Hypnotic Pattern affecting five enemies</li>
+                    <li><strong>Scenario C:</strong> Polymorph (ally into T-Rex) vs. Wall of Fire blocking enemy reinforcements</li>
+                </ul>
+                <p><em>Consider: What provides the most tactical advantage?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 5: Magical Problem Solving</h3>
+                <p>For each challenge, propose three different magical solutions using different schools:</p>
+                <ul>
+                    <li><strong>Challenge:</strong> A 20-foot-wide pit blocks your path</li>
+                    <li><strong>Challenge:</strong> Guards won't let you into the castle</li>
+                    <li><strong>Challenge:</strong> You need to find a specific person in a large city</li>
+                </ul>
+                <p><em>Think creatively: How can different types of magic solve the same problem?</em></p>
+            </div>
+        </section>
+
+        <section class="magical-tactics">
+            <h2>Advanced Magical Tactics</h2>
+            
+            <div class="tactic-category">
+                <h3>Spell Synergy</h3>
+                <p>Combining spells for greater effect than the sum of their parts</p>
+                <ul>
+                    <li><strong>Web + Fire spells:</strong> Webs are flammable, deal extra damage</li>
+                    <li><strong>Grease + Fire spells:</strong> Turn slippery surface into damaging inferno</li>
+                    <li><strong>Faerie Fire + Attack spells:</strong> Reveal invisible enemies for advantage</li>
+                    <li><strong>Hold Person + Coup de grace:</strong> Automatic critical hits on helpless foes</li>
+                </ul>
+            </div>
+
+            <div class="tactic-category">
+                <h3>Resource Conservation</h3>
+                <p>Making your limited spell slots last throughout the adventuring day</p>
+                <ul>
+                    <li><strong>Cantrips first:</strong> Use unlimited spells before spending slots</li>
+                    <li><strong>Ritual when possible:</strong> Free utility magic during exploration</li>
+                    <li><strong>Short rest recovery:</strong> Some classes regain spells on short rests</li>
+                    <li><strong>Environmental solutions:</strong> Use terrain instead of magic when possible</li>
+                </ul>
+            </div>
+
+            <div class="tactic-category">
+                <h3>Magical Meta-game</h3>
+                <p>Using knowledge of magic systems for tactical advantage</p>
+                <ul>
+                    <li><strong>Counterspell baiting:</strong> Force enemies to use their reactions</li>
+                    <li><strong>Concentration targeting:</strong> Focus fire on concentrating casters</li>
+                    <li><strong>Spell identification:</strong> Recognize incoming spells to counter appropriately</li>
+                    <li><strong>Action economy abuse:</strong> Bonus action spells and quickened metamagic</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="common-mistakes">
+            <h2>Common Spellcasting Mistakes</h2>
+            
+            <div class="mistake-list">
+                <h3>The Hoarder's Curse</h3>
+                <p><strong>Problem:</strong> Saving spell slots "for when I really need them"</p>
+                <p><strong>Why it fails:</strong> Underperforms consistently while waiting for perfect moment</p>
+                <p><strong>Solution:</strong> Use 75% of your spell slots before the final encounter</p>
+
+                <h3>The Concentration Shuffle</h3>
+                <p><strong>Problem:</strong> Constantly switching concentration spells</p>
+                <p><strong>Why it fails:</strong> Wastes actions and spell slots for minimal benefit</p>
+                <p><strong>Solution:</strong> Pick one good concentration spell and maintain it</p>
+
+                <h3>The Component Confusion</h3>
+                <p><strong>Problem:</strong> Not understanding when you can and can't cast spells</p>
+                <p><strong>Why it fails:</strong> Attempting impossible actions or missing opportunities</p>
+                <p><strong>Solution:</strong> Learn component rules thoroughly and track your equipment</p>
+
+                <h3>The Damage Trap</h3>
+                <p><strong>Problem:</strong> Only learning damage spells</p>
+                <p><strong>Why it fails:</strong> Misses utility, control, and support opportunities</p>
+                <p><strong>Solution:</strong> Balance damage with utility, control, and buff spells</p>
+            </div>
+        </section>
+
+        <section class="next-steps">
+            <h2>What's Coming Next?</h2>
+            <p>With magic mastered, our next lesson will explore roleplaying and character development – how to bring your character to life beyond their statistics. You'll learn how to create compelling personalities, memorable interactions, and character growth that makes every session memorable.</p>
+            
+            <div class="preview-box">
+                <h3>Next Lesson Preview: <a href="/dnd_rp_and_char_dev.html">Roleplaying and Character Development</a></h3>
+                <ul>
+                    <li>Creating believable character personalities and motivations</li>
+                    <li>Voice, mannerisms, and bringing characters to life</li>
+                    <li>Character arcs and growth through gameplay</li>
+                    <li>Interacting with NPCs and other player characters</li>
+                    <li>Backstory integration and meaningful character moments</li>
+                    <li>Problem-solving through character perspective</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="resources">
+            <h2>Spellcasting Resources</h2>
+            <ul>
+                <li><strong>Spell Cards:</strong> Physical or digital cards for quick reference</li>
+                <li><strong>Spell Slot Trackers:</strong> Apps or sheets to manage daily resources</li>
+                <li><strong>Component Lists:</strong> Quick reference for what each spell needs</li>
+                <li><strong>School Guides:</strong> Deep dives into each magical tradition</li>
+                <li><strong>Spell Combinations:</strong> Community resources for spell synergies</li>
+                <li><strong>Concentration Trackers:</strong> Tools to remember what you're concentrating on</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><em>Remember: Magic is a tool to enhance the story, not replace clever thinking and good teamwork!</em></p>
+    </footer>
+</body>
+</html>

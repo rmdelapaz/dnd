@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>150 Dungeons & Dragons Character Names</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2d3748;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        .name-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .name-card {
+            background: linear-gradient(145deg, #f7fafc, #edf2f7);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        .name-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .name {
+            font-weight: bold;
+            color: #2d3748;
+            font-size: 1.1em;
+        }
+        .origin {
+            font-size: 0.9em;
+            color: #718096;
+            font-style: italic;
+        }
+        .race-suggestion {
+            font-size: 0.8em;
+            color: #4a5568;
+            margin-top: 5px;
+        }
+        .tips-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .example-box {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .analogy-box {
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .canvas-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 150 Dungeons & Dragons Character Names 🎲</h1>
+        
+        <div class="tips-section">
+            <h2>🎯 Why Character Names Matter in D&D</h2>
+            <p>A character's name is often the first thing other players learn about your character, making it a crucial element of storytelling and immersion. A well-chosen name can:</p>
+            <ul>
+                <li><strong>Establish Character Background:</strong> Names can hint at cultural origins, family history, or social status</li>
+                <li><strong>Enhance Roleplay:</strong> A memorable name makes it easier for other players to engage with your character</li>
+                <li><strong>Set Tone:</strong> Serious names for dramatic campaigns, playful names for lighter adventures</li>
+                <li><strong>Create Hooks:</strong> Unique names can inspire backstory elements and plot connections</li>
+            </ul>
+        </div>
+
+        <div class="mermaid">
+            graph TD
+                A[Character Creation] --> B[Choose Race]
+                A --> C[Choose Class]
+                A --> D[Choose Name]
+                D --> E[Consider Cultural Background]
+                D --> F[Match Campaign Tone]
+                D --> G[Ensure Memorability]
+                E --> H[Research Name Origins]
+                F --> I[Serious vs Playful]
+                G --> J[Easy to Pronounce]
+                H --> K[Final Name Choice]
+                I --> K
+                J --> K
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="nameWheel" width="400" height="400"></canvas>
+            <p><em>Interactive Name Inspiration Wheel - Click to spin!</em></p>
+        </div>
+
+        <h2>⚔️ Male Character Names (50)</h2>
+        <div class="name-grid" id="maleNames"></div>
+
+        <h2>🏹 Female Character Names (50)</h2>
+        <div class="name-grid" id="femaleNames"></div>
+
+        <h2>🔮 Gender-Neutral Character Names (50)</h2>
+        <div class="name-grid" id="neutralNames"></div>
+
+        <div class="example-box">
+            <h3>🎭 Real-World Application Examples</h3>
+            <p><strong>Campaign Setting Match:</strong> In a Norse-inspired campaign, "Bjorn Ironforge" fits perfectly, while "Zephyr Moonwhisper" might feel out of place.</p>
+            <p><strong>Character Arc Integration:</strong> A character named "Ash" might have a backstory involving fire magic or a burned village, creating natural story hooks.</p>
+            <p><strong>Party Dynamics:</strong> If your party already has serious names like "Thorin" and "Morgana," adding "Giggles McFuntime" might disrupt the tone.</p>
+        </div>
+
+        <div class="analogy-box">
+            <h3>🎪 Naming Analogies</h3>
+            <p><strong>Like Casting Actors:</strong> Just as casting directors choose actors who fit their roles, choosing a name that fits your character's personality and background enhances the "performance."</p>
+            <p><strong>Like Naming Pets:</strong> You wouldn't name a dignified Great Dane "Squeaky," and you wouldn't name a fierce barbarian "Buttercup" (unless it's intentionally ironic).</p>
+            <p><strong>Like Writing Book Characters:</strong> Authors spend considerable time choosing names that resonate with readers and reflect character traits.</p>
+        </div>
+
+        <div class="tips-section">
+            <h2>🗡️ Advanced Naming Strategies</h2>
+            
+            <h3>Cultural Consistency</h3>
+            <p>Research real-world cultures that inspire your character's race. Dwarves often draw from Norse/Germanic traditions, Elves from Celtic/Gaelic roots, and Halflings from English countryside naming conventions.</p>
+            
+            <h3>Meaningful Components</h3>
+            <p>Many fantasy names combine meaningful elements:</p>
+            <ul>
+                <li><strong>Prefix + Suffix:</strong> "Thorn" + "blade" = "Thornblade"</li>
+                <li><strong>Descriptive Elements:</strong> "Silver" + "moon" = "Silvermoon"</li>
+                <li><strong>Action + Object:</strong> "Strike" + "stone" = "Strikestone"</li>
+            </ul>
+
+            <h3>Pronunciation Considerations</h3>
+            <p>Ensure your chosen name is easy for other players to pronounce. Avoid excessive apostrophes or consonant clusters that might confuse or frustrate other players.</p>
+        </div>
+
+        <div class="example-box">
+            <h3>🎲 Practical Usage Scenarios</h3>
+            <p><strong>New Player Friendly:</strong> Simple names like "Finn," "Luna," or "River" are perfect for new players who want to focus on learning game mechanics.</p>
+            <p><strong>Experienced Roleplayers:</strong> Complex names like "Thessarian Nightwhisper" or "Kazimira Stormcaller" provide rich roleplay opportunities.</p>
+            <p><strong>One-Shot Adventures:</strong> Memorable, slightly humorous names work well for short campaigns where character depth is less critical.</p>
+            <p><strong>Long-Term Campaigns:</strong> Choose names that won't become tiresome over months or years of play.</p>
+        </div>
+
+        <div class="tips-section">
+            <h2>🌟 Related Topics to Explore</h2>
+            <ul>
+                <li><strong>Backstory Integration:</strong> How names can inspire character histories</li>
+                <li><strong>Nickname Development:</strong> How characters earn shortened names through play</li>
+                <li><strong>Cultural Linguistics:</strong> Creating consistent naming conventions for homebrew races</li>
+                <li><strong>Name Evolution:</strong> How character names might change through character development</li>
+                <li><strong>NPC Naming:</strong> Quick techniques for generating memorable non-player character names</li>
+                <li><strong>Title Acquisition:</strong> How characters earn titles and epithets ("the Bold," "Dragonslayer")</li>
+            </ul>
+        </div>
+
+        <div class="mermaid">
+            pie title Name Selection Factors
+                "Cultural Background" : 25
+                "Character Personality" : 20
+                "Campaign Tone" : 20
+                "Ease of Pronunciation" : 15
+                "Uniqueness" : 10
+                "Personal Preference" : 10
+        </div>
+
+        <div class="example-box">
+            <h3>🏰 Historical Context & Evolution</h3>
+            <p>Fantasy naming conventions have evolved significantly since the early days of D&D. While Tolkien's works established many conventions (elvish names with flowing sounds, dwarven names with hard consonants), modern D&D embraces more diverse cultural influences and naming patterns.</p>
+            <p>The trend toward more inclusive and varied naming reflects the game's evolution from its European fantasy roots to embrace global mythologies and cultures.</p>
+        </div>
+    </div>
+
+    <script>
+        // Character name data
+        const maleNames = [
+            {name: "Aldric von Stormforge", origin: "Germanic", race: "Dwarf/Human"},
+            {name: "Bran the Ironheart", origin: "Celtic", race: "Fighter"},
+            {name: "Cassius Aurelius Brightblade", origin: "Latin", race: "Paladin"},
+            {name: "Darius Khalil Shadowmend", origin: "Persian", race: "Rogue"},
+            {name: "Elias ben Korveth", origin: "Hebrew", race: "Ranger"},
+            {name: "Fenwick Bramblefoot", origin: "Anglo-Saxon", race: "Halfling"},
+            {name: "Gareth ap Rhys", origin: "Welsh", race: "Barbarian"},
+            {name: "Hadrian Caius Frostbeard", origin: "Latin", race: "Dwarf"},
+            {name: "Ivan Dmitri Nightwhisper", origin: "Slavic", race: "Warlock"},
+            {name: "Jasper Ashworth", origin: "Persian", race: "Druid"},
+            {name: "Kael mac Oran", origin: "Gaelic", race: "Ranger"},
+            {name: "Lucian Thaddeus Dawnbreaker", origin: "Latin", race: "Cleric"},
+            {name: "Magnus Kjellberg", origin: "Norse", race: "Barbarian"},
+            {name: "Nathaniel Ibn Qasim", origin: "Hebrew", race: "Wizard"},
+            {name: "Orion Silvermane", origin: "Greek", race: "Elf"},
+            {name: "Percival du Lac", origin: "French", race: "Paladin"},
+            {name: "Quinlan O'Murrough", origin: "Irish", race: "Sailor"},
+            {name: "Roland Charlemagne Ashbringer", origin: "Germanic", race: "Fighter"},
+            {name: "Sebastian Elias Flameheart", origin: "Greek", race: "Sorcerer"},
+            {name: "Theron Lysias", origin: "Greek", race: "Monk"},
+            {name: "Ulric Gunther Stonehammer", origin: "Germanic", race: "Dwarf"},
+            {name: "Viktor Mikhail Grimshield", origin: "Slavic", race: "Fighter"},
+            {name: "Willem van der Berg", origin: "Germanic", race: "Dwarf"},
+            {name: "Xander Apollonius", origin: "Greek", race: "Artificer"},
+            {name: "Yorick Blackwood", origin: "English", race: "Paladin"},
+            {name: "Zephyr Nikolas Stormcaller", origin: "Greek", race: "Sorcerer"},
+            {name: "Alaric von Frostborn", origin: "Germanic", race: "Ranger"},
+            {name: "Brennan Cormac O'Sullivan", origin: "Irish", race: "Fighter"},
+            {name: "Cedric Rhosyn", origin: "Celtic", race: "Elf"},
+            {name: "Donovan Seamus Thunderstrike", origin: "Irish", race: "Barbarian"},
+            {name: "Edmund the Lightbringer", origin: "Anglo-Saxon", race: "Cleric"},
+            {name: "Finnegan Mudfoot", origin: "Irish", race: "Halfling"},
+            {name: "Godwin Aethelred", origin: "Anglo-Saxon", race: "Barbarian"},
+            {name: "Hector Alexandros", origin: "Greek", race: "Fighter"},
+            {name: "Ignatius Aurelius Spellweaver", origin: "Latin", race: "Wizard"},
+            {name: "Jebediah Goldpick", origin: "Hebrew", race: "Dwarf"},
+            {name: "Kieran Blackwood", origin: "Irish", race: "Rogue"},
+            {name: "Lysander Starfall", origin: "Greek", race: "Wizard"},
+            {name: "Mordecai ben Avraham", origin: "Hebrew", race: "Dwarf"},
+            {name: "Nikolai Volkov Frostwind", origin: "Slavic", race: "Sorcerer"},
+            {name: "Octavius Marcus Ironclad", origin: "Latin", race: "Fighter"},
+            {name: "Phineas Quicksilver", origin: "Hebrew", race: "Rogue"},
+            {name: "Quentin Nightfall", origin: "Latin", race: "Warlock"},
+            {name: "Ragnar Bloodaxe", origin: "Norse", race: "Barbarian"},
+            {name: "Silas Moonwright", origin: "Latin", race: "Artificer"},
+            {name: "Tobias Jeremiah Sunward", origin: "Hebrew", race: "Cleric"},
+            {name: "Uther Pendragon", origin: "Welsh", race: "Paladin"},
+            {name: "Valerian Constantine", origin: "Latin", race: "Ranger"},
+            {name: "Wolfram von Eisenhut", origin: "Germanic", race: "Fighter"},
+            {name: "Xerxes Darius Goldcrown", origin: "Persian", race: "Noble"}
+        ];
+
+        const femaleNames = [
+            {name: "Aria Celeste Moonweaver", origin: "Italian", race: "Elf"},
+            {name: "Beatrice von Eisenherz", origin: "Latin", race: "Fighter"},
+            {name: "Celeste Aurelia Starwhisper", origin: "Latin", race: "Cleric"},
+            {name: "Diana Blackwood", origin: "Latin", race: "Ranger"},
+            {name: "Elena Vasilisa Frostfire", origin: "Greek", race: "Sorcerer"},
+            {name: "Freya Battleheart", origin: "Norse", race: "Barbarian"},
+            {name: "Gwendolyn ap Rhys", origin: "Welsh", race: "Paladin"},
+            {name: "Helena Kassandra Nightblade", origin: "Greek", race: "Rogue"},
+            {name: "Iris Goldenthorn", origin: "Greek", race: "Druid"},
+            {name: "Josephine Claire Swiftarrow", origin: "Hebrew", race: "Ranger"},
+            {name: "Katarina Dmitrova", origin: "Greek", race: "Wizard"},
+            {name: "Luna Silverwind", origin: "Latin", race: "Elf"},
+            {name: "Morgana le Fay", origin: "Welsh", race: "Warlock"},
+            {name: "Natasha Ivanovna Flameheart", origin: "Slavic", race: "Sorcerer"},
+            {name: "Ophelia Rosalind", origin: "Greek", race: "Monk"},
+            {name: "Penelope Ironforge", origin: "Greek", race: "Dwarf"},
+            {name: "Quinn O'Malley", origin: "Irish", race: "Paladin"},
+            {name: "Rosalind de Montfort", origin: "Germanic", race: "Elf"},
+            {name: "Seraphina bat Miriam", origin: "Hebrew", race: "Cleric"},
+            {name: "Thalia Euphrosyne Stormcaller", origin: "Greek", race: "Sorcerer"},
+            {name: "Ursula the Earthshaker", origin: "Latin", race: "Barbarian"},
+            {name: "Victoria Maximilla", origin: "Latin", race: "Fighter"},
+            {name: "Winifred Proudfoot", origin: "Welsh", race: "Halfling"},
+            {name: "Ximena Isabella Starfall", origin: "Spanish", race: "Wizard"},
+            {name: "Yvonne van Bergen", origin: "Germanic", race: "Dwarf"},
+            {name: "Zara bint Yasmin", origin: "Arabic", race: "Warlock"},
+            {name: "Adelaide von Lichtenstein", origin: "Germanic", race: "Artificer"},
+            {name: "Bridget Siobhan O'Connor", origin: "Irish", race: "Fighter"},
+            {name: "Cordelia Moonstrider", origin: "Celtic", race: "Ranger"},
+            {name: "Delphine Thunderstrike", origin: "Greek", race: "Barbarian"},
+            {name: "Evangeline Theodora", origin: "Greek", race: "Paladin"},
+            {name: "Fiona MacLeod", origin: "Irish", race: "Halfling"},
+            {name: "Guinevere the Wise", origin: "Welsh", race: "Wizard"},
+            {name: "Hermione Gracewind", origin: "Greek", race: "Rogue"},
+            {name: "Isadora Konstantina", origin: "Greek", race: "Dwarf"},
+            {name: "Juliette Margot Frostwind", origin: "Latin", race: "Sorcerer"},
+            {name: "Kira Shahrazad", origin: "Persian", race: "Rogue"},
+            {name: "Lillian Nightfall", origin: "Latin", race: "Warlock"},
+            {name: "Miranda Bloodrose", origin: "Latin", race: "Barbarian"},
+            {name: "Nora Brighthammer", origin: "Irish", race: "Artificer"},
+            {name: "Octavia Livia Sunward", origin: "Latin", race: "Cleric"},
+            {name: "Priscilla du Bois", origin: "Latin", race: "Ranger"},
+            {name: "Quintessa Aurelia Steelborn", origin: "Latin", race: "Fighter"},
+            {name: "Rowena Blackthorne", origin: "Germanic", race: "Noble"},
+            {name: "Sabrina Frostborn", origin: "Celtic", race: "Ranger"},
+            {name: "Tabitha Greycloak", origin: "Aramaic", race: "Fighter"},
+            {name: "Una MacBride", origin: "Irish", race: "Cleric"},
+            {name: "Vera Nikolaevna Stormforge", origin: "Slavic", race: "Dwarf"},
+            {name: "Wilhelmina von Goldstein", origin: "Germanic", race: "Dwarf"},
+            {name: "Xara al-Zahra Brightblade", origin: "Arabic", race: "Paladin"}
+        ];
+
+        const neutralNames = [
+            {name: "Ash the Nightbringer", origin: "English", race: "Any"},
+            {name: "Brook Silverleaf", origin: "English", race: "Elf/Halfling"},
+            {name: "Sage Moonwhisper", origin: "Latin", race: "Druid/Wizard"},
+            {name: "River Stormcaller", origin: "English", race: "Sorcerer"},
+            {name: "Phoenix René Brightflame", origin: "Greek", race: "Sorcerer"},
+            {name: "Wren Shadowdancer", origin: "English", race: "Rogue"},
+            {name: "Rowan Earthsong", origin: "Gaelic", race: "Druid"},
+            {name: "Finch Underhill", origin: "English", race: "Halfling"},
+            {name: "Sage Frostweaver", origin: "Latin", race: "Wizard"},
+            {name: "Ember Alden Ironheart", origin: "English", race: "Fighter"},
+            {name: "Rain Mistwalker", origin: "English", race: "Monk"},
+            {name: "Sky Windwhisper", origin: "English", race: "Ranger"},
+            {name: "Vale Stargazer", origin: "Latin", race: "Cleric"},
+            {name: "Cliff Stoneheart", origin: "English", race: "Dwarf"},
+            {name: "Pine Greenleaf", origin: "English", race: "Druid"},
+            {name: "Storm Thunderborn", origin: "English", race: "Barbarian"},
+            {name: "Frost Winterbane", origin: "English", race: "Ranger"},
+            {name: "Dawn Lightbringer", origin: "English", race: "Cleric"},
+            {name: "Dusk Shadowfall", origin: "English", race: "Warlock"},
+            {name: "Coral Deepwater", origin: "Latin", race: "Triton"},
+            {name: "Jasper Kai Goldstone", origin: "Persian", race: "Dwarf"},
+            {name: "Iris Spellweaver", origin: "Greek", race: "Wizard"},
+            {name: "Reed Swiftwater", origin: "English", race: "Halfling"},
+            {name: "Sage Moonstrider", origin: "Latin", race: "Ranger"},
+            {name: "Onyx Nightblade", origin: "Greek", race: "Rogue"},
+            {name: "Fern Whisperwind", origin: "English", race: "Druid"},
+            {name: "Flint Blackwood", origin: "English", race: "Artificer"},
+            {name: "Moss Earthkeeper", origin: "English", race: "Druid"},
+            {name: "Tide Stormrider", origin: "English", race: "Ranger"},
+            {name: "Slate Ironwill", origin: "English", race: "Fighter"},
+            {name: "Raven Nightwing", origin: "English", race: "Warlock"},
+            {name: "Willow Gentlebreeze", origin: "English", race: "Druid"},
+            {name: "Flame Brightforge", origin: "English", race: "Artificer"},
+            {name: "Snow Frostborn", origin: "English", race: "Sorcerer"},
+            {name: "Sage Thornwick", origin: "Latin", race: "Druid"},
+            {name: "Echo Voidwhisper", origin: "Greek", race: "Warlock"},
+            {name: "Drift Cloudwalker", origin: "English", race: "Monk"},
+            {name: "Breeze Skyward", origin: "English", race: "Aarakocra"},
+            {name: "Blaze Embercore", origin: "English", race: "Genasi"},
+            {name: "Shimmer Starlight", origin: "English", race: "Elf"},
+            {name: "Cobalt Deepforge", origin: "Germanic", race: "Dwarf"},
+            {name: "Tempest Zan Stormborn", origin: "Latin", race: "Sorcerer"},
+            {name: "Wisp the Ethereal", origin: "English", race: "Fairy"},
+            {name: "Chord Songweaver", origin: "English", race: "Bard"},
+            {name: "Prism Lightbreak", origin: "Greek", race: "Sorcerer"},
+            {name: "Shade Whisperfall", origin: "English", race: "Rogue"},
+            {name: "Spiral Vortexheart", origin: "English", race: "Sorcerer"},
+            {name: "Zen Calmwater", origin: "Japanese", race: "Monk"},
+            {name: "Flux Changeweaver", origin: "Latin", race: "Warlock"},
+            {name: "Void the Starless", origin: "English", race: "Warlock"}
+        ];
+
+        // Function to create name cards
+        function createNameCard(nameData) {
+            return `
+                <div class="name-card">
+                    <div class="name">${nameData.name}</div>
+                    <div class="origin">Origin: ${nameData.origin}</div>
+                    <div class="race-suggestion">Good for: ${nameData.race}</div>
+                </div>
+            `;
+        }
+
+        // Populate name grids
+        document.getElementById('maleNames').innerHTML = maleNames.map(createNameCard).join('');
+        document.getElementById('femaleNames').innerHTML = femaleNames.map(createNameCard).join('');
+        document.getElementById('neutralNames').innerHTML = neutralNames.map(createNameCard).join('');
+
+        // Interactive name wheel
+        const canvas = document.getElementById('nameWheel');
+        const ctx = canvas.getContext('2d');
+        let spinning = false;
+        let rotation = 0;
+
+        const nameCategories = ['Heroic', 'Mystical', 'Nature', 'Noble', 'Ancient', 'Modern'];
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57', '#FF9FF3'];
+
+        function drawWheel() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 180;
+            
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(rotation);
+            
+            for (let i = 0; i < nameCategories.length; i++) {
+                const startAngle = (i * 2 * Math.PI) / nameCategories.length;
+                const endAngle = ((i + 1) * 2 * Math.PI) / nameCategories.length;
+                
+                ctx.beginPath();
+                ctx.arc(0, 0, radius, startAngle, endAngle);
+                ctx.lineTo(0, 0);
+                ctx.fillStyle = colors[i];
+                ctx.fill();
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                ctx.save();
+                ctx.rotate(startAngle + (endAngle - startAngle) / 2);
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(nameCategories[i], radius * 0.7, 5);
+                ctx.restore();
+            }
+            
+            ctx.restore();
+            
+            // Draw pointer
+            ctx.beginPath();
+            ctx.moveTo(centerX + radius + 10, centerY);
+            ctx.lineTo(centerX + radius + 30, centerY - 10);
+            ctx.lineTo(centerX + radius + 30, centerY + 10);
+            ctx.closePath();
+            ctx.fillStyle = '#333';
+            ctx.fill();
+        }
+
+        function spinWheel() {
+            if (spinning) return;
+            spinning = true;
+            
+            const spinAmount = Math.random() * 10 + 10;
+            const spinDuration = 3000;
+            const startTime = Date.now();
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / spinDuration, 1);
+                const easing = 1 - Math.pow(1 - progress, 3);
+                
+                rotation += (spinAmount * (1 - easing)) * 0.1;
+                drawWheel();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    spinning = false;
+                    const finalCategory = nameCategories[Math.floor(((rotation % (2 * Math.PI)) / (2 * Math.PI)) * nameCategories.length)];
+                    alert(`Name inspiration: ${finalCategory} themed names!`);
+                }
+            }
+            
+            animate();
+        }
+
+        canvas.addEventListener('click', spinWheel);
+        drawWheel();
+    </script>
+</body>
+</html>

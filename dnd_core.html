@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Core Mechanics: The Dice System</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Core Mechanics: Understanding the Dice</h1>
+        <p><em>How Numbers Become Adventures</em></p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>The Heart of the Game</h2>
+            <p>If D&D were a car, the core mechanics would be its engine. Everything else – the story, the characters, the world – is built on top of this elegant mathematical foundation. Understanding these mechanics is like learning to drive: once it becomes second nature, you can focus on the journey instead of the controls.</p>
+            
+            <div class="analogy-box">
+                <h3>The Sports Analogy</h3>
+                <p>Think of D&D's dice system like basketball free throws. The player has a base skill level (their ability score and proficiency), but there's always uncertainty (the d20 roll). Sometimes LeBron James misses an easy shot, and sometimes a rookie makes an impossible one. The dice ensure that even the most skilled characters can fail dramatically, and underdogs can have their moment of glory.</p>
+            </div>
+        </section>
+
+        <section class="d20-system">
+            <h2>The d20 System: Your Gateway to Success</h2>
+            <p>Almost everything important in D&D uses the same basic formula. It's beautifully simple:</p>
+
+            <div class="formula-box">
+                <h3>The Universal Formula</h3>
+                <div class="big-formula">
+                    <strong>d20 + Modifier ≥ Target Number = Success</strong>
+                </div>
+                <p>That's it. Whether you're picking a lock, casting a spell, or swinging a sword, this formula governs it all.</p>
+            </div>
+
+            <div class="mermaid">
+                flowchart TD
+                    A[Want to do something?] --> B[DM sets Difficulty Class DC]
+                    B --> C[Roll d20]
+                    C --> D[Add your modifier]
+                    D --> E{Total ≥ DC?}
+                    E -->|Yes| F[Success!]
+                    E -->|No| G[Failure, but story continues]
+                    
+                    style F fill:#90EE90
+                    style G fill:#FFB6C1
+                    style E fill:#FFE4B5
+            </div>
+
+            <h3>Understanding Difficulty Classes</h3>
+            <p>The Difficulty Class (DC) represents how hard something is to accomplish. Think of it like golf par scores or gymnastics difficulty ratings:</p>
+
+            <div class="dc-table">
+                <table>
+                    <tr>
+                        <th>DC</th>
+                        <th>Difficulty</th>
+                        <th>Real-World Example</th>
+                        <th>Success Rate for Average Person</th>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Very Easy</td>
+                        <td>Tying your shoes</td>
+                        <td>80%</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Easy</td>
+                        <td>Climbing a ladder</td>
+                        <td>55%</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>Medium</td>
+                        <td>Parallel parking in a tight spot</td>
+                        <td>30%</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>Hard</td>
+                        <td>Solving a Rubik's cube blindfolded</td>
+                        <td>5%</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>Very Hard</td>
+                        <td>Performing brain surgery</td>
+                        <td>0% (without training)</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>Nearly Impossible</td>
+                        <td>Winning the lottery</td>
+                        <td>0% (even with training)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="interactive-dc">
+                <h3>Try It Yourself: DC Calculator</h3>
+                <div class="calculator">
+                    <label for="abilityScore">Ability Score: </label>
+                    <input type="number" id="abilityScore" value="14" min="3" max="20">
+                    
+                    <label for="proficient">Proficient? </label>
+                    <input type="checkbox" id="proficient" checked>
+                    
+                    <label for="level">Character Level: </label>
+                    <input type="number" id="level" value="1" min="1" max="20">
+                    
+                    <button onclick="calculateSuccessRates()">Calculate Success Rates</button>
+                    
+                    <div id="successRates"></div>
+                </div>
+            </div>
+
+            <script>
+                function calculateSuccessRates() {
+                    const abilityScore = parseInt(document.getElementById('abilityScore').value);
+                    const isProficient = document.getElementById('proficient').checked;
+                    const level = parseInt(document.getElementById('level').value);
+                    
+                    const abilityMod = Math.floor((abilityScore - 10) / 2);
+                    const profBonus = Math.ceil(level / 4) + 1;
+                    const totalMod = abilityMod + (isProficient ? profBonus : 0);
+                    
+                    const results = document.getElementById('successRates');
+                    let html = `<h4>Your modifier: +${totalMod}</h4><table><tr><th>DC</th><th>Need to Roll</th><th>Success Rate</th></tr>`;
+                    
+                    for (let dc = 5; dc <= 25; dc += 5) {
+                        const needToRoll = Math.max(1, dc - totalMod);
+                        const successRate = Math.max(0, Math.min(100, (21 - needToRoll) * 5));
+                        html += `<tr><td>${dc}</td><td>${needToRoll}+</td><td>${successRate}%</td></tr>`;
+                    }
+                    html += '</table>';
+                    results.innerHTML = html;
+                }
+                
+                // Calculate initial values
+                window.onload = calculateSuccessRates;
+            </script>
+        </section>
+
+        <section class="advantage-disadvantage">
+            <h2>Advantage and Disadvantage: The Great Equalizer</h2>
+            <p>5th Edition's most elegant innovation is the advantage/disadvantage system. Instead of tracking dozens of small bonuses and penalties, D&D 5e uses this simple, powerful mechanic.</p>
+
+            <div class="advantage-explanation">
+                <h3>How It Works</h3>
+                <ul>
+                    <li><strong>Advantage:</strong> Roll two d20s, use the higher result</li>
+                    <li><strong>Disadvantage:</strong> Roll two d20s, use the lower result</li>
+                    <li><strong>Normal:</strong> Roll one d20 as usual</li>
+                </ul>
+                
+                <div class="advantage-demo">
+                    <canvas id="advantageCanvas" width="600" height="200"></canvas>
+                    <div class="advantage-controls">
+                        <button onclick="rollAdvantage()">Roll with Advantage</button>
+                        <button onclick="rollNormal()">Roll Normal</button>
+                        <button onclick="rollDisadvantage()">Roll with Disadvantage</button>
+                    </div>
+                    <div id="advantageResult"></div>
+                </div>
+            </div>
+
+            <h3>When Do You Get Advantage?</h3>
+            <div class="advantage-scenarios">
+                <h4>Common Advantage Situations</h4>
+                <ul>
+                    <li><strong>Attacking a prone enemy:</strong> Like shooting fish in a barrel</li>
+                    <li><strong>Hidden attacker:</strong> Sniper's advantage of surprise</li>
+                    <li><strong>Help from ally:</strong> Teamwork makes the dream work</li>
+                    <li><strong>Perfect conditions:</strong> Optimal environment for the task</li>
+                    <li><strong>Magical enhancement:</strong> Spells like Bless or Guidance</li>
+                </ul>
+
+                <h4>Common Disadvantage Situations</h4>
+                <ul>
+                    <li><strong>Attacking while prone:</strong> Fighting from the ground</li>
+                    <li><strong>Blinded or restrained:</strong> Severe physical impairment</li>
+                    <li><strong>Poor conditions:</strong> Fighting in darkness, climbing in a storm</li>
+                    <li><strong>Magical hindrance:</strong> Curses or hostile spells</li>
+                    <li><strong>Improvised actions:</strong> Using a table leg as a weapon</li>
+                </ul>
+            </div>
+
+            <div class="probability-analysis">
+                <h3>The Mathematics of Advantage</h3>
+                <p>Advantage is roughly equivalent to a +3 to +5 bonus, while disadvantage is like a -3 to -5 penalty. But it's not linear – the effect varies based on what you need to roll:</p>
+                
+                <canvas id="probabilityChart" width="500" height="300"></canvas>
+                
+                <script>
+                    function rollAdvantage() {
+                        const canvas = document.getElementById('advantageCanvas');
+                        const ctx = canvas.getContext('2d');
+                        const result = document.getElementById('advantageResult');
+                        
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        
+                        const roll1 = Math.floor(Math.random() * 20) + 1;
+                        const roll2 = Math.floor(Math.random() * 20) + 1;
+                        const finalResult = Math.max(roll1, roll2);
+                        
+                        drawDie20(ctx, 150, 50, roll1, roll1 < roll2);
+                        drawDie20(ctx, 300, 50, roll2, roll2 < roll1);
+                        
+                        ctx.fillStyle = '#2E8B57';
+                        ctx.font = '20px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('ADVANTAGE', 300, 30);
+                        ctx.fillText(`Final Result: ${finalResult}`, 300, 180);
+                        
+                        result.innerHTML = `<p><strong>Rolled:</strong> ${roll1} and ${roll2} → <strong>Used:</strong> ${finalResult} (higher roll)</p>`;
+                    }
+                    
+                    function rollNormal() {
+                        const canvas = document.getElementById('advantageCanvas');
+                        const ctx = canvas.getContext('2d');
+                        const result = document.getElementById('advantageResult');
+                        
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        
+                        const roll = Math.floor(Math.random() * 20) + 1;
+                        
+                        drawDie20(ctx, 250, 50, roll, false);
+                        
+                        ctx.fillStyle = '#4682B4';
+                        ctx.font = '20px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('NORMAL ROLL', 300, 30);
+                        ctx.fillText(`Result: ${roll}`, 300, 180);
+                        
+                        result.innerHTML = `<p><strong>Rolled:</strong> ${roll}</p>`;
+                    }
+                    
+                    function rollDisadvantage() {
+                        const canvas = document.getElementById('advantageCanvas');
+                        const ctx = canvas.getContext('2d');
+                        const result = document.getElementById('advantageResult');
+                        
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        
+                        const roll1 = Math.floor(Math.random() * 20) + 1;
+                        const roll2 = Math.floor(Math.random() * 20) + 1;
+                        const finalResult = Math.min(roll1, roll2);
+                        
+                        drawDie20(ctx, 150, 50, roll1, roll1 > roll2);
+                        drawDie20(ctx, 300, 50, roll2, roll2 > roll1);
+                        
+                        ctx.fillStyle = '#DC143C';
+                        ctx.font = '20px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('DISADVANTAGE', 300, 30);
+                        ctx.fillText(`Final Result: ${finalResult}`, 300, 180);
+                        
+                        result.innerHTML = `<p><strong>Rolled:</strong> ${roll1} and ${roll2} → <strong>Used:</strong> ${finalResult} (lower roll)</p>`;
+                    }
+                    
+                    function drawDie20(ctx, x, y, value, grayed) {
+                        // Draw d20 shape
+                        ctx.fillStyle = grayed ? '#cccccc' : '#ffffff';
+                        ctx.strokeStyle = '#000000';
+                        ctx.lineWidth = 2;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(x, y - 20);
+                        ctx.lineTo(x + 30, y);
+                        ctx.lineTo(x, y + 40);
+                        ctx.lineTo(x - 30, y);
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.stroke();
+                        
+                        // Add number
+                        ctx.fillStyle = grayed ? '#666666' : '#000000';
+                        ctx.font = '16px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(value, x, y + 5);
+                        
+                        if (grayed) {
+                            ctx.fillStyle = '#cc0000';
+                            ctx.font = '12px Arial';
+                            ctx.fillText('NOT USED', x, y + 60);
+                        }
+                    }
+                    
+                    // Draw probability chart
+                    function drawProbabilityChart() {
+                        const canvas = document.getElementById('probabilityChart');
+                        const ctx = canvas.getContext('2d');
+                        
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        
+                        // Set up chart
+                        const margin = 50;
+                        const chartWidth = canvas.width - 2 * margin;
+                        const chartHeight = canvas.height - 2 * margin;
+                        
+                        // Draw axes
+                        ctx.strokeStyle = '#000';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.moveTo(margin, margin);
+                        ctx.lineTo(margin, margin + chartHeight);
+                        ctx.lineTo(margin + chartWidth, margin + chartHeight);
+                        ctx.stroke();
+                        
+                        // Labels
+                        ctx.fillStyle = '#000';
+                        ctx.font = '12px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Target Roll', margin + chartWidth/2, canvas.height - 10);
+                        ctx.save();
+                        ctx.translate(15, margin + chartHeight/2);
+                        ctx.rotate(-Math.PI/2);
+                        ctx.fillText('Success Probability', 0, 0);
+                        ctx.restore();
+                        
+                        // Draw probability lines
+                        const colors = ['#DC143C', '#4682B4', '#2E8B57'];
+                        const labels = ['Disadvantage', 'Normal', 'Advantage'];
+                        
+                        for (let type = 0; type < 3; type++) {
+                            ctx.strokeStyle = colors[type];
+                            ctx.lineWidth = 3;
+                            ctx.beginPath();
+                            
+                            for (let target = 2; target <= 20; target++) {
+                                let prob;
+                                if (type === 0) { // Disadvantage
+                                    prob = Math.pow((21 - target) / 20, 2);
+                                } else if (type === 1) { // Normal
+                                    prob = (21 - target) / 20;
+                                } else { // Advantage
+                                    prob = 1 - Math.pow((target - 1) / 20, 2);
+                                }
+                                
+                                const x = margin + (target - 2) * chartWidth / 18;
+                                const y = margin + chartHeight - prob * chartHeight;
+                                
+                                if (target === 2) {
+                                    ctx.moveTo(x, y);
+                                } else {
+                                    ctx.lineTo(x, y);
+                                }
+                            }
+                            ctx.stroke();
+                        }
+                        
+                        // Legend
+                        for (let i = 0; i < 3; i++) {
+                            ctx.fillStyle = colors[i];
+                            ctx.fillRect(canvas.width - 150, 20 + i * 20, 15, 15);
+                            ctx.fillStyle = '#000';
+                            ctx.font = '12px Arial';
+                            ctx.textAlign = 'left';
+                            ctx.fillText(labels[i], canvas.width - 130, 32 + i * 20);
+                        }
+                    }
+                    
+                    window.addEventListener('load', drawProbabilityChart);
+                </script>
+            </div>
+        </section>
+
+        <section class="skill-checks">
+            <h2>Skill Checks: Your Character's Expertise</h2>
+            <p>Skills represent your character's training and natural talent in specific areas. Think of them like college majors or professional specializations – they show what your character has studied or practiced.</p>
+
+            <div class="mermaid">
+                graph TD
+                    A[Skill Check] --> B[Roll d20]
+                    B --> C[Add Ability Modifier]
+                    C --> D{Proficient in skill?}
+                    D -->|Yes| E[Add Proficiency Bonus]
+                    D -->|No| F[No Additional Bonus]
+                    E --> G[Compare to DC]
+                    F --> G
+                    G --> H{Success?}
+                    H -->|≥ DC| I[Success!]
+                    H -->|&lt; DC| J[Failure]
+                    
+                    style I fill:#90EE90
+                    style J fill:#FFB6C1
+            </div>
+
+            <h3>The Eighteen Skills</h3>
+            <div class="skills-breakdown">
+                <div class="skill-category">
+                    <h4>Strength Skills</h4>
+                    <p><strong>Athletics:</strong> Climbing, jumping, swimming, wrestling</p>
+                    <p><em>Real-world parallel:</em> Physical education class or gym membership</p>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Dexterity Skills</h4>
+                    <p><strong>Acrobatics:</strong> Balance, tumbling, fancy footwork</p>
+                    <p><strong>Sleight of Hand:</strong> Pickpocketing, palming objects, magic tricks</p>
+                    <p><strong>Stealth:</strong> Moving quietly, hiding, avoiding detection</p>
+                    <p><em>Real-world parallel:</em> Gymnast, stage magician, ninja training</p>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Intelligence Skills</h4>
+                    <p><strong>Arcana:</strong> Knowledge of magic, spells, magical creatures</p>
+                    <p><strong>History:</strong> Knowledge of past events, cultures, legends</p>
+                    <p><strong>Investigation:</strong> Finding clues, deductive reasoning, research</p>
+                    <p><strong>Nature:</strong> Knowledge of animals, plants, weather, terrain</p>
+                    <p><strong>Religion:</strong> Knowledge of deities, rites, religious hierarchy</p>
+                    <p><em>Real-world parallel:</em> College professor, detective, research scientist</p>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Wisdom Skills</h4>
+                    <p><strong>Animal Handling:</strong> Calming animals, training creatures</p>
+                    <p><strong>Insight:</strong> Reading people's motives, detecting lies</p>
+                    <p><strong>Medicine:</strong> Diagnosing ailments, treating wounds</p>
+                    <p><strong>Perception:</strong> Noticing things with your senses</p>
+                    <p><strong>Survival:</strong> Tracking, foraging, navigating wilderness</p>
+                    <p><em>Real-world parallel:</em> Therapist, doctor, wilderness guide</p>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Charisma Skills</h4>
+                    <p><strong>Deception:</strong> Lying convincingly, creating false identities</p>
+                    <p><strong>Intimidation:</strong> Using fear to influence others</p>
+                    <p><strong>Performance:</strong> Acting, singing, storytelling, entertaining</p>
+                    <p><strong>Persuasion:</strong> Convincing others through reason and charm</p>
+                    <p><em>Real-world parallel:</em> Salesperson, actor, politician, teacher</p>
+                </div>
+            </div>
+
+            <div class="skill-example">
+                <h3>Skills in Action: The Locked Door</h3>
+                <p>Four different characters approach the same obstacle – a locked door. Watch how their skills create different solutions:</p>
+                
+                <div class="character-approaches">
+                    <div class="approach">
+                        <h4>Gorok the Barbarian (STR 18, no thief tools)</h4>
+                        <p><strong>Approach:</strong> "I'll break it down!"</p>
+                        <p><strong>Roll:</strong> Strength (Athletics) check vs DC 15</p>
+                        <p><strong>Modifier:</strong> +4 (STR) = needs 11+ on d20</p>
+                        <p><strong>Success rate:</strong> 50%</p>
+                        <p><strong>Consequence:</strong> Loud noise alerts everyone nearby</p>
+                    </div>
+
+                    <div class="approach">
+                        <h4>Whisper the Rogue (DEX 16, proficient with thieves' tools)</h4>
+                        <p><strong>Approach:</strong> "Let me pick this lock quietly."</p>
+                        <p><strong>Roll:</strong> Dexterity check with thieves' tools vs DC 15</p>
+                        <p><strong>Modifier:</strong> +3 (DEX) +2 (proficiency) = +5, needs 10+ on d20</p>
+                        <p><strong>Success rate:</strong> 55%</p>
+                        <p><strong>Consequence:</strong> Silent entry, no alarms</p>
+                    </div>
+
+                    <div class="approach">
+                        <h4>Merlin the Wizard (INT 16, knows Knock spell)</h4>
+                        <p><strong>Approach:</strong> "Magic will open any lock."</p>
+                        <p><strong>Roll:</strong> No roll needed, spell automatically works</p>
+                        <p><strong>Success rate:</strong> 100%</p>
+                        <p><strong>Consequence:</strong> Uses a spell slot, magical energy detected</p>
+                    </div>
+
+                    <div class="approach">
+                        <h4>Charm the Bard (CHA 16, proficient in Persuasion)</h4>
+                        <p><strong>Approach:</strong> "Maybe I can convince the guard to let us in."</p>
+                        <p><strong>Roll:</strong> Charisma (Persuasion) check vs DC 12</p>
+                        <p><strong>Modifier:</strong> +3 (CHA) +2 (proficiency) = +5, needs 7+ on d20</p>
+                        <p><strong>Success rate:</strong> 70%</p>
+                        <p><strong>Consequence:</strong> Takes time, but creates an ally</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="combat-mechanics">
+            <h2>Combat Mechanics: When Dice Determine Life and Death</h2>
+            <p>Combat in D&D follows the same basic d20 system, but with higher stakes and more specific rules. Think of it like the difference between casual conversation and a formal debate – same language, more structure.</p>
+
+            <div class="combat-flow">
+                <h3>The Combat Sequence</h3>
+                <div class="mermaid">
+                    flowchart TD
+                        A[Combat Begins!] --> B[Roll Initiative - d20 + DEX]
+                        B --> C[Determine Turn Order - Highest to Lowest]
+                        C --> D[Player's Turn]
+                        D --> E[Move - up to Speed]
+                        E --> F[Action - Attack, Cast Spell, etc.]
+                        F --> G[Bonus Action - if available]
+                        G --> H[Reaction - respond to triggers]
+                        H --> I[Next Player's Turn]
+                        I --> J{All creatures acted?}
+                        J -->|No| D
+                        J -->|Yes| K[New Round - Start Again]
+                        K --> L{Combat Over?}
+                        L -->|No| D
+                        L -->|Yes| M[Victory!]
+                        
+                        style A fill:#FFB6C1
+                        style M fill:#90EE90
+                </div>
+            </div>
+
+            <h3>Attack Rolls: Hitting Your Target</h3>
+            <div class="attack-formula">
+                <h4>Melee Attack Formula</h4>
+                <p><strong>d20 + Ability Modifier + Proficiency Bonus ≥ Target's AC</strong></p>
+                <ul>
+                    <li><strong>Strength-based:</strong> For heavy weapons (swords, hammers)</li>
+                    <li><strong>Dexterity-based:</strong> For finesse weapons (rapiers, daggers)</li>
+                </ul>
+
+                <h4>Ranged Attack Formula</h4>
+                <p><strong>d20 + Dexterity Modifier + Proficiency Bonus ≥ Target's AC</strong></p>
+                <ul>
+                    <li><strong>Examples:</strong> Bows, crossbows, thrown weapons, most spells</li>
+                </ul>
+            </div>
+
+            <h3>Armor Class: Your Defense Rating</h3>
+            <p>Armor Class (AC) represents how hard you are to hit effectively. It's not just about dodging – it includes armor deflection, shield blocking, and natural toughness.</p>
+
+            <div class="ac-examples">
+                <table>
+                    <tr>
+                        <th>AC</th>
+                        <th>Protection Level</th>
+                        <th>Real-World Comparison</th>
+                        <th>D&D Examples</th>
+                    </tr>
+                    <tr>
+                        <td>10-11</td>
+                        <td>No armor</td>
+                        <td>Street clothes</td>
+                        <td>Peasant, wizard in robes</td>
+                    </tr>
+                    <tr>
+                        <td>12-14</td>
+                        <td>Light armor</td>
+                        <td>Motorcycle jacket</td>
+                        <td>Leather armor, rogue gear</td>
+                    </tr>
+                    <tr>
+                        <td>15-17</td>
+                        <td>Medium armor</td>
+                        <td>Riot police gear</td>
+                        <td>Chain shirt, scale mail</td>
+                    </tr>
+                    <tr>
+                        <td>18-20</td>
+                        <td>Heavy armor</td>
+                        <td>Medieval knight</td>
+                        <td>Plate armor, full protection</td>
+                    </tr>
+                    <tr>
+                        <td>21+</td>
+                        <td>Magical protection</td>
+                        <td>Sci-fi force field</td>
+                        <td>Ancient dragons, gods</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Damage Rolls: Dealing the Pain</h3>
+            <p>When your attack hits, you roll damage dice to see how much harm you inflict. Different weapons use different dice:</p>
+
+            <div class="damage-showcase">
+                <canvas id="damageCanvas" width="600" height="250"></canvas>
+                <div class="weapon-damage-examples">
+                    <h4>Common Weapon Damage</h4>
+                    <ul>
+                        <li><strong>Dagger:</strong> 1d4 + ability modifier (2-7 damage typically)</li>
+                        <li><strong>Shortsword:</strong> 1d6 + ability modifier (4-9 damage typically)</li>
+                        <li><strong>Longsword:</strong> 1d8 + ability modifier (4-11 damage typically)</li>
+                        <li><strong>Greatsword:</strong> 2d6 + ability modifier (5-15 damage typically)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <script>
+                function drawDamageComparison() {
+                    const canvas = document.getElementById('damageCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    const weapons = [
+                        {name: 'Dagger', dice: 'd4', color: '#FFD700'},
+                        {name: 'Shortsword', dice: 'd6', color: '#87CEEB'},
+                        {name: 'Longsword', dice: 'd8', color: '#DDA0DD'},
+                        {name: 'Greatsword', dice: '2d6', color: '#F0E68C'}
+                    ];
+                    
+                    const barWidth = 120;
+                    const barHeight = 150;
+                    const spacing = 140;
+                    const startX = 30;
+                    const startY = 50;
+                    
+                    weapons.forEach((weapon, index) => {
+                        const x = startX + index * spacing;
+                        
+                        // Draw bar
+                        ctx.fillStyle = weapon.color;
+                        ctx.fillRect(x, startY, barWidth, barHeight);
+                        ctx.strokeStyle = '#000';
+                        ctx.strokeRect(x, startY, barWidth, barHeight);
+                        
+                        // Draw dice representation
+                        ctx.fillStyle = '#000';
+                        ctx.font = '24px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(weapon.dice, x + barWidth/2, startY + barHeight/2);
+                        
+                        // Weapon name
+                        ctx.font = '14px Arial';
+                        ctx.fillText(weapon.name, x + barWidth/2, startY + barHeight + 20);
+                    });
+                    
+                    // Title
+                    ctx.font = '18px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Weapon Damage Dice Comparison', canvas.width/2, 30);
+                }
+                
+                window.addEventListener('load', drawDamageComparison);
+            </script>
+        </section>
+
+        <section class="saving-throws">
+            <h2>Saving Throws: Resisting Danger</h2>
+            <p>Sometimes, instead of trying to do something, you're trying to avoid something bad happening to you. That's where saving throws come in – they're your character's attempt to resist or minimize harm.</p>
+
+            <div class="saving-throw-types">
+                <h3>The Six Saving Throws</h3>
+                <div class="save-examples">
+                    <div class="save-type">
+                        <h4>Strength Saves</h4>
+                        <p><strong>Resisting:</strong> Being pushed, grappled, or physically forced</p>
+                        <p><strong>Example:</strong> Avoiding being swept away by a rushing river</p>
+                        <p><strong>Real-world:</strong> Arm wrestling or tug-of-war</p>
+                    </div>
+
+                    <div class="save-type">
+                        <h4>Dexterity Saves</h4>
+                        <p><strong>Resisting:</strong> Explosions, traps, anything requiring quick reactions</p>
+                        <p><strong>Example:</strong> Diving for cover when a fireball explodes</p>
+                        <p><strong>Real-world:</strong> Dodging a falling object</p>
+                    </div>
+
+                    <div class="save-type">
+                        <h4>Constitution Saves</h4>
+                        <p><strong>Resisting:</strong> Poison, disease, exhaustion, death</p>
+                        <p><strong>Example:</strong> Fighting off a deadly toxin</p>
+                        <p><strong>Real-world:</strong> Your immune system fighting illness</p>
+                    </div>
+
+                    <div class="save-type">
+                        <h4>Intelligence Saves</h4>
+                        <p><strong>Resisting:</strong> Mental attacks, illusions, memory alterations</p>
+                        <p><strong>Example:</strong> Seeing through a complex illusion</p>
+                        <p><strong>Real-world:</strong> Spotting a scam or logical fallacy</p>
+                    </div>
+
+                    <div class="save-type">
+                        <h4>Wisdom Saves</h4>
+                        <p><strong>Resisting:</strong> Charm, fear, possession, madness</p>
+                        <p><strong>Example:</strong> Resisting a vampire's hypnotic gaze</p>
+                        <p><strong>Real-world:</strong> Keeping calm under extreme pressure</p>
+                    </div>
+
+                    <div class="save-type">
+                        <h4>Charisma Saves</h4>
+                        <p><strong>Resisting:</strong> Banishment, possession, soul damage</p>
+                        <p><strong>Example:</strong> Maintaining your identity while being possessed</p>
+                        <p><strong>Real-world:</strong> Staying true to yourself under peer pressure</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="save-proficiency">
+                <h3>Saving Throw Proficiency</h3>
+                <p>Each class is naturally better at certain types of saves, reflecting their training:</p>
+                <ul>
+                    <li><strong>Fighters:</strong> STR and CON (physical training)</li>
+                    <li><strong>Rogues:</strong> DEX and INT (quick thinking and reflexes)</li>
+                    <li><strong>Wizards:</strong> INT and WIS (mental discipline)</li>
+                    <li><strong>Clerics:</strong> WIS and CHA (spiritual strength)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="practice-activities">
+            <h2>Practice Activities</h2>
+            
+            <div class="activity">
+                <h3>Activity 1: Dice Math Mastery</h3>
+                <p>Calculate the following scenarios:</p>
+                <ul>
+                    <li>A 3rd level rogue (DEX 16, proficient in Stealth) tries to sneak past a guard (DC 14). What do they need to roll?</li>
+                    <li>A 1st level fighter (STR 15, proficient with longswords) attacks AC 16. What's their attack bonus and what must they roll to hit?</li>
+                    <li>The same fighter hits with their longsword. How much damage do they deal on average?</li>
+                </ul>
+                <details>
+                    <summary>Click for answers</summary>
+                    <ul>
+                        <li>Rogue needs to roll 7+ (DEX +3, proficiency +2, total +5)</li>
+                        <li>Fighter has +4 to hit (STR +2, proficiency +2), needs 12+ to hit AC 16</li>
+                        <li>Longsword deals 1d8+2, average damage is 6.5</li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 2: Advantage Scenarios</h3>
+                <p>For each situation, determine if the character has advantage, disadvantage, or rolls normally:</p>
+                <ul>
+                    <li>Sneaking while the target is distracted by an ally</li>
+                    <li>Shooting a bow while prone</li>
+                    <li>Making a Constitution save while blessed by a cleric</li>
+                    <li>Attacking an enemy you can't see</li>
+                </ul>
+                <details>
+                    <summary>Click for answers</summary>
+                    <ul>
+                        <li>Advantage (help from ally distraction)</li>
+                        <li>Disadvantage (ranged attacks while prone)</li>
+                        <li>Normal (unless the blessing specifically grants advantage)</li>
+                        <li>Disadvantage (attacking unseen target)</li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 3: Skill Check Applications</h3>
+                <p>For each scenario, identify which skill check would be most appropriate:</p>
+                <ul>
+                    <li>Remembering historical facts about an ancient kingdom</li>
+                    <li>Noticing a hidden trap before stepping on it</li>
+                    <li>Convincing a merchant to give you a discount</li>
+                    <li>Balancing on a narrow ledge</li>
+                    <li>Determining if someone is lying to you</li>
+                </ul>
+                <details>
+                    <summary>Click for answers</summary>
+                    <ul>
+                        <li>Intelligence (History)</li>
+                        <li>Wisdom (Perception)</li>
+                        <li>Charisma (Persuasion)</li>
+                        <li>Dexterity (Acrobatics)</li>
+                        <li>Wisdom (Insight)</li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 4: Combat Sequence Practice</h3>
+                <p>Walk through a simple combat scenario:</p>
+                <ol>
+                    <li>Four characters fight two goblins</li>
+                    <li>Initiative order: Fighter (15), Goblin A (12), Rogue (11), Cleric (9), Goblin B (7)</li>
+                    <li>Describe what happens each turn using the combat sequence</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="common-mistakes">
+            <h2>Common Mechanical Mistakes</h2>
+            
+            <div class="mistake-list">
+                <h3>Modifier Confusion</h3>
+                <p><strong>Problem:</strong> Forgetting to add ability modifiers or proficiency bonuses</p>
+                <p><strong>Solution:</strong> Always ask: "Am I proficient?" and "Which ability does this use?"</p>
+
+                <h3>Advantage Stacking</h3>
+                <p><strong>Problem:</strong> Thinking multiple advantages give extra benefits</p>
+                <p><strong>Solution:</strong> Multiple advantages = one advantage. Multiple disadvantages = one disadvantage. They cancel each other out.</p>
+
+                <h3>AC vs. Damage Confusion</h3>
+                <p><strong>Problem:</strong> Rolling damage when you miss, or forgetting damage when you hit</p>
+                <p><strong>Solution:</strong> Hit first (attack roll vs. AC), then hurt (damage roll)</p>
+
+                <h3>Skill vs. Ability Check Mix-up</h3>
+                <p><strong>Problem:</strong> Not knowing when to add proficiency bonus</p>
+                <p><strong>Solution:</strong> If you're proficient in the skill, add proficiency bonus. If not, just use the ability modifier.</p>
+            </div>
+        </section>
+
+        <section class="next-steps">
+            <h2>What's Coming Next?</h2>
+            <p>Now that you understand how the dice work, our next lesson will dive into combat tactics and strategy. You'll learn how to position your character effectively, when to use different actions, and how to work as a team to overcome challenging encounters.</p>
+            
+            <div class="preview-box">
+                <h3>Next Lesson Preview:<a href="/dnd_combat.html">Combat Tactics and Strategy</a></h3>
+                <ul>
+                    <li>Action economy and why it matters</li>
+                    <li>Positioning and movement in combat</li>
+                    <li>Working as a team: roles and cooperation</li>
+                    <li>When to fight, when to flee, and when to negotiate</li>
+                    <li>Environmental factors and creative problem-solving</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="resources">
+            <h2>Mechanical Reference Resources</h2>
+            <ul>
+                <li><strong>Quick Reference Cards:</strong> Printable cards with common DCs and modifiers</li>
+                <li><strong>Dice Rolling Apps:</strong> Digital alternatives for physical dice</li>
+                <li><strong>Probability Calculators:</strong> Online tools to understand your chances</li>
+                <li><strong>Combat Trackers:</strong> Apps to help manage initiative and health</li>
+                <li><strong>Character Sheet Guides:</strong> Tutorials on filling out and using character sheets</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><em>Remember: The dice add excitement and uncertainty, but the story is what makes those numbers meaningful!</em></p>
+    </footer>
+</body>
+</html>

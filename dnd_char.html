@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Character Creation: Building Your Hero</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    
+</head>
+<body>
+    <header>
+        <h1>Character Creation: Breathing Life Into Your Hero</h1>
+        <p><em>From Numbers to Narrative - Building Your Avatar</em></p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>The Character Creation Journey</h2>
+            <p>Creating a D&D character is like designing a video game avatar, writing a short story protagonist, and filling out a detailed resume all at once. You're not just picking statistics – you're creating a living, breathing person with hopes, fears, strengths, and flaws who will grow and change throughout your adventures.</p>
+            
+            <div class="analogy-box">
+                <h3>The Recipe Analogy</h3>
+                <p>Think of character creation like cooking a signature dish. The ability scores are your base ingredients (flour, eggs, milk), your race and class are your cooking method and seasoning, and your background and personality are the secret ingredients that make it uniquely yours. Just like how the same ingredients can make pancakes or cake depending on how you combine them, the same numbers can create vastly different characters.</p>
+            </div>
+        </section>
+
+        <section class="ability-scores">
+            <h2>The Six Pillars: Understanding Ability Scores</h2>
+            <p>Every D&D character is built on six fundamental attributes that measure different aspects of their capabilities. These aren't just numbers – they tell the story of who your character is.</p>
+
+            <div class="mermaid">
+                mindmap
+                  root((Character))
+                    Physical
+                      Strength
+                        Lifting
+                        Jumping
+                        Melee Combat
+                      Dexterity
+                        Agility
+                        Stealth
+                        Ranged Combat
+                      Constitution
+                        Health
+                        Endurance
+                        Poison Resistance
+                    Mental
+                      Intelligence
+                        Reasoning
+                        Memory
+                        Investigation
+                      Wisdom
+                        Awareness
+                        Insight
+                        Survival
+                      Charisma
+                        Force of Personality
+                        Leadership
+                        Social Interaction
+            </div>
+
+            <div class="ability-deep-dive">
+                <h3>Strength - Your Physical Power</h3>
+                <p><strong>Real-world equivalent:</strong> A combination of a weightlifter's power and a construction worker's practical muscle.</p>
+                <div class="score-examples">
+                    <ul>
+                        <li><strong>Score 8-9:</strong> Office worker who struggles with heavy grocery bags</li>
+                        <li><strong>Score 10-11:</strong> Average person who can move furniture with help</li>
+                        <li><strong>Score 14-15:</strong> Weekend warrior who hits the gym regularly</li>
+                        <li><strong>Score 18-19:</strong> Professional athlete or manual laborer</li>
+                        <li><strong>Score 20+:</strong> World-class strongman competitor</li>
+                    </ul>
+                </div>
+                <p><strong>Game Impact:</strong> Determines melee weapon damage, carry capacity, and athletic feats like climbing and jumping.</p>
+
+                <h3>Dexterity - Your Agility and Reflexes</h3>
+                <p><strong>Real-world equivalent:</strong> A gymnast's coordination combined with a race car driver's reflexes.</p>
+                <div class="score-examples">
+                    <ul>
+                        <li><strong>Score 8-9:</strong> Someone who trips over their own feet regularly</li>
+                        <li><strong>Score 10-11:</strong> Can catch a ball thrown gently their way</li>
+                        <li><strong>Score 14-15:</strong> Plays recreational sports, good at video games</li>
+                        <li><strong>Score 18-19:</strong> Professional dancer or martial artist</li>
+                        <li><strong>Score 20+:</strong> Olympic gymnast or circus performer</li>
+                    </ul>
+                </div>
+                <p><strong>Game Impact:</strong> Affects initiative order, Armor Class, stealth, and ranged weapon accuracy.</p>
+
+                <h3>Constitution - Your Health and Endurance</h3>
+                <p><strong>Real-world equivalent:</strong> A marathon runner's stamina plus a Navy SEAL's toughness.</p>
+                <div class="score-examples">
+                    <ul>
+                        <li><strong>Score 8-9:</strong> Gets winded climbing stairs, catches every cold</li>
+                        <li><strong>Score 10-11:</strong> Average health, can jog a mile without stopping</li>
+                        <li><strong>Score 14-15:</strong> Rarely gets sick, runs 5Ks for fun</li>
+                        <li><strong>Score 18-19:</strong> Iron constitution, could survive a zombie apocalypse</li>
+                        <li><strong>Score 20+:</strong> Seemingly indestructible, laughs at poison</li>
+                    </ul>
+                </div>
+                <p><strong>Game Impact:</strong> Directly adds to hit points and helps resist diseases, poison, and environmental hazards.</p>
+
+                <h3>Intelligence - Your Reasoning and Memory</h3>
+                <p><strong>Real-world equivalent:</strong> A research scientist's analytical ability combined with a detective's deductive reasoning.</p>
+                <div class="score-examples">
+                    <ul>
+                        <li><strong>Score 8-9:</strong> Struggles with complex instructions, forgets names</li>
+                        <li><strong>Score 10-11:</strong> Average student, can follow most conversations</li>
+                        <li><strong>Score 14-15:</strong> College graduate, good at puzzles and trivia</li>
+                        <li><strong>Score 18-19:</strong> Genius-level intellect, PhD material</li>
+                        <li><strong>Score 20+:</strong> Einstein-level brilliance, sees patterns others miss</li>
+                    </ul>
+                </div>
+                <p><strong>Game Impact:</strong> Determines spell power for wizards and affects investigation, history, and magical knowledge.</p>
+
+                <h3>Wisdom - Your Awareness and Intuition</h3>
+                <p><strong>Real-world equivalent:</strong> A therapist's emotional intelligence combined with a scout's environmental awareness.</p>
+                <div class="score-examples">
+                    <ul>
+                        <li><strong>Score 8-9:</strong> Gullible, misses obvious social cues</li>
+                        <li><strong>Score 10-11:</strong> Can tell when someone's upset, notices most things</li>
+                        <li><strong>Score 14-15:</strong> Great judge of character, picks up on subtle details</li>
+                        <li><strong>Score 18-19:</strong> Almost psychic intuition, nothing escapes notice</li>
+                        <li><strong>Score 20+:</strong> Sees through lies instantly, supernatural awareness</li>
+                    </ul>
+                </div>
+                <p><strong>Game Impact:</strong> Powers cleric and druid spells, affects perception, insight, and survival skills.</p>
+
+                <h3>Charisma - Your Force of Personality</h3>
+                <p><strong>Real-world equivalent:</strong> A motivational speaker's presence combined with an actor's ability to command attention.</p>
+                <div class="score-examples">
+                    <ul>
+                        <li><strong>Score 8-9:</strong> Awkward in social situations, struggles to make friends</li>
+                        <li><strong>Score 10-11:</strong> Can hold a conversation, moderately likeable</li>
+                        <li><strong>Score 14-15:</strong> Natural leader, people enjoy being around them</li>
+                        <li><strong>Score 18-19:</strong> Magnetic personality, could be a successful politician</li>
+                        <li><strong>Score 20+:</strong> Legendary presence, commands respect from everyone</li>
+                    </ul>
+                </div>
+                <p><strong>Game Impact:</strong> Fuels bard, sorcerer, and warlock magic, influences persuasion, deception, and intimidation.</p>
+            </div>
+        </section>
+
+        <section class="generating-scores">
+            <h2>Generating Your Ability Scores</h2>
+            <p>There are three main methods to determine your character's ability scores, each with different advantages:</p>
+
+            <div class="method-comparison">
+                <h3>Method 1: Rolling Dice (4d6, drop lowest)</h3>
+                <p><strong>The Gambling Approach:</strong> Roll four six-sided dice, drop the lowest, add up the remaining three. Do this six times.</p>
+                <div class="dice-roller">
+                    <canvas id="diceRollCanvas" width="500" height="150"></canvas>
+                    <button onclick="rollAbilityScore()">Roll an Ability Score!</button>
+                    <div id="rollResult"></div>
+                </div>
+                <p><strong>Pros:</strong> Exciting, can create exceptional characters, embraces randomness</p>
+                <p><strong>Cons:</strong> Can create weak characters, might not fit your concept</p>
+
+                <h3>Method 2: Point Buy System</h3>
+                <p><strong>The Budget Approach:</strong> Start with all scores at 8, spend 27 points to increase them (costs more for higher scores).</p>
+                <pre><code>Point Buy Costs:
+Score 8  = 0 points (starting value)
+Score 9  = 1 point
+Score 10 = 2 points
+Score 11 = 3 points
+Score 12 = 4 points
+Score 13 = 5 points
+Score 14 = 7 points (costs 2 extra)
+Score 15 = 9 points (costs 2 extra)
+
+Maximum score: 15 (before racial bonuses)
+You have 27 points to spend total</code></pre>
+                <p><strong>Pros:</strong> Balanced, fits your character concept, no weak characters</p>
+                <p><strong>Cons:</strong> Less exciting, can feel mathematical</p>
+
+                <h3>Method 3: Standard Array</h3>
+                <p><strong>The Pre-Made Approach:</strong> Use the set scores: 15, 14, 13, 12, 10, 8. Assign them to abilities as desired.</p>
+                <p><strong>Pros:</strong> Quick, balanced, everyone starts equally powerful</p>
+                <p><strong>Cons:</strong> Less customization, everyone has similar power levels</p>
+            </div>
+
+            <script>
+                function rollAbilityScore() {
+                    const canvas = document.getElementById('diceRollCanvas');
+                    const ctx = canvas.getContext('2d');
+                    const result = document.getElementById('rollResult');
+                    
+                    // Clear canvas
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Roll 4d6
+                    const rolls = [];
+                    for (let i = 0; i < 4; i++) {
+                        rolls.push(Math.floor(Math.random() * 6) + 1);
+                    }
+                    
+                    // Draw dice
+                    for (let i = 0; i < 4; i++) {
+                        drawDie(ctx, 50 + i * 80, 50, rolls[i], i === rolls.indexOf(Math.min(...rolls)));
+                    }
+                    
+                    // Calculate result (drop lowest)
+                    const sortedRolls = [...rolls].sort((a, b) => b - a);
+                    const finalScore = sortedRolls[0] + sortedRolls[1] + sortedRolls[2];
+                    
+                    result.innerHTML = `
+                        <p><strong>Rolled:</strong> ${rolls.join(', ')}</p>
+                        <p><strong>Dropped lowest (${Math.min(...rolls)}), final score:</strong> ${finalScore}</p>
+                    `;
+                }
+                
+                function drawDie(ctx, x, y, value, isDropped) {
+                    // Draw die face
+                    ctx.fillStyle = isDropped ? '#ffcccc' : '#ffffff';
+                    ctx.fillRect(x, y, 40, 40);
+                    ctx.strokeStyle = '#000000';
+                    ctx.strokeRect(x, y, 40, 40);
+                    
+                    // Draw pips
+                    ctx.fillStyle = isDropped ? '#cc0000' : '#000000';
+                    const pipSize = 4;
+                    const center = { x: x + 20, y: y + 20 };
+                    
+                    switch(value) {
+                        case 1:
+                            ctx.fillRect(center.x - pipSize/2, center.y - pipSize/2, pipSize, pipSize);
+                            break;
+                        case 2:
+                            ctx.fillRect(x + 8, y + 8, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 28, pipSize, pipSize);
+                            break;
+                        case 3:
+                            ctx.fillRect(x + 8, y + 8, pipSize, pipSize);
+                            ctx.fillRect(center.x - pipSize/2, center.y - pipSize/2, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 28, pipSize, pipSize);
+                            break;
+                        case 4:
+                            ctx.fillRect(x + 8, y + 8, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 8, pipSize, pipSize);
+                            ctx.fillRect(x + 8, y + 28, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 28, pipSize, pipSize);
+                            break;
+                        case 5:
+                            ctx.fillRect(x + 8, y + 8, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 8, pipSize, pipSize);
+                            ctx.fillRect(center.x - pipSize/2, center.y - pipSize/2, pipSize, pipSize);
+                            ctx.fillRect(x + 8, y + 28, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 28, pipSize, pipSize);
+                            break;
+                        case 6:
+                            ctx.fillRect(x + 8, y + 8, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 8, pipSize, pipSize);
+                            ctx.fillRect(x + 8, y + 18, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 18, pipSize, pipSize);
+                            ctx.fillRect(x + 8, y + 28, pipSize, pipSize);
+                            ctx.fillRect(x + 28, y + 28, pipSize, pipSize);
+                            break;
+                    }
+                    
+                    // Label if dropped
+                    if (isDropped) {
+                        ctx.fillStyle = '#cc0000';
+                        ctx.font = '12px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('DROP', x + 20, y + 55);
+                    }
+                }
+            </script>
+        </section>
+
+        <section class="races-overview">
+            <h2>Choosing Your Heritage: Character Races</h2>
+            <p>Your character's race determines their ancestry, physical appearance, natural abilities, and cultural background. Think of it as your character's ethnic and biological heritage combined.</p>
+
+            <div class="mermaid">
+                graph LR
+                    A[Character Races] --> B[Humanoid Variants]
+                    A --> C[Fantastical Beings]
+                    A --> D[Exotic Origins]
+                    
+                    B --> E[Human - Versatile]
+                    B --> F[Half-Elf - Diplomatic]
+                    B --> G[Half-Orc - Strong]
+                    
+                    C --> H[Elf - Graceful]
+                    C --> I[Dwarf - Hardy]
+                    C --> J[Halfling - Lucky]
+                    
+                    D --> K[Dragonborn - Draconic]
+                    D --> L[Tiefling - Infernal]
+                    D --> M[Gnome - Magical]
+                    
+                    style E fill:#ffffcc
+                    style H fill:#ccffcc
+                    style I fill:#ccccff
+                    style K fill:#ffcccc
+            </div>
+
+            <div class="race-showcase">
+                <h3>Popular Race Examples</h3>
+                
+                <div class="race-card">
+                    <h4>Human - The Jack of All Trades</h4>
+                    <p><strong>Real-world parallel:</strong> Exactly what you'd expect – they're us!</p>
+                    <p><strong>Traits:</strong> +1 to all ability scores, extra skill, bonus feat</p>
+                    <p><strong>Perfect for:</strong> Any class, especially if you want flexibility</p>
+                    <p><strong>Character concept:</strong> The determined survivor who succeeds through grit and adaptability</p>
+                </div>
+
+                <div class="race-card">
+                    <h4>Elf - The Graceful Scholar</h4>
+                    <p><strong>Real-world parallel:</strong> Imagine if ballet dancers lived for centuries and had perfect memory</p>
+                    <p><strong>Traits:</strong> +2 Dexterity, keen senses, fey ancestry, trance instead of sleep</p>
+                    <p><strong>Perfect for:</strong> Rangers, rogues, wizards, anyone requiring finesse</p>
+                    <p><strong>Character concept:</strong> The ancient, wise warrior-poet with centuries of experience</p>
+                </div>
+
+                <div class="race-card">
+                    <h4>Dwarf - The Stalwart Defender</h4>
+                    <p><strong>Real-world parallel:</strong> Scottish highlanders who are also master craftsmen and engineers</p>
+                    <p><strong>Traits:</strong> +2 Constitution, darkvision, poison resistance, tool proficiency</p>
+                    <p><strong>Perfect for:</strong> Fighters, clerics, paladins – any front-line warrior</p>
+                    <p><strong>Character concept:</strong> The unbreakable guardian who protects family and clan above all</p>
+                </div>
+
+                <div class="race-card">
+                    <h4>Halfling - The Lucky Opportunist</h4>
+                    <p><strong>Real-world parallel:</strong> Hobbits from Lord of the Rings – small, brave, and surprisingly resourceful</p>
+                    <p><strong>Traits:</strong> +2 Dexterity, lucky (reroll 1s), brave, small size</p>
+                    <p><strong>Perfect for:</strong> Rogues, bards, rangers – anyone who relies on luck and skill</p>
+                    <p><strong>Character concept:</strong> The small hero who proves size doesn't determine courage</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="classes-overview">
+            <h2>Your Profession: Character Classes</h2>
+            <p>If race is your character's biology and heritage, class is their profession, training, and approach to problem-solving. It's like choosing your major in college, your career path, and your fighting style all at once.</p>
+
+            <div class="class-categories">
+                <h3>The Four Pillars of Adventure</h3>
+                
+         <svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background and grid lines -->
+  <rect x="0" y="0" width="600" height="600" fill="#fff" stroke="#ccc" stroke-width="2"/>
+  <line x1="300" y1="0" x2="300" y2="600" stroke="#aaa" stroke-dasharray="5,5"/>
+  <line x1="0" y1="300" x2="600" y2="300" stroke="#aaa" stroke-dasharray="5,5"/>
+
+  <!-- Axis Labels -->
+  <text x="10" y="20" font-size="16" fill="#444">Simple</text>
+  <text x="10" y="590" font-size="16" fill="#444">Complex</text>
+  <text x="580" y="20" font-size="16" fill="#444" text-anchor="end">Magic</text>
+  <text x="20" y="580" font-size="16" fill="#444" transform="rotate(-90 20,580)">Martial</text>
+
+  <!-- Quadrant Titles -->
+  <text x="450" y="50" font-size="14" fill="#999">Spellcasters</text>
+  <text x="150" y="50" font-size="14" fill="#999">Spellblade</text>
+  <text x="150" y="550" font-size="14" fill="#999">Warriors</text>
+  <text x="450" y="550" font-size="14" fill="#999">Skill Experts</text>
+
+  <!-- Class Points -->
+  <circle cx="120" cy="480" r="6" fill="#4CAF50"/><text x="130" y="485" font-size="12">Fighter</text>
+  <circle cx="90" cy="510" r="6" fill="#4CAF50"/><text x="100" y="515" font-size="12">Barbarian</text>
+  <circle cx="350" cy="510" r="6" fill="#4CAF50"/><text x="360" y="515" font-size="12">Rogue</text>
+  <circle cx="180" cy="420" r="6" fill="#4CAF50"/><text x="190" y="425" font-size="12">Ranger</text>
+
+  <circle cx="480" cy="60" r="6" fill="#FF5722"/><text x="490" y="65" font-size="12">Wizard</text>
+  <circle cx="420" cy="120" r="6" fill="#FF5722"/><text x="430" y="125" font-size="12">Sorcerer</text>
+  <circle cx="300" cy="150" r="6" fill="#FF5722"/><text x="310" y="155" font-size="12">Warlock</text>
+  <circle cx="360" cy="120" r="6" fill="#FF5722"/><text x="370" y="125" font-size="12">Cleric</text>
+  <circle cx="360" cy="180" r="6" fill="#FF5722"/><text x="370" y="185" font-size="12">Druid</text>
+
+  <circle cx="240" cy="240" r="6" fill="#2196F3"/><text x="250" y="245" font-size="12">Paladin</text>
+  <circle cx="420" cy="300" r="6" fill="#2196F3"/><text x="430" y="305" font-size="12">Bard</text>
+  <circle cx="300" cy="360" r="6" fill="#2196F3"/><text x="310" y="365" font-size="12">Monk</text>
+</svg>
+
+
+
+
+
+                <div class="class-deep-dive">
+                    <h4>Warriors - The Physical Specialists</h4>
+                    <ul>
+                        <li><strong>Fighter:</strong> The professional soldier - versatile, tough, weapon master</li>
+                        <li><strong>Barbarian:</strong> The primal warrior - incredible strength, damage resistance when raging</li>
+                        <li><strong>Paladin:</strong> The holy knight - fighting skills plus divine magic</li>
+                        <li><strong>Monk:</strong> The martial artist - speed, wisdom, supernatural ki powers</li>
+                    </ul>
+
+                    <h4>Experts - The Skill Specialists</h4>
+                    <ul>
+                        <li><strong>Rogue:</strong> The skill monkey - stealth, traps, massive sneak attack damage</li>
+                        <li><strong>Bard:</strong> The jack-of-all-trades - skills, magic, inspiration for allies</li>
+                        <li><strong>Ranger:</strong> The tracker - survival skills, nature magic, favored enemies</li>
+                    </ul>
+
+                    <h4>Spellcasters - The Magic Specialists</h4>
+                    <ul>
+                        <li><strong>Wizard:</strong> The scholar - largest spell selection, intelligence-based</li>
+                        <li><strong>Sorcerer:</strong> The natural - born with magic, charisma-based, metamagic</li>
+                        <li><strong>Warlock:</strong> The pact-maker - gained power from otherworldly patron</li>
+                        <li><strong>Cleric:</strong> The divine conduit - healing, support, wisdom-based</li>
+                        <li><strong>Druid:</strong> The nature guardian - shapeshifting, nature magic</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="class-comparison-table">
+                <h3>Quick Class Comparison</h3>
+                <table>
+                    <tr>
+                        <th>Class</th>
+                        <th>Primary Role</th>
+                        <th>Key Ability</th>
+                        <th>Complexity</th>
+                        <th>Best for New Players?</th>
+                    </tr>
+                    <tr>
+                        <td>Fighter</td>
+                        <td>Tank/Damage</td>
+                        <td>Strength/Dex</td>
+                        <td>Low</td>
+                        <td>Excellent</td>
+                    </tr>
+                    <tr>
+                        <td>Rogue</td>
+                        <td>Stealth/Skills</td>
+                        <td>Dexterity</td>
+                        <td>Medium</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td>Cleric</td>
+                        <td>Healing/Support</td>
+                        <td>Wisdom</td>
+                        <td>Medium</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td>Wizard</td>
+                        <td>Control/Damage</td>
+                        <td>Intelligence</td>
+                        <td>High</td>
+                        <td>Challenging</td>
+                    </tr>
+                    <tr>
+                        <td>Barbarian</td>
+                        <td>Tank/Damage</td>
+                        <td>Strength</td>
+                        <td>Low</td>
+                        <td>Excellent</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="character-example">
+            <h2>Putting It All Together: A Complete Example</h2>
+            <p>Let's create a character step-by-step to see how everything connects:</p>
+
+            <div class="character-build">
+                <h3>Meet Kira Ironshield, Human Fighter</h3>
+                
+                <h4>Step 1: Concept</h4>
+                <p><strong>Inspiration:</strong> A blacksmith's daughter who joined the city watch to protect her community</p>
+                
+                <h4>Step 2: Ability Scores (Point Buy)</h4>
+                <pre><code>Strength:     15 (9 points) - Strong from smithing
+Dexterity:    13 (5 points) - Quick reflexes
+Constitution: 14 (7 points) - Tough from hard work
+Intelligence: 10 (2 points) - Average education
+Wisdom:       12 (4 points) - Street smart
+Charisma:     10 (0 points) - Straightforward personality
+Total: 27 points</code></pre>
+
+                <h4>Step 3: Race Choice - Human</h4>
+                <p><strong>Racial bonuses:</strong> +1 to all abilities, bonus skill (Athletics), bonus feat (Great Weapon Master)</p>
+                <p><strong>Final scores:</strong> STR 16, DEX 14, CON 15, INT 11, WIS 13, CHA 11</p>
+
+                <h4>Step 4: Class - Fighter</h4>
+                <p><strong>Hit points:</strong> 10 (base) + 2 (CON modifier) = 12 HP at level 1</p>
+                <p><strong>Proficiencies:</strong> All armor, shields, simple and martial weapons</p>
+                <p><strong>Fighting Style:</strong> Great Weapon Fighting (reroll 1s and 2s on damage)</p>
+                <p><strong>Second Wind:</strong> Heal 1d10+1 HP as a bonus action once per short rest</p>
+
+                <h4>Step 5: Background - Guild Artisan</h4>
+                <p><strong>Skills:</strong> Insight, Persuasion</p>
+                <p><strong>Tools:</strong> Smith's tools, one type of artisan tools</p>
+                <p><strong>Feature:</strong> Guild membership provides support in cities</p>
+
+                <h4>Final Character Summary</h4>
+                <div class="character-sheet-preview">
+                    <pre><code>&lt;strong&gt;Kira Ironshield&lt;/strong&gt;
+Human Fighter, Level 1
+AC: 16 (Chain mail), HP: 12, Speed: 30 ft.
+
+STR 16 (+3)  DEX 14 (+2)  CON 15 (+2)
+INT 11 (+0)  WIS 13 (+1)  CHA 11 (+0)
+
+Skills: Athletics, Insight, Intimidation, Persuasion
+Equipment: Greatsword, chain mail, light crossbow,
+           explorer's pack, smith's tools
+
+Personality: Direct and honest, values hard work
+Ideal: Protection - Strength should protect the weak
+Bond: My smithy and the community I serve
+Flaw: I judge people by their actions, not words</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="practice-activities">
+            <h2>Practice Activities</h2>
+            
+            <div class="activity">
+                <h3>Activity 1: Ability Score Interpretation</h3>
+                <p>For each set of ability scores below, describe what kind of person this might be in real-world terms:</p>
+                <ul>
+                    <li><strong>Set A:</strong> STR 8, DEX 16, CON 12, INT 15, WIS 10, CHA 14</li>
+                    <li><strong>Set B:</strong> STR 16, DEX 10, CON 15, INT 8, WIS 12, CHA 13</li>
+                    <li><strong>Set C:</strong> STR 10, DEX 12, CON 13, INT 16, WIS 14, CHA 8</li>
+                </ul>
+                <p><em>Think about: What's their job? How do they solve problems? What are they good at?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 2: Race and Class Synergy</h3>
+                <p>Match these race/class combinations and explain why they work well together:</p>
+                <ul>
+                    <li>Elf + Wizard</li>
+                    <li>Dwarf + Cleric</li>
+                    <li>Halfling + Rogue</li>
+                    <li>Human + Fighter</li>
+                </ul>
+                <p><em>Consider: What racial traits support the class features? How do the ability score bonuses help?</em></p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 3: Create Your First Character Concept</h3>
+                <p>Design a character concept by answering these questions:</p>
+                <ol>
+                    <li>What's their background before becoming an adventurer?</li>
+                    <li>What motivated them to leave their old life?</li>
+                    <li>How do they prefer to solve problems?</li>
+                    <li>What's their greatest strength and weakness?</li>
+                    <li>What do they hope to achieve?</li>
+                </ol>
+                <p>Then choose a race and class that fits this concept!</p>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 4: Point Buy Challenge</h3>
+                <p>Try creating three different characters using the point buy system:</p>
+                <ul>
+                    <li><strong>The Specialist:</strong> One very high score (15), rest average</li>
+                    <li><strong>The Generalist:</strong> All scores relatively even (13-14s)</li>
+                    <li><strong>The Extreme:</strong> Very high and very low scores</li>
+                </ul>
+                <p>Experience how different approaches create different character feels!</p>
+            </div>
+        </section>
+
+        <section class="advanced-tips">
+            <h2>Advanced Character Creation Tips</h2>
+            
+            <h3>Optimization vs. Roleplaying</h3>
+            <p>There's a balance between creating an effective character and an interesting one:</p>
+            <ul>
+                <li><strong>Min-maxing:</strong> Focusing purely on mechanical effectiveness</li>
+                <li><strong>Flavor-first:</strong> Prioritizing story and personality over power</li>
+                <li><strong>Sweet spot:</strong> A character that's both effective AND interesting</li>
+            </ul>
+
+            <h3>The 80% Rule</h3>
+            <p>Aim for a character that's about 80% optimized. This gives you room for personality quirks and interesting choices while still being effective in combat and useful to the party.</p>
+
+            <h3>Party Synergy</h3>
+            <p>Consider how your character fits with others:</p>
+            <ul>
+                <li><strong>Role coverage:</strong> Tank, healer, damage dealer, support</li>
+                <li><strong>Skill distribution:</strong> Make sure someone can pick locks, someone can heal, etc.</li>
+                <li><strong>Personality dynamics:</strong> Create interesting relationships, not just efficiency</li>
+            </ul>
+        </section>
+
+        <section class="common-mistakes">
+            <h2>Common New Player Mistakes</h2>
+            
+            <div class="mistake-list">
+                <h3>The "Lone Wolf" Character</h3>
+                <p><strong>Problem:</strong> Creating a character who doesn't want to work with others</p>
+                <p><strong>Solution:</strong> D&D is collaborative - give your character reasons to adventure with the group</p>
+
+                <h3>The "Perfect" Character</h3>
+                <p><strong>Problem:</strong> Making a character with no flaws or interesting quirks</p>
+                <p><strong>Solution:</strong> Flaws create opportunities for great roleplay and character growth</p>
+
+                <h3>The "One-Trick Pony"</h3>
+                <p><strong>Problem:</strong> Focusing so narrowly that the character is useless in many situations</p>
+                <p><strong>Solution:</strong> Have at least one backup plan for your main strategy</p>
+
+                <h3>The "Replica" Character</h3>
+                <p><strong>Problem:</strong> Copying a character exactly from a book, movie, or show</p>
+                <p><strong>Solution:</strong> Use inspiration but make the character your own</p>
+            </div>
+        </section>
+
+        <section class="next-steps">
+            <h2>What's Coming Next?</h2>
+            <p>In our next lesson, we'll explore the <a href="/dnd_core.html">core mechanics</a> that make D&D tick – the d20 system, advantage and disadvantage, proficiency bonuses, and how all those numbers on your character sheet actually work during play.</p>
+            
+            <div class="preview-box">
+                <h3>Next Lesson Preview: Core Mechanics and Dice Rolling</h3>
+                <ul>
+                    <li>The d20 system and Difficulty Classes</li>
+                    <li>Advantage, disadvantage, and when to use them</li>
+                    <li>Proficiency bonus and skill checks</li>
+                    <li>Attack rolls, damage rolls, and saving throws</li>
+                    <li>How modifiers stack and interact</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="resources">
+            <h2>Character Creation Resources</h2>
+            <ul>
+                <li><strong>D&D Beyond:</strong> Free digital character creator with guided process</li>
+                <li><strong>Official Character Sheets:</strong> Downloadable PDFs from Wizards of the Coast</li>
+                <li><strong>Point Buy Calculator:</strong> Online tools to help with point distribution</li>
+                <li><strong>Random Character Generators:</strong> For inspiration when you're stuck</li>
+                <li><strong>Art Resources:</strong> Pinterest, DeviantArt for character appearance inspiration</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><em>Remember: Your first character doesn't have to be perfect. The most important thing is that you're excited to play them!</em></p>
+    </footer>
+</body>
+</html>

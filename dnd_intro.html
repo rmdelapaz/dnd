@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Introduction: What is Dungeons and Dragons?</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Dungeons & Dragons 5th Edition</h1>
+        <p><em>Your Gateway to Collaborative Storytelling and Adventure</em></p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>What Exactly IS Dungeons & Dragons?</h2>
+            <p>Imagine sitting around a campfire with friends, telling stories about brave heroes, cunning rogues, and powerful wizards. Now imagine that instead of just listening, you <strong>become</strong> one of those heroes. That's Dungeons & Dragons at its heart – collaborative storytelling where you and your friends create an epic adventure together.</p>
+            
+            <div class="analogy-box">
+                <h3>The Theater Analogy</h3>
+                <p>Think of D&D like improvisational theater, but instead of a stage, you have an entire fantasy world. One person (the Dungeon Master) sets the scene and plays all the supporting characters, while the other players each control one main character. Unlike a movie where the story is predetermined, in D&D, your choices shape the story as it unfolds.</p>
+            </div>
+        </section>
+
+        <section class="core-concepts">
+            <h2>The Essential Components</h2>
+            
+            <div class="mermaid">
+                graph TD
+                    A[D&D Game Session] --> B[Dungeon Master - DM]
+                    A --> C[Players - 3-6 people]
+                    A --> D[Character Sheets]
+                    A --> E[Dice - Lots of dice!]
+                    A --> F[Imagination]
+                    
+                    B --> G[Describes the world]
+                    B --> H[Controls NPCs]
+                    B --> I[Decides outcomes]
+                    
+                    C --> J[Each controls 1 character]
+                    C --> K[Makes decisions]
+                    C --> L[Rolls dice for actions]
+                    
+                    style A fill:#ff9999
+                    style F fill:#99ff99
+            </div>
+
+            <h3>The Dungeon Master - Your Story Guide</h3>
+            <p>The Dungeon Master (DM) is like the director of a movie, the narrator of a book, and the referee of a game all rolled into one. They:</p>
+            <ul>
+                <li><strong>Paint the world:</strong> "You enter a dimly lit tavern. The smell of roasted meat and ale fills the air, and you notice a hooded figure in the corner watching you intently."</li>
+                <li><strong>Play everyone else:</strong> From the friendly shopkeeper to the menacing dragon, the DM voices every character you meet</li>
+                <li><strong>Interpret the rules:</strong> When you want to do something unusual, the DM decides how to handle it</li>
+            </ul>
+
+            <h3>The Players - Heroes of the Story</h3>
+            <p>As a player, you control one character throughout the adventure. You decide what they say, where they go, and what they try to do. Your character becomes your avatar in this fantasy world.</p>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How Does a Game Actually Work?</h2>
+            
+            <div class="example-scenario">
+                <h3>A Typical Scene</h3>
+                <div class="dialogue-example">
+                    <p><strong>DM:</strong> "You approach the ancient door. Strange runes glow faintly around its edges, and you hear a low humming sound from within."</p>
+                    <p><strong>Player 1 (Wizard):</strong> "I want to examine the runes. Do I recognize this magic?"</p>
+                    <p><strong>DM:</strong> "Make an Arcana check – roll a d20 and add your Arcana skill bonus."</p>
+                    <p><strong>Player 1:</strong> "I rolled a 15, plus my +5 bonus, so 20 total."</p>
+                    <p><strong>DM:</strong> "You recognize these as warding runes. They're designed to keep something in, not out. The humming grows louder..."</p>
+                    <p><strong>Player 2 (Rogue):</strong> "Uh oh. I want to check for traps on the door handle."</p>
+                </div>
+            </div>
+
+            <h3>The Role of Dice</h3>
+            <p>Dice add excitement and unpredictability to the story. They answer the question: "Can your character succeed at what they're trying to do?" The most important die is the 20-sided die (d20).</p>
+
+           <canvas id="diceCanvas" width="400" height="200"></canvas>
+<script>
+    const canvas = document.getElementById('diceCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Define hexagon points (centered at 200,100)
+    const centerX = 200;
+    const centerY = 100;
+    const radius = 50;
+
+    ctx.fillStyle = '#4CAF50';
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+        const angle = Math.PI / 3 * i; // 60° in radians
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // Dice number
+    ctx.fillStyle = '#fff';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('20', centerX, centerY + 7);
+
+    // Label
+    ctx.fillStyle = '#333';
+    ctx.font = '16px Arial';
+    ctx.fillText('The d20 - Your Gateway to Adventure!', centerX, 180);
+</script>
+
+        </section>
+
+        <section class="real-world-comparison">
+            <h2>Real-World Applications and Benefits</h2>
+            
+            <h3>Skills You'll Develop</h3>
+            <ul>
+                <li><strong>Creative Problem Solving:</strong> Like engineers finding innovative solutions, D&D players must think outside the box</li>
+                <li><strong>Public Speaking:</strong> Describing your character's actions builds confidence in communication</li>
+                <li><strong>Teamwork:</strong> Success requires cooperation, just like in any workplace project</li>
+                <li><strong>Mathematics:</strong> Constant addition, probability assessment, and resource management</li>
+                <li><strong>Leadership:</strong> Taking initiative and making decisions under pressure</li>
+            </ul>
+
+            <div class="real-world-example">
+                <h3>Professional Applications</h3>
+                <p>Many business leaders credit D&D with developing their strategic thinking. Companies like Microsoft and Google have D&D groups because the game teaches:</p>
+                <ul>
+                    <li>Risk assessment (Should we fight the dragon or find another way?)</li>
+                    <li>Resource allocation (How do we split the treasure fairly?)</li>
+                    <li>Collaborative decision-making (What's our plan of attack?)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="getting-started">
+            <h2>What You Need to Begin</h2>
+            
+            <div class="starter-kit">
+                <h3>The Absolute Essentials</h3>
+                <pre><code>Required Items:
+• 1 set of polyhedral dice (d4, d6, d8, d10, d12, d20)
+• Character sheet (can be printed for free)
+• Pencil and paper
+• 3-6 friends who want to play
+• Basic rulebooks or free online resources
+
+Optional but Helpful:
+• Miniatures or tokens
+• Battle mat or grid paper
+• Snacks (critical for long sessions!)
+• Background music for atmosphere</code></pre>
+            </div>
+
+            <h3>Cost Comparison</h3>
+            <div class="cost-analysis">
+                <table>
+                    <tr>
+                        <th>Entertainment Option</th>
+                        <th>Initial Cost</th>
+                        <th>Hours of Entertainment</th>
+                        <th>Cost per Hour</th>
+                    </tr>
+                    <tr>
+                        <td>Movie Theater</td>
+                        <td>$15</td>
+                        <td>2 hours</td>
+                        <td>$7.50</td>
+                    </tr>
+                    <tr>
+                        <td>Video Game</td>
+                        <td>$60</td>
+                        <td>40 hours</td>
+                        <td>$1.50</td>
+                    </tr>
+                    <tr>
+                        <td>D&D Starter Set</td>
+                        <td>$20</td>
+                        <td>100+ hours</td>
+                        <td>$0.20</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="why-5th-edition">
+            <h2>Why 5th Edition Specifically?</h2>
+            
+            <div class="edition-timeline">
+                <div class="mermaid">
+                    timeline
+                        title D&D Edition Evolution
+                        1974 : Original D&D
+                             : Complex, experimental
+                        1989 : 2nd Edition
+                             : More organized rules
+                        2000 : 3rd Edition
+                             : d20 system introduced
+                        2008 : 4th Edition
+                             : More tactical, grid-based
+                        2014 : 5th Edition
+                             : Streamlined, beginner-friendly
+                             : Current edition
+                </div>
+            </div>
+
+            <h3>What Makes 5e Special?</h3>
+            <ul>
+                <li><strong>Advantage/Disadvantage:</strong> Simple system replaces complex modifiers</li>
+                <li><strong>Bounded Accuracy:</strong> Numbers stay manageable throughout play</li>
+                <li><strong>Short/Long Rests:</strong> Built-in pacing for adventures</li>
+                <li><strong>Streamlined Skills:</strong> Fewer, more intuitive skill categories</li>
+            </ul>
+        </section>
+
+        <section class="practice-activities">
+            <h2>Practice Activities</h2>
+            
+            <div class="activity">
+                <h3>Activity 1: Dice Familiarity</h3>
+                <p>Find or purchase a set of polyhedral dice. Practice identifying each die and understand what they're used for:</p>
+                <ul>
+                    <li><strong>d4:</strong> Damage for small weapons like daggers</li>
+                    <li><strong>d6:</strong> Most common, used for many spells and abilities</li>
+                    <li><strong>d8:</strong> Medium weapons and some spells</li>
+                    <li><strong>d10:</strong> Percentile rolls and some weapons</li>
+                    <li><strong>d12:</strong> Great weapons and barbarian hit dice</li>
+                    <li><strong>d20:</strong> The star of the show - all major rolls</li>
+                </ul>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 2: Character Concept Creation</h3>
+                <p>Before diving into rules, think about what kind of character appeals to you:</p>
+                <ul>
+                    <li>What's their background? (Former soldier? Street orphan? Noble?)</li>
+                    <li>What motivates them? (Justice? Revenge? Knowledge? Gold?)</li>
+                    <li>How do they solve problems? (Diplomacy? Magic? Brute force?)</li>
+                    <li>What's their personality like? (Brave? Cautious? Humorous?)</li>
+                </ul>
+            </div>
+
+            <div class="activity">
+                <h3>Activity 3: Find Your Group</h3>
+                <p>D&D is social, so start building your adventuring party:</p>
+                <ul>
+                    <li>Ask friends if they're interested</li>
+                    <li>Check local game stores for beginner sessions</li>
+                    <li>Look for online communities (Roll20, Discord servers)</li>
+                    <li>Consider starting with the D&D Starter Set</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="next-steps">
+            <h2>What's Coming Next?</h2>
+            <p>In our next lesson, we'll dive deep into <a href="/dnd_char.html">character creation</a> – the process of bringing your hero to life with statistics, abilities, and backstory. You'll learn about the six core ability scores that define every character and how they influence everything your character does.</p>
+            
+            <div class="preview-box">
+                <h3>Next Lesson Preview: Character Creation Fundamentals</h3>
+                <ul>
+                    <li>The six ability scores (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma)</li>
+                    <li>Choosing your character's race and class</li>
+                    <li>Rolling vs. point-buy vs. standard array</li>
+                    <li>Creating a compelling backstory</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="resources">
+            <h2>Additional Resources</h2>
+            <ul>
+                <li><strong>Free Basic Rules:</strong> Available on Wizards of the Coast website</li>
+  
+                <li><strong>Local Game Stores:</strong> Often host beginner-friendly sessions</li>
+                <li><strong>Reddit Communities:</strong> r/DMAcademy and r/dndnext for advice</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><em>Remember: The most important rule in D&D is that everyone should have fun. Everything else is just guidelines to help make that happen!</em></p>
+    </footer>
+</body>
+</html>

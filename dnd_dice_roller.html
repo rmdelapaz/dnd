@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5th Edition Dice Roller</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #d4af37;
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #b8860b;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .dice-section {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .quick-btn {
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #d4af37;
+        }
+        
+        .quick-btn:hover {
+            background: linear-gradient(45deg, #a0522d, #cd853f);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .dice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .die-type {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 15px;
+            border: 2px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .die-type:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .d4 { border-color: #ff6b6b; }
+        .d6 { border-color: #4ecdc4; }
+        .d8 { border-color: #45b7d1; }
+        .d10 { border-color: #96ceb4; }
+        .d12 { border-color: #feca57; }
+        .d20 { border-color: #d4af37; }
+        .d100 { border-color: #a55eea; }
+        
+        .die-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .die-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .die-count {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 5px 8px;
+            color: white;
+            text-align: center;
+            width: 50px;
+            font-size: 1em;
+        }
+        
+        .die-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .die-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .modifier-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .modifier-label {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #d4af37;
+        }
+        
+        .modifier-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: white;
+            text-align: center;
+            width: 80px;
+            font-size: 1.1em;
+        }
+        
+        .advantage-section {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .advantage-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #666;
+            border-radius: 10px;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .advantage-btn.active {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.3);
+        }
+        
+        .advantage-btn.advantage.active {
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.3);
+        }
+        
+        .advantage-btn.disadvantage.active {
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.3);
+        }
+        
+        .roll-btn {
+            background: linear-gradient(45deg, #d4af37, #b8860b);
+            border: none;
+            border-radius: 25px;
+            color: #1a1a2e;
+            padding: 20px 50px;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 30px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .roll-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+        
+        .clear-btn {
+            background: #7f8c8d;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            padding: 12px 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-btn:hover {
+            background: #95a5a6;
+            transform: translateY(-2px);
+        }
+        
+        .results {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 3px solid #d4af37;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .result-total {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 25px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+        }
+        
+        .result-breakdown {
+            font-size: 1.2em;
+            margin: 15px 0;
+            opacity: 0.9;
+        }
+        
+        .dice-results {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .result-die {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 2px solid;
+        }
+        
+        .result-die.critical {
+            animation: glow 1s infinite alternate;
+        }
+        
+        .result-die.fumble {
+            animation: shake 0.5s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+            to { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.8); }
+        }
+        
+        @keyframes shake {
+            from { transform: translateX(-2px); }
+            to { transform: translateX(2px); }
+        }
+        
+        .critical-text {
+            color: #ffd700;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        
+        .fumble-text {
+            color: #ff4444;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 0 0 10px #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>D&D 5th Edition</h1>
+        <div class="subtitle">Dice Roller</div>
+        
+        <div class="dice-section">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="quickRoll('1d20')">Attack Roll (1d20)</button>
+                <button class="quick-btn" onclick="quickRoll('1d20', 'save')">Saving Throw</button>
+                <button class="quick-btn" onclick="quickRoll('1d20', 'skill')">Skill Check</button>
+                <button class="quick-btn" onclick="quickRoll('4d6', 'stats')">Ability Scores (4d6)</button>
+                <button class="quick-btn" onclick="quickRoll('1d100')">Percentile (d100)</button>
+                <button class="quick-btn" onclick="quickRoll('2d6+6', 'init')">Initiative (2d6+6)</button>
+            </div>
+        </div>
+        
+        <div class="dice-section">
+            <h2>Custom Roll</h2>
+            <div class="dice-grid">
+                <div class="die-type d4">
+                    <div class="die-name">d4</div>
+                    <div class="die-controls">
+                        <button class="die-btn" onclick="changeDieCount('d4', -1)">-</button>
+                        <input type="number" class="die-count" id="d4-count" value="0" min="0" max="99">
+                        <button class="die-btn" onclick="changeDieCount('d4', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="die-type d6">
+                    <div class="die-name">d6</div>
+                    <div class="die-controls">
+                        <button class="die-btn" onclick="changeDieCount('d6', -1)">-</button>
+                        <input type="number" class="die-count" id="d6-count" value="0" min="0" max="99">
+                        <button class="die-btn" onclick="changeDieCount('d6', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="die-type d8">
+                    <div class="die-name">d8</div>
+                    <div class="die-controls">
+                        <button class="die-btn" onclick="changeDieCount('d8', -1)">-</button>
+                        <input type="number" class="die-count" id="d8-count" value="0" min="0" max="99">
+                        <button class="die-btn" onclick="changeDieCount('d8', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="die-type d10">
+                    <div class="die-name">d10</div>
+                    <div class="die-controls">
+                        <button class="die-btn" onclick="changeDieCount('d10', -1)">-</button>
+                        <input type="number" class="die-count" id="d10-count" value="0" min="0" max="99">
+                        <button class="die-btn" onclick="changeDieCount('d10', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="die-type d12">
+                    <div class="die-name">d12</div>
+                    <div class="die-controls">
+                        <button class="die-btn" onclick="changeDieCount('d12', -1)">-</button>
+                        <input type="number" class="die-count" id="d12-count" value="0" min="0" max="99">
+                        <button class="die-btn" onclick="changeDieCount('d12', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="die-type d20">
+                    <div class="die-name">d20</div>
+                    <div class="die-controls">
+                        <button class="die-btn" onclick="changeDieCount('d20', -1)">-</button>
+                        <input type="number" class="die-count" id="d20-count" value="1" min="0" max="99">
+                        <button class="die-btn" onclick="changeDieCount('d20', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="die-type d100">
+                    <div class="die-name">d100</div>
+                    <div class="die-controls">
+                        <button class="die-btn" onclick="changeDieCount('d100', -1)">-</button>
+                        <input type="number" class="die-count" id="d100-count" value="0" min="0" max="99">
+                        <button class="die-btn" onclick="changeDieCount('d100', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modifier-section">
+                <span class="modifier-label">Modifier:</span>
+                <input type="number" class="modifier-input" id="modifier" value="0" placeholder="0">
+            </div>
+            
+            <div class="advantage-section">
+                <button class="advantage-btn normal active" id="normal-btn" onclick="setAdvantage('normal')">Normal</button>
+                <button class="advantage-btn advantage" id="advantage-btn" onclick="setAdvantage('advantage')">Advantage</button>
+                <button class="advantage-btn disadvantage" id="disadvantage-btn" onclick="setAdvantage('disadvantage')">Disadvantage</button>
+            </div>
+            
+            <button class="roll-btn" onclick="rollDice()">Roll Dice</button>
+            <button class="clear-btn" onclick="clearAll()">Clear All</button>
+        </div>
+        
+        <div id="results" class="results" style="display: none;">
+            <div class="result-total" id="total-result">0</div>
+            <div class="result-breakdown" id="breakdown"></div>
+            <div class="dice-results" id="dice-display"></div>
+            <div id="special-text"></div>
+        </div>
+    </div>
+    
+    <script>
+        let currentAdvantage = 'normal';
+        
+        const dieColors = {
+            'd4': '#ff6b6b',
+            'd6': '#4ecdc4',
+            'd8': '#45b7d1',
+            'd10': '#96ceb4',
+            'd12': '#feca57',
+            'd20': '#d4af37',
+            'd100': '#a55eea'
+        };
+        
+        function changeDieCount(dieType, change) {
+            const input = document.getElementById(dieType + '-count');
+            const newValue = Math.max(0, Math.min(99, parseInt(input.value) + change));
+            input.value = newValue;
+        }
+        
+        function setAdvantage(type) {
+            currentAdvantage = type;
+            document.querySelectorAll('.advantage-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(type + '-btn').classList.add('active');
+        }
+        
+        function quickRoll(diceString, type = '') {
+            clearAll();
+            
+            // Parse dice string (e.g., "1d20", "4d6", "2d6+6")
+            const parts = diceString.split('+');
+            const dicepart = parts[0];
+            const bonus = parts[1] ? parseInt(parts[1]) : 0;
+            
+            const match = dicepart.match(/(\d+)d(\d+)/);
+            if (match) {
+                const count = parseInt(match[1]);
+                const sides = match[2];
+                document.getElementById('d' + sides + '-count').value = count;
+            }
+            
+            if (bonus) {
+                document.getElementById('modifier').value = bonus;
+            }
+            
+            // Set appropriate advantage for certain roll types
+            if (type === 'save' || type === 'skill') {
+                // These could use advantage/disadvantage
+            }
+            
+            rollDice();
+        }
+        
+        function rollDice() {
+            const diceTypes = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'];
+            const modifier = parseInt(document.getElementById('modifier').value) || 0;
+            
+            let allRolls = [];
+            let total = modifier;
+            let hasD20 = false;
+            
+            // Roll each type of die
+            diceTypes.forEach(dieType => {
+                const count = parseInt(document.getElementById(dieType + '-count').value);
+                if (count > 0) {
+                    const sides = parseInt(dieType.substring(1));
+                    if (sides === 20) hasD20 = true;
+                    
+                    for (let i = 0; i < count; i++) {
+                        let roll = Math.floor(Math.random() * sides) + 1;
+                        
+                        // Handle advantage/disadvantage for d20s
+                        if (sides === 20 && currentAdvantage !== 'normal') {
+                            const roll2 = Math.floor(Math.random() * sides) + 1;
+                            if (currentAdvantage === 'advantage') {
+                                roll = Math.max(roll, roll2);
+                            } else {
+                                roll = Math.min(roll, roll2);
+                            }
+                        }
+                        
+                        allRolls.push({ value: roll, type: dieType, sides: sides });
+                        total += roll;
+                    }
+                }
+            });
+            
+            displayResults(allRolls, total, modifier, hasD20);
+        }
+        
+        function displayResults(rolls, total, modifier, hasD20) {
+            const resultsDiv = document.getElementById('results');
+            const totalDiv = document.getElementById('total-result');
+            const breakdownDiv = document.getElementById('breakdown');
+            const diceDisplay = document.getElementById('dice-display');
+            const specialText = document.getElementById('special-text');
+            
+            // Display total
+            totalDiv.textContent = total;
+            
+            // Create breakdown text
+            let breakdown = '';
+            const groupedRolls = {};
+            
+            rolls.forEach(roll => {
+                if (!groupedRolls[roll.type]) {
+                    groupedRolls[roll.type] = [];
+                }
+                groupedRolls[roll.type].push(roll.value);
+            });
+            
+            const parts = [];
+            Object.keys(groupedRolls).forEach(dieType => {
+                const values = groupedRolls[dieType];
+                parts.push(`${values.length}${dieType}: ${values.join(', ')}`);
+            });
+            
+            if (modifier !== 0) {
+                parts.push(`Modifier: ${modifier >= 0 ? '+' : ''}${modifier}`);
+            }
+            
+            if (currentAdvantage !== 'normal' && hasD20) {
+                parts.push(`(${currentAdvantage})`);
+            }
+            
+            breakdownDiv.textContent = parts.join(' | ');
+            
+            // Display individual dice
+            diceDisplay.innerHTML = '';
+            rolls.forEach(roll => {
+                const die = document.createElement('div');
+                die.className = 'result-die';
+                die.style.backgroundColor = dieColors[roll.type];
+                die.style.borderColor = dieColors[roll.type];
+                die.textContent = roll.value;
+                
+                // Check for critical hit/miss on d20
+                if (roll.sides === 20) {
+                    if (roll.value === 20) {
+                        die.classList.add('critical');
+                    } else if (roll.value === 1) {
+                        die.classList.add('fumble');
+                    }
+                }
+                
+                diceDisplay.appendChild(die);
+            });
+            
+            // Special text for criticals
+            specialText.innerHTML = '';
+            const d20Rolls = rolls.filter(r => r.sides === 20);
+            if (d20Rolls.length > 0) {
+                const hasNat20 = d20Rolls.some(r => r.value === 20);
+                const hasNat1 = d20Rolls.some(r => r.value === 1);
+                
+                if (hasNat20) {
+                    specialText.innerHTML += '<div class="critical-text">🎲 NATURAL 20! CRITICAL HIT! 🎲</div>';
+                }
+                if (hasNat1) {
+                    specialText.innerHTML += '<div class="fumble-text">💀 NATURAL 1! CRITICAL FUMBLE! 💀</div>';
+                }
+            }
+            
+            resultsDiv.style.display = 'block';
+        }
+        
+        function clearAll() {
+            const diceTypes = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'];
+            diceTypes.forEach(dieType => {
+                document.getElementById(dieType + '-count').value = dieType === 'd20' ? 1 : 0;
+            });
+            document.getElementById('modifier').value = 0;
+            setAdvantage('normal');
+            document.getElementById('results').style.display = 'none';
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                rollDice();
+            } else if (e.key === 'Escape') {
+                clearAll();
+            }
+        });
+    </script>
+</body>
+</html>
