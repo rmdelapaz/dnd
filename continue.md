@@ -52,10 +52,15 @@ Complete rewrite of the stylesheet:
 - Dark/blue theme matching the rest of the site
 - Centered layout, `max-width: 960px`
 - **Quick Actions section** with 6 preset buttons (Attack Roll, Saving Throw, Skill Check, Initiative, Ability Scores, Percentile)
-- **Advantage/Disadvantage toggle** lives inside Quick Actions section
+- **Inline Advantage/Disadvantage buttons** flank each d20 quick action: `[DISADV] [Roll] [ADV]` button groups
+  - DISADV button (red, left) and ADV button (green, right) directly trigger rolls with that mode
+  - Center button rolls normally
+  - Ability Scores and Percentile remain standalone (no adv/disadv)
+- **Advantage/Disadvantage toggle** lives inside Custom Roll section
   - Disabled (grayed out, `pointer-events:none`) by default
-  - Enables automatically when d20 count > 0 in custom roll, or when a d20 quick action fires
+  - Enables automatically when d20 count > 0 in custom roll
   - Helper label tells user when it's available
+- **Advantage/Disadvantage results show both dice** — kept die in full color, dropped die dimmed with strikethrough (same visual treatment as ability score dropped die); breakdown text shows "kept / dropped" format
 - **Custom Roll section** with +/− buttons and number inputs for d4, d6, d8, d10, d12, d20, d100
   - `changeDie()` function handles increment/decrement
   - `onDiceChange()` monitors d20 count to toggle advantage row
@@ -66,6 +71,14 @@ Complete rewrite of the stylesheet:
   - Shows total, breakdown, individual colored dice, critical/fumble animations
   - Ability score rolls: 4d6 drop lowest with visual strikethrough on dropped die
 - `rollDice()` returns early if no dice selected (prevents empty modal)
+
+### 6. `dnd_names.html` — Dark Theme Conversion ✅
+- Removed entire inline `<style>` block (was purple gradient light theme)
+- All styling now handled by `main.css` — name-grid, name-card, tips-section, example-box, analogy-box, canvas-container rules added/updated in main.css
+- Added h3 overrides inside `.analogy-box`, `.example-box`, `.tips-section` (removes blue heading bg, uses plain text-bright color)
+- `.name-card` hover effect and `.race-suggestion` blue color added to main.css
+- Canvas name wheel: text → `#fff`, segment strokes → `#1a1d27`, pointer → `#e8ebf2`
+- Mermaid diagrams: switched to `theme: 'dark'`
 
 ---
 
@@ -80,10 +93,6 @@ These pages have inline `<canvas>` JS that likely draws text in `#000` (black on
 - `dnd_rp_and_char_dev.html`
 - `dnd_dm.html`
 - `dnd_groups.html` — also has a commented-out `<style>` block, needs review
-
-### `dnd_names.html`
-- Has its own inline `<style>` block with purple gradient background and custom container styles
-- Not yet updated to match the dark theme
 
 ### `dnd_100inc.html`
 - Appears to be an HTML fragment (partial content from `dnd_100.html`)

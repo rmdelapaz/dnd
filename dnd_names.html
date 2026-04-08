@@ -10,100 +10,7 @@
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
       mermaid.initialize({ startOnLoad: true });
     </script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        h1 {
-            text-align: center;
-            color: #4a5568;
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2d3748;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-            margin-top: 40px;
-        }
-        .name-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .name-card {
-            background: linear-gradient(145deg, #f7fafc, #edf2f7);
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
-        }
-        .name-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        .name {
-            font-weight: bold;
-            color: #2d3748;
-            font-size: 1.1em;
-        }
-        .origin {
-            font-size: 0.9em;
-            color: #718096;
-            font-style: italic;
-        }
-        .race-suggestion {
-            font-size: 0.8em;
-            color: #4a5568;
-            margin-top: 5px;
-        }
-        .tips-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
-            border: 1px solid #e2e8f0;
-        }
-        .example-box {
-            background: #fff5f5;
-            border: 1px solid #fed7d7;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        .analogy-box {
-            background: #f0fff4;
-            border: 1px solid #c6f6d5;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        .canvas-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        canvas {
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            max-width: 100%;
-        }
-    </style>
+
 </head>
 <body>
     <div class="container">
@@ -424,13 +331,13 @@
                 ctx.lineTo(0, 0);
                 ctx.fillStyle = colors[i];
                 ctx.fill();
-                ctx.strokeStyle = '#333';
+                ctx.strokeStyle = '#1a1d27';
                 ctx.lineWidth = 2;
                 ctx.stroke();
                 
                 ctx.save();
                 ctx.rotate(startAngle + (endAngle - startAngle) / 2);
-                ctx.fillStyle = '#333';
+                ctx.fillStyle = '#fff';
                 ctx.font = 'bold 16px Arial';
                 ctx.textAlign = 'center';
                 ctx.fillText(nameCategories[i], radius * 0.7, 5);
@@ -445,7 +352,7 @@
             ctx.lineTo(centerX + radius + 30, centerY - 10);
             ctx.lineTo(centerX + radius + 30, centerY + 10);
             ctx.closePath();
-            ctx.fillStyle = '#333';
+            ctx.fillStyle = '#e8ebf2';
             ctx.fill();
         }
 

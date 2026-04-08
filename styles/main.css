@@ -501,6 +501,20 @@ summary {
   background: var(--color-surface);
 }
 
+.analogy-box h3,
+.example-box h3,
+.tips-section h3 {
+  background: none;
+  padding: 0;
+  margin: var(--space-md) 0 var(--space-sm) 0;
+  color: var(--color-text-bright);
+}
+
+.canvas-container {
+  text-align: center;
+  margin: var(--space-md) 0;
+}
+
 .activity {
   margin: var(--space-lg) 0;
   padding: var(--space-md) var(--space-lg);
@@ -666,6 +680,12 @@ summary {
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
   border-left: 4px solid var(--color-accent);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.name-card:hover {
+  transform: translateY(-2px);
+  border-left-color: var(--color-link);
 }
 
 .name-card .name {
@@ -682,7 +702,7 @@ summary {
 
 .name-card .race-suggestion {
   font-size: 0.8rem;
-  color: var(--color-text-dim);
+  color: var(--color-link);
   margin-top: var(--space-xs);
 }
 

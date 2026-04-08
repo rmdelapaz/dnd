@@ -145,7 +145,7 @@
                     ctx.fillText('Action', 490, 145);
                     
                     // Labels
-                    ctx.fillStyle = '#000';
+                    ctx.fillStyle = '#c9cdd8';
                     ctx.font = '18px Arial';
                     ctx.fillText('Party (4 actions per round)', 170, 50);
                     ctx.fillText('Enemy (1 action per round)', 490, 30);
@@ -232,8 +232,10 @@
                     const canvas = document.getElementById('tacticalCanvas');
                     const ctx = canvas.getContext('2d');
                     
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
                     // Draw grid
-                    ctx.strokeStyle = '#ddd';
+                    ctx.strokeStyle = '#2e3347';
                     ctx.lineWidth = 1;
                     for (let i = 0; i <= 8; i++) {
                         // Vertical lines
@@ -276,52 +278,53 @@
                     ctx.fillText('E2', 300, 255);
                 }
                 
+                let activeOverlay = null;
+
+                function toggleOverlay(name, drawFn, explanation) {
+                    if (activeOverlay === name) {
+                        activeOverlay = null;
+                        setupTacticalCanvas();
+                        document.getElementById('gridExplanation').innerHTML = '';
+                    } else {
+                        activeOverlay = name;
+                        setupTacticalCanvas();
+                        drawFn();
+                        document.getElementById('gridExplanation').innerHTML = explanation;
+                    }
+                }
+
                 function showMeleeRange() {
-                    setupTacticalCanvas();
-                    const canvas = document.getElementById('tacticalCanvas');
-                    const ctx = canvas.getContext('2d');
-                    
-                    // Show fighter's melee range
-                    ctx.fillStyle = 'rgba(76, 175, 80, 0.3)';
-                    ctx.fillRect(125, 125, 150, 150);
-                    
-                    document.getElementById('gridExplanation').innerHTML = 
-                        '<p><strong>Melee Range:</strong> Fighter (F) can attack any adjacent square (green area). Each square = 5 feet.</p>';
+                    toggleOverlay('melee', () => {
+                        const ctx = document.getElementById('tacticalCanvas').getContext('2d');
+                        ctx.fillStyle = 'rgba(76, 175, 80, 0.3)';
+                        ctx.fillRect(125, 125, 150, 150);
+                    }, '<p><strong>Melee Range:</strong> Fighter (F) can attack any adjacent square (green area). Each square = 5 feet.</p>');
                 }
                 
                 function showRangedAdvantage() {
-                    setupTacticalCanvas();
-                    const canvas = document.getElementById('tacticalCanvas');
-                    const ctx = canvas.getContext('2d');
-                    
-                    // Show wizard's clear shot
-                    ctx.strokeStyle = '#2196F3';
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.moveTo(200, 150);
-                    ctx.lineTo(300, 200);
-                    ctx.stroke();
-                    
-                    document.getElementById('gridExplanation').innerHTML = 
-                        '<p><strong>Ranged Advantage:</strong> Wizard (W) has clear line of sight to enemy, while fighter provides cover and blocks enemy movement.</p>';
+                    toggleOverlay('ranged', () => {
+                        const ctx = document.getElementById('tacticalCanvas').getContext('2d');
+                        ctx.strokeStyle = '#2196F3';
+                        ctx.lineWidth = 3;
+                        ctx.beginPath();
+                        ctx.moveTo(200, 150);
+                        ctx.lineTo(300, 200);
+                        ctx.stroke();
+                    }, '<p><strong>Ranged Advantage:</strong> Wizard (W) has clear line of sight to enemy, while fighter provides cover and blocks enemy movement.</p>');
                 }
                 
                 function showAreaEffect() {
-                    setupTacticalCanvas();
-                    const canvas = document.getElementById('tacticalCanvas');
-                    const ctx = canvas.getContext('2d');
-                    
-                    // Show fireball area
-                    ctx.fillStyle = 'rgba(255, 193, 7, 0.5)';
-                    ctx.beginPath();
-                    ctx.arc(300, 225, 75, 0, 2 * Math.PI);
-                    ctx.fill();
-                    
-                    document.getElementById('gridExplanation').innerHTML = 
-                        '<p><strong>Area Effect:</strong> Fireball (20-foot radius) can hit multiple enemies while avoiding allies through careful positioning.</p>';
+                    toggleOverlay('area', () => {
+                        const ctx = document.getElementById('tacticalCanvas').getContext('2d');
+                        ctx.fillStyle = 'rgba(255, 193, 7, 0.5)';
+                        ctx.beginPath();
+                        ctx.arc(300, 225, 75, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }, '<p><strong>Area Effect:</strong> Fireball (20-foot radius) can hit multiple enemies while avoiding allies through careful positioning.</p>');
                 }
                 
                 function clearCanvas() {
+                    activeOverlay = null;
                     setupTacticalCanvas();
                     document.getElementById('gridExplanation').innerHTML = '';
                 }
