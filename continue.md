@@ -80,6 +80,14 @@ Complete rewrite of the stylesheet:
 - Canvas name wheel: text → `#fff`, segment strokes → `#1a1d27`, pointer → `#e8ebf2`
 - Mermaid diagrams: switched to `theme: 'dark'`
 
+### 7. `dnd_combat.html` — Dark Theme Canvas Fixes + Toggle Buttons ✅
+- `actionEconomyCanvas`: Labels and "VS" text changed from `#000` to `#c9cdd8`
+- `tacticalCanvas`: Grid lines changed from `#ddd` to `#2e3347`
+- Added `clearRect()` to `setupTacticalCanvas()` so canvas properly clears before redrawing
+- Battlefield overlay buttons (Melee Range, Ranged Advantage, Area Effect) now toggle on/off instead of only turning on
+- `toggleOverlay()` helper tracks `activeOverlay` state; clicking same button again clears it
+- Clear button properly resets canvas
+
 ---
 
 ## What Still Needs Work
@@ -88,7 +96,6 @@ Complete rewrite of the stylesheet:
 These pages have inline `<canvas>` JS that likely draws text in `#000` (black on dark background), same issue that was fixed in `dnd_core.html`:
 - `dnd_char.html`
 - `dnd_character_examples.html`
-- `dnd_combat.html`
 - `dnd_magic.html`
 - `dnd_rp_and_char_dev.html`
 - `dnd_dm.html`
@@ -121,3 +128,11 @@ These pages have inline `<canvas>` JS that likely draws text in `#000` (black on
 - `dnd_dice_roller.html` intentionally does NOT link `main.css` to avoid CSS specificity conflicts — all styles are self-contained inline
 - Canvas illustrations use canvas API (not SVG) after SVG attempts produced distorted results for the d20
 - `drawDie20()` in `dnd_core.html` is a simplified flat-top hexagon + number (user rejected triangle/lines version)
+
+---
+
+## Suggestions for Next Session
+- **Five pages still need canvas `#000` → `#c9cdd8` fixes:** `dnd_char.html`, `dnd_character_examples.html`, `dnd_magic.html`, `dnd_rp_and_char_dev.html`, `dnd_dm.html` — quick find-and-fix pass
+- **`dnd_groups.html`** has a commented-out `<style>` block — check if it has inline styles that should move to `main.css` (same treatment as `dnd_names.html`)
+- **Mermaid init consistency** — `dnd_names.html` was reverted to default `startOnLoad: true` (no `theme: 'dark'`) so main.css handles styling. Verify all other mermaid pages match and none use `theme: 'dark'`
+- **Mobile spot-check** — no page has been manually tested on mobile beyond what `main.css` provides
