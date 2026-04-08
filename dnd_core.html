@@ -267,30 +267,37 @@
                     }
                     
                     function drawDie20(ctx, x, y, value, grayed) {
-                        // Draw d20 shape
-                        ctx.fillStyle = grayed ? '#cccccc' : '#ffffff';
-                        ctx.strokeStyle = '#000000';
-                        ctx.lineWidth = 2;
-                        
+                        var cx = x, cy = y + 10, r = 32;
+                        var hexColor = grayed ? '#555' : '#b91c1c';
+                        var edgeColor = grayed ? '#888' : '#fca5a5';
+                        var textColor = grayed ? '#999' : '#fff';
+
                         ctx.beginPath();
-                        ctx.moveTo(x, y - 20);
-                        ctx.lineTo(x + 30, y);
-                        ctx.lineTo(x, y + 40);
-                        ctx.lineTo(x - 30, y);
+                        for (var i = 0; i < 6; i++) {
+                            var a = Math.PI / 6 + (Math.PI / 3) * i;
+                            var hx = cx + r * Math.cos(a);
+                            var hy = cy + r * Math.sin(a);
+                            if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+                        }
                         ctx.closePath();
+                        ctx.fillStyle = hexColor;
                         ctx.fill();
+                        ctx.strokeStyle = edgeColor;
+                        ctx.lineWidth = 1.5;
                         ctx.stroke();
-                        
-                        // Add number
-                        ctx.fillStyle = grayed ? '#666666' : '#000000';
-                        ctx.font = '16px Arial';
+
+                        ctx.fillStyle = textColor;
+                        ctx.font = 'bold 18px "Segoe UI", system-ui, sans-serif';
                         ctx.textAlign = 'center';
-                        ctx.fillText(value, x, y + 5);
-                        
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(value, cx, cy);
+                        ctx.textBaseline = 'alphabetic';
+
                         if (grayed) {
-                            ctx.fillStyle = '#cc0000';
-                            ctx.font = '12px Arial';
-                            ctx.fillText('NOT USED', x, y + 60);
+                            ctx.fillStyle = '#cc4444';
+                            ctx.font = '11px "Segoe UI", system-ui, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('NOT USED', cx, cy + r + 16);
                         }
                     }
                     
@@ -307,7 +314,7 @@
                         const chartHeight = canvas.height - 2 * margin;
                         
                         // Draw axes
-                        ctx.strokeStyle = '#000';
+                        ctx.strokeStyle = '#c9cdd8';
                         ctx.lineWidth = 2;
                         ctx.beginPath();
                         ctx.moveTo(margin, margin);
@@ -316,7 +323,7 @@
                         ctx.stroke();
                         
                         // Labels
-                        ctx.fillStyle = '#000';
+                        ctx.fillStyle = '#c9cdd8';
                         ctx.font = '12px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText('Target Roll', margin + chartWidth/2, canvas.height - 10);
@@ -361,7 +368,7 @@
                         for (let i = 0; i < 3; i++) {
                             ctx.fillStyle = colors[i];
                             ctx.fillRect(canvas.width - 150, 20 + i * 20, 15, 15);
-                            ctx.fillStyle = '#000';
+                            ctx.fillStyle = '#c9cdd8';
                             ctx.font = '12px Arial';
                             ctx.textAlign = 'left';
                             ctx.fillText(labels[i], canvas.width - 130, 32 + i * 20);
@@ -606,6 +613,7 @@
                     const spacing = 140;
                     const startX = 30;
                     const startY = 50;
+                    const labelColor = '#c9cdd8';
                     
                     weapons.forEach((weapon, index) => {
                         const x = startX + index * spacing;
@@ -617,17 +625,19 @@
                         ctx.strokeRect(x, startY, barWidth, barHeight);
                         
                         // Draw dice representation
-                        ctx.fillStyle = '#000';
+                        ctx.fillStyle = '#fff';
                         ctx.font = '24px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText(weapon.dice, x + barWidth/2, startY + barHeight/2);
                         
                         // Weapon name
+                        ctx.fillStyle = labelColor;
                         ctx.font = '14px Arial';
                         ctx.fillText(weapon.name, x + barWidth/2, startY + barHeight + 20);
                     });
                     
                     // Title
+                    ctx.fillStyle = labelColor;
                     ctx.font = '18px Arial';
                     ctx.textAlign = 'center';
                     ctx.fillText('Weapon Damage Dice Comparison', canvas.width/2, 30);
