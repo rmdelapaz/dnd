@@ -12,6 +12,8 @@
     </script>
 </head>
 <body>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
     <header>
         <h1>Introduction to Dungeon Mastering</h1>
         <p><em>Becoming the Architect of Adventure</em></p>
@@ -904,5 +906,6 @@
         <a href="/dnd_rp_and_char_dev.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Roleplay &amp; Character Dev</a>
         <a href="/index.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Home &rarr;</a>
     </nav>
+    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
 </body>
 </html>

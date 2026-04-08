@@ -12,6 +12,8 @@
     </script>
 </head>
 <body>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
+    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
     <div class="container">
         <header>
             <h1>D&D 5th Edition Character Examples and Party Groups</h1>
@@ -406,5 +408,6 @@
         <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
         <a href="/dnd_100.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">100 Characters &rarr;</a>
     </nav>
+    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
 </body>
 </html>
