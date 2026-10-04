@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playing D&amp;D 5e Solo - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <style>
+        /* Solo tools: themed via the tokens in /styles/main.css */
+        main .tip-box { border-left: 5px solid var(--gold) !important; }
+        main .example-box { border-left: 5px solid var(--accent) !important; }
+        .oracle-tool { border-top: 4px solid var(--accent) !important; }
+        .oracle-tool h3 { margin-top: 0; }
+        .tool-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin: 10px 0; }
+        .tool-row label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; color: var(--heading); font-size: 0.95rem; }
+        .tool-row .grow { flex: 1 1 260px; }
+        .tool-row .grow input { width: 100%; }
+        main .tool-row button { margin: 0; width: auto; }
+        main .tool-row select { width: auto; }
+        .oracle-out {
+            margin: 12px 0; padding: 14px 16px; border-radius: 12px; min-height: 96px;
+            background: var(--surface-2); border: 2px solid var(--border-strong);
+            display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center;
+        }
+        .oracle-out .face { grid-row: span 2; }
+        .oracle-out .die {
+            width: 58px; height: 58px; display: grid; place-items: center; font: 700 1.5rem/1 "Source Sans 3", sans-serif;
+            background: #fff; color: #14152b; border: 0; box-shadow: inset 0 0 0 3px #b8b8d0;
+            clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+        }
+        .oracle-out .die.hi { background: #e3f4e8; }
+        .oracle-out .die.lo { background: #fbe4e1; }
+        .oracle-out .answer { font-family: "EB Garamond", Georgia, serif; font-weight: 700; font-size: 1.4rem; color: var(--heading); }
+        .oracle-out .detail { color: var(--muted); font-size: 0.95rem; }
+        .oracle-out.yes { border-color: var(--success); }
+        .oracle-out.yes .answer { color: var(--success); }
+        .oracle-out.no { border-color: var(--danger); }
+        .oracle-out.no .answer { color: var(--danger); }
+        .oracle-out.mixed { border-color: var(--gold); }
+        .oracle-out .spark { grid-column: 1 / -1; color: var(--text); }
+        .oracle-out .spark:empty { display: none; }
+        .oracle-out .spark ul { margin: 4px 0 0; }
+        @media (max-width: 520px) { .oracle-out { grid-template-columns: 1fr; } .oracle-out .face { grid-row: auto; } }
+        .oracle-log { list-style: none; padding: 0; margin: 10px 0 0; max-height: 260px; overflow-y: auto; }
+        .oracle-log li { padding: 6px 10px; border-bottom: 1px solid var(--border); font-size: 0.95rem; margin: 0; }
+        .oracle-log li:last-child { border-bottom: 0; }
+        .odds td, .odds th { text-align: center; font-variant-numeric: tabular-nums; }
+        .odds td:first-child, .odds th:first-child { text-align: left; }
+        .dice-pair { display: flex; gap: 6px; }
+        .spark-tables { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 12px; }
+        .spark-tables ol { margin: 0; padding-left: 1.4rem; }
+        .spark-tables h4 { margin-top: 0; }
+    </style>
+</head>
+<body>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
+    <header>
+        <span class="lesson-kicker">Part 10</span>
+        <h1>Playing D&amp;D 5e Solo</h1>
+        <p>An advantage-powered oracle, encounter math for one hero, and how to be your own Dungeon Master</p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>Why D&amp;D Works Alone</h2>
+            <p>Dungeons &amp; Dragons is written for a Dungeon Master and a group of players, and the core books have no solo rules. But 5th Edition has two things that make it a good solo game anyway. <strong>Advantage and disadvantage</strong> are the simplest way any game has found to say "this is more or less likely", and that's exactly what you need when you're asking the dice a question. And the Dungeon Master's Guide gives you an <strong>XP budget</strong> for building fair fights, so you can set up an encounter without knowing how it will turn out.</p>
+            <p>The challenge is that the game assumes a party of three to five who cover each other. This part shows how to handle that, then gives you an oracle, scene checks and sparks for everything a DM would normally decide.</p>
+
+            <div class="example-box">
+                <h3>The Dice Are Your DM</h3>
+                <p>At a table, the DM knows what's behind the door. Solo, you decide what you <em>expect</em>, then let the dice confirm it, twist it or overturn it. You make the same rolls your character always would, and the oracle answers everything else.</p>
+            </div>
+
+            <div class="objectives">
+                <h3>What You'll Find in This Part</h3>
+                <ul>
+                    <li>An oracle that uses advantage and disadvantage for likelihood, with exact odds</li>
+                    <li>The encounter budget for one or two characters, and how to keep a lone hero alive</li>
+                    <li>Scene checks, sparks and NPC attitudes for running the world yourself</li>
+                    <li>A step-by-step routine and a worked example for your first solo session</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="solo-kit">
+            <h2>Your Solo Kit</h2>
+            <ul>
+                <li><strong>Your dice</strong>, or the guide's <a href="/dnd_dice_roller.html">dice roller</a>, which handles advantage, exact odds and death saves.</li>
+                <li><strong>One or two heroes</strong>, built with <a href="/dnd_char.html">character creation</a> or picked from the <a href="/dnd_100.html">sample characters</a>.</li>
+                <li><strong>The rules.</strong> The Player's Handbook and Dungeon Master's Guide, or the free Basic Rules and SRD 5.1. The Monster Manual (or the SRD) for foes.</li>
+                <li><strong>A journal</strong> for threads, NPCs and what your hero knows.</li>
+            </ul>
+            <div class="tip-box">
+                <p>💡 <strong>Tip:</strong> General-purpose GM emulators such as <em>Mythic Game Master Emulator</em> (Word Mill Games) work with D&amp;D too. This part sticks to dice and tables built from D&amp;D's own rules. For solo play in general, see Ray's <a href="https://rays-solorpg.netlify.app/" target="_blank" rel="noopener noreferrer">Solo RPG Mastery guide</a>.</p>
+            </div>
+        </section>
+
+        <section class="solo-party">
+            <h2>One Hero or Two?</h2>
+            <p>The Dungeon Master's Guide sets encounter difficulty with XP thresholds <em>per character</em>, so a solo hero's budget is just one character's thresholds:</p>
+            <table class="odds">
+                <thead>
+                    <tr><th>Character level</th><th>Easy</th><th>Medium</th><th>Hard</th><th>Deadly</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>25</td><td>50</td><td>75</td><td>100</td></tr>
+                    <tr><td>2</td><td>50</td><td>100</td><td>150</td><td>200</td></tr>
+                    <tr><td>3</td><td>75</td><td>150</td><td>225</td><td>400</td></tr>
+                    <tr><td>4</td><td>125</td><td>250</td><td>375</td><td>500</td></tr>
+                    <tr><td>5</td><td>250</td><td>500</td><td>750</td><td>1,100</td></tr>
+                </tbody>
+            </table>
+            <p>Then multiply the monsters' XP by the DMG's multiplier for how many there are. With fewer than three characters, use the <strong>next higher</strong> multiplier: a single monster counts as ×1.5 instead of ×1. So a lone 1st-level hero facing one goblin (CR 1/4, 50 XP) is facing 75 adjusted XP: a <strong>hard</strong> fight. Two goblins would be well past deadly.</p>
+            <ul>
+                <li><strong>Two characters is the sweet spot.</strong> You make both characters' choices, one can heal or help the other, and fights work much better.</li>
+                <li><strong>One hero plus a sidekick.</strong> The sidekick rules introduced in the D&amp;D Essentials Kit (simple Expert, Spellcaster and Warrior companions) were built for one-on-one play and work well solo.</li>
+                <li><strong>One hero alone</strong> works best with sturdy classes (fighter, paladin, barbarian, or a cleric with good armor), single foes or small groups, and plenty of short rests.</li>
+            </ul>
+        </section>
+
+        <section class="d20-oracle">
+            <h2>The Advantage Oracle</h2>
+            <p>Ask a yes/no question you genuinely don't know the answer to, and decide how likely "yes" is. Then roll a d20 with no modifier against an oracle DC, using advantage or disadvantage just as you would in play:</p>
+            <ul>
+                <li><strong>Very likely:</strong> roll with advantage, DC 6</li>
+                <li><strong>Likely:</strong> roll with advantage, DC 11</li>
+                <li><strong>Toss-up:</strong> a straight roll, DC 11</li>
+                <li><strong>Unlikely:</strong> roll with disadvantage, DC 11</li>
+                <li><strong>Very unlikely:</strong> roll with disadvantage, DC 16</li>
+            </ul>
+            <p>Read the die you keep:</p>
+            <div class="oracle-outcomes">
+                <ul>
+                    <li><strong>Natural 20</strong> → <strong>Yes, and…</strong> Yes, plus something extra in your favor.</li>
+                    <li><strong>DC + 2 or more</strong> → <strong>Yes.</strong></li>
+                    <li><strong>Exactly the DC, or 1 over</strong> → <strong>Yes, but…</strong> Yes, with a complication or cost.</li>
+                    <li><strong>1 or 2 under the DC</strong> → <strong>No, but…</strong> No, with a consolation or an opening.</li>
+                    <li><strong>Further under</strong> → <strong>No.</strong></li>
+                    <li><strong>Natural 1</strong> → <strong>No, and…</strong> No, and things get worse.</li>
+                </ul>
+            </div>
+            <p>Advantage and the DC ladder are D&amp;D's own tools; the oracle readings are this guide's.</p>
+
+            <h3>The Odds</h3>
+            <p>Every pair of d20 faces is equally likely, so these odds are exact:</p>
+            <table class="odds">
+                <thead>
+                    <tr><th>Likelihood</th><th>No, and…</th><th>No</th><th>No, but…</th><th>Yes, but…</th><th>Yes</th><th>Yes, and…</th><th>Any yes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Very likely (adv, DC 6)</td><td>0.25%</td><td>2%</td><td>4%</td><td>6%</td><td>78%</td><td>9.75%</td><td>93.75%</td></tr>
+                    <tr><td>Likely (adv, DC 11)</td><td>0.25%</td><td>15.75%</td><td>9%</td><td>11%</td><td>54.25%</td><td>9.75%</td><td>75%</td></tr>
+                    <tr><td>Toss-up (DC 11)</td><td>5%</td><td>35%</td><td>10%</td><td>10%</td><td>35%</td><td>5%</td><td>50%</td></tr>
+                    <tr><td>Unlikely (dis, DC 11)</td><td>9.75%</td><td>54.25%</td><td>11%</td><td>9%</td><td>15.75%</td><td>0.25%</td><td>25%</td></tr>
+                    <tr><td>Very unlikely (dis, DC 16)</td><td>9.75%</td><td>78%</td><td>6%</td><td>4%</td><td>2%</td><td>0.25%</td><td>6.25%</td></tr>
+                </tbody>
+            </table>
+            <p>The table is a perfect mirror: "Likely" says yes exactly as often as "Unlikely" says no, and a toss-up is a true coin flip. Advantage also makes a natural 20 almost twice as likely (9.75%) and a natural 1 almost impossible (0.25%), so a likely question rarely ends in disaster.</p>
+        </section>
+
+        <section class="solo-scenes">
+            <h2>Running Scenes Solo</h2>
+            <div class="mermaid">
+graph TD
+    A[Picture the scene you expect] --> B{Scene check d20}
+    B -->|11-20 As expected| C[Play the scene]
+    B -->|5-10 Altered| D[Change one detail]
+    B -->|1-4 Interrupted| E[Something else happens&lt;br/&gt;roll a spark]
+    D --> C
+    E --> C
+    C --> F[Combat, exploration&lt;br/&gt;or social interaction]
+    F --> G[Checks, oracle, NPC attitudes]
+    G --> H[Note threads, XP and loot]
+    H --> A
+            </div>
+
+            <h3>The Scene Check</h3>
+            <p>Before each scene, decide what you expect to happen, then roll a d20. This is a house rule, not a D&amp;D rule:</p>
+            <ul>
+                <li><strong>11–20 (50%): As expected.</strong> Play the scene as you imagined it.</li>
+                <li><strong>5–10 (30%): Altered.</strong> It's mostly what you expected, but one detail is different.</li>
+                <li><strong>1–4 (20%): Interrupted.</strong> Something else happens. Roll a spark and build the scene around it.</li>
+            </ul>
+
+            <h3>Sparks</h3>
+            <p>When you need ideas, roll a d6 on each of these tables. They're this guide's tables, not official ones; swap in your own as your campaign grows.</p>
+            <div class="spark-tables">
+                <div class="tip-box"><h4>Threat (d6)</h4><ol><li>Monsters defending their lair</li><li>A rival band of adventurers</li><li>A trap or a collapsing passage</li><li>Agents of the villain you're hunting</li><li>Hungry beasts or something worse</li><li>The weather or the land itself</li></ol></div>
+                <div class="tip-box"><h4>Complication (d6)</h4><ol><li>An innocent is in the way</li><li>The clock is running: act within 3 rounds</li><li>Your way out is blocked</li><li>Someone lied to you</li><li>Your gear is damaged or lost</li><li>Two enemies are about to clash</li></ol></div>
+                <div class="tip-box"><h4>Discovery (d6)</h4><ol><li>A clue to your main goal</li><li>Treasure, though someone will miss it</li><li>A potential ally in trouble</li><li>An old map or journal</li><li>A shrine to a forgotten god</li><li>A secret door or hidden path</li></ol></div>
+            </div>
+        </section>
+
+        <section class="solo-npcs">
+            <h2>NPCs and Attitudes</h2>
+            <p>The Dungeon Master's Guide describes NPCs as <strong>friendly</strong>, <strong>indifferent</strong> or <strong>hostile</strong> toward the adventurers. When an NPC's attitude isn't obvious from the story, roll a d20 (this guide's table):</p>
+            <ul>
+                <li><strong>1–5:</strong> Hostile</li>
+                <li><strong>6–15:</strong> Indifferent</li>
+                <li><strong>16–20:</strong> Friendly</li>
+            </ul>
+            <p>Then roleplay the conversation and make Charisma checks as you would at a table: Persuasion to convince, Deception to mislead, Intimidation to pressure. Set the DC from the NPC's attitude and what you're asking for (easy 10, medium 15, hard 20). A friendly NPC helps with little or no check; a hostile one needs a strong reason or a great roll. For everything else ("Does the innkeeper know where the cult meets?"), ask the oracle.</p>
+        </section>
+
+        <section class="oracle-section">
+            <div class="oracle-tool" id="oracle">
+                <h3>🎲 Try the Solo Tools</h3>
+                <div class="tool-row">
+                    <label class="grow">Your question
+                        <input type="text" id="oracle-question" placeholder="Is the cult leader in the crypt?" maxlength="160">
+                    </label>
+                    <label>Likelihood
+                        <select id="oracle-odds">
+                            <option value="vl">Very likely (adv, DC 6)</option>
+                            <option value="l">Likely (adv, DC 11)</option>
+                            <option value="t" selected>Toss-up (DC 11)</option>
+                            <option value="u">Unlikely (dis, DC 11)</option>
+                            <option value="vu">Very unlikely (dis, DC 16)</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="tool-row">
+                    <button type="button" id="oracle-ask">Ask the Oracle</button>
+                    <button type="button" id="scene-check">Scene Check</button>
+                    <button type="button" id="spark-btn">Spark</button>
+                    <button type="button" id="attitude-btn">NPC Attitude</button>
+                </div>
+                <div class="oracle-out" id="oracle-out" aria-live="polite">
+                    <div class="face" id="oracle-face" aria-hidden="true"></div>
+                    <div class="answer" id="oracle-answer">Ask a question to begin</div>
+                    <div class="detail" id="oracle-detail">Pick a likelihood, then press Ask the Oracle.</div>
+                    <div class="spark" id="oracle-spark"></div>
+                </div>
+                <h4>Session Log</h4>
+                <ul class="oracle-log" id="oracle-log"><li>Your rolls will appear here.</li></ul>
+                <div class="tool-row">
+                    <button type="button" id="log-copy">Copy Log</button>
+                    <button type="button" id="log-clear">Clear Log</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="solo-opposition">
+            <h2>Running Monsters</h2>
+            <h3>Monsters Follow the Same Rules</h3>
+            <p>Roll initiative for your foes, use their stat blocks as written, and roll their attacks in the open. Opportunity attacks, advantage and cover work exactly as they do for you.</p>
+            <h3>Let the Oracle Pick Tactics</h3>
+            <p>Decide what the creature would most likely do, then check anything you're unsure of: "Do the goblins go for the wounded hero?" (likely), "Does the bandit run at half hit points?" (toss-up). Cunning foes target weak spots; animals flee when badly hurt; mindless undead keep coming.</p>
+            <h3>Rewards Still Matter</h3>
+            <p>Award XP for defeated foes (300 XP takes you to 2nd level) and hand out treasure as the adventure suggests, so your hero keeps pace with the threats.</p>
+        </section>
+
+        <section class="solo-survival">
+            <h2>Staying Alive Without a Party</h2>
+            <ul>
+                <li><strong>Know how dying works.</strong> At 0 hit points you make death saving throws: 10 or higher is a success, three successes stabilize you, three failures and you die. A natural 20 brings you back with 1 hit point; a natural 1 counts as two failures. Alone, nobody can stabilize you, so retreat early.</li>
+                <li><strong>Carry healing.</strong> A potion of healing restores 2d4 + 2 hit points, and drinking one takes your action. Keep at least one for emergencies.</li>
+                <li><strong>Rest often.</strong> A short rest (1 hour) lets you spend Hit Dice to heal and recharges features like a fighter's Second Wind. Solo, two or three short rests a day are normal.</li>
+                <li><strong>Use Inspiration.</strong> Award it to yourself for playing your character's personality, ideal, bond or flaw, as a DM would, and spend it for advantage when it matters.</li>
+                <li><strong>Pick fights you can win.</strong> Use the budget above, and remember that sneaking, talking or running away are all good choices for a lone hero.</li>
+            </ul>
+        </section>
+
+        <section class="solo-howto">
+            <h2>🛠️ How To: Your First Solo Session</h2>
+            <ol>
+                <li><strong>Choose your hero</strong>, or a hero and a sidekick.</li>
+                <li><strong>Write a one-line goal.</strong> "Find out who's raiding the farms north of town." That's the session's question.</li>
+                <li><strong>Picture the first scene</strong> and make a scene check.</li>
+                <li><strong>Build encounters with the budget</strong> before you roll anything, and write them down.</li>
+                <li><strong>Play.</strong> Make checks, roll for foes, roll NPC attitudes, and ask the oracle about everything you don't know.</li>
+                <li><strong>Note XP, loot and new threads</strong>, then move to the next scene.</li>
+                <li><strong>Stop</strong> when the goal is met or at a good cliffhanger, and write a short journal entry.</li>
+            </ol>
+        </section>
+
+        <section class="solo-example">
+            <h2>Example of Play</h2>
+            <p>Kira Ironshield, the human fighter from <a href="/dnd_char.html">Character Creation</a>, plays alone at 1st level: AC 16, 12 hit points, greatsword +5 (2d6 + 3), Persuasion +1, Insight +3.</p>
+            <div class="example-box">
+                <p><strong>Scene check:</strong> Kira expects a quiet farmhouse where the latest raid happened. She rolls a 7: <em>Altered</em>. The farmer is home, boarding up his windows.</p>
+                <p><strong>Attitude:</strong> She rolls a 9: <em>indifferent</em>. Kira asks what he saw. Persuasion +1 against DC 10: she rolls 12, for 13. He talks.</p>
+                <p><strong>Question:</strong> "Did he see where the raiders went?" He was hiding, so it's unlikely: disadvantage, DC 11. She rolls 14 and 6, keeps the 6: <strong>No.</strong> But he points out goblin tracks heading for the old mill.</p>
+                <p><strong>Encounter:</strong> For one 1st-level hero, a single goblin (CR 1/4, 50 XP, ×1.5 for a small party = 75) is a hard fight. Kira finds one standing guard at the mill. Her greatsword attack: +5 against its AC 15. She rolls 12, for 17: a hit. Damage 2d6 + 3: she rolls 4 and 5, for 12, more than the goblin's 7 hit points.</p>
+                <p><strong>Afterward:</strong> She asks, "Are there more goblins inside?" It's likely (advantage, DC 11). She rolls 11 and 3, keeps the 11: <strong>Yes, but…</strong> There are two more, but they're asleep. A stealthy hero might get past them.</p>
+            </div>
+        </section>
+
+        <section class="solo-faq">
+            <h2>Common Questions</h2>
+            <h4>Isn't it boring to know everything already?</h4>
+            <p>You won't. Scene checks, sparks, NPC attitudes and the oracle answer the questions you'd normally leave to a DM, so you discover the story as you play.</p>
+            <h4>Can I play a published adventure solo?</h4>
+            <p>Yes. Read only one area ahead, use the oracle and scene checks for anything the adventure doesn't cover, and scale fights down with the budget table if you're playing fewer characters than it assumes.</p>
+            <h4>What if the oracle gives an answer that makes no sense?</h4>
+            <p>Reinterpret it before you roll again. A "yes" that seems impossible often hides a twist. If it truly breaks the story, treat it as a "but" answer or ask a smaller question.</p>
+            <h4>How do I avoid fudging for my hero?</h4>
+            <p>Build encounters with the budget before you roll, write DCs down before you check, roll monsters' attacks in the open, and ask the oracle rather than choosing when you're tempted.</p>
+        </section>
+
+        <section class="conclusion">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li>A solo hero's encounter budget is one character's thresholds, with monster XP multiplied one step higher: one CR 1/4 creature is already a hard fight at 1st level.</li>
+                <li>The oracle uses D&amp;D's own advantage and disadvantage for likelihood, with odds that mirror exactly.</li>
+                <li>Scene checks, sparks and attitude rolls run the world; Charisma checks and the oracle handle NPCs.</li>
+                <li>Potions, short rests and Inspiration keep a lone hero alive.</li>
+            </ul>
+
+            <div class="journal">
+                <h3>📓 Journal Prompts</h3>
+                <p>After your first solo session, jot down:</p>
+                <ul>
+                    <li>Which scene surprised you most, and what made it?</li>
+                    <li>Were your encounters too easy or too hard for one hero?</li>
+                    <li>Which NPC changed their mind, and why?</li>
+                    <li>What threads will you follow next time?</li>
+                </ul>
+            </div>
+
+            <div class="next-steps">
+                <h3>Where to Go Next</h3>
+                <p>That's the last numbered part. The guide continues with its tools: the <a href="/dnd_dice_roller.html">Dice Roller</a>, the <a href="/dnd_100.html">Sample Characters</a> and <a href="/dnd_names.html">150 Character Names</a>.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_dm.html">Dungeon Mastering</a>
+    <a class="next" href="/dnd_dice_roller.html">Dice Roller</a>
+</div>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict';
+            const $ = (id) => document.getElementById(id);
+            const roll = (s) => Math.floor(Math.random() * s) + 1;
+            const LEVELS = {
+                vl: { name: 'Very likely', adv: 1, dc: 6 },
+                l: { name: 'Likely', adv: 1, dc: 11 },
+                t: { name: 'Toss-up', adv: 0, dc: 11 },
+                u: { name: 'Unlikely', adv: -1, dc: 11 },
+                vu: { name: 'Very unlikely', adv: -1, dc: 16 }
+            };
+            const THREAT = ['Monsters defending their lair', 'A rival band of adventurers', 'A trap or a collapsing passage', "Agents of the villain you're hunting", 'Hungry beasts or something worse', 'The weather or the land itself'];
+            const COMPLICATION = ['An innocent is in the way', 'The clock is running: act within 3 rounds', 'Your way out is blocked', 'Someone lied to you', 'Your gear is damaged or lost', 'Two enemies are about to clash'];
+            const DISCOVERY = ['A clue to your main goal', 'Treasure, though someone will miss it', 'A potential ally in trouble', 'An old map or journal', 'A shrine to a forgotten god', 'A secret door or hidden path'];
+
+            // The oracle (see the rules above), reading the kept d20.
+            function oracle(k, dc) {
+                if (k === 20) return ['yes', 'Yes, and…'];
+                if (k === 1) return ['no', 'No, and…'];
+                if (k >= dc) return k <= dc + 1 ? ['mixed', 'Yes, but…'] : ['yes', 'Yes'];
+                return k >= dc - 2 ? ['mixed', 'No, but…'] : ['no', 'No'];
+            }
+            function keep(a, b, adv) { return adv === 1 ? Math.max(a, b) : adv === -1 ? Math.min(a, b) : a; }
+            function spark() {
+                const t = roll(6), c = roll(6), d = roll(6);
+                return ['Threat (' + t + '): ' + THREAT[t - 1], 'Complication (' + c + '): ' + COMPLICATION[c - 1], 'Discovery (' + d + '): ' + DISCOVERY[d - 1]];
+            }
+            function attitude(r) { return r <= 5 ? 'Hostile' : r <= 15 ? 'Indifferent' : 'Friendly'; }
+
+            function showDice(values, keptIndex, hi) {
+                const box = $('oracle-face'); box.textContent = '';
+                const wrap = document.createElement('div'); wrap.className = 'dice-pair';
+                values.forEach((v, i) => {
+                    const d = document.createElement('span');
+                    d.className = 'die ' + (hi ? 'hi' : 'lo');
+                    if (values.length > 1 && i !== keptIndex) d.style.opacity = '0.4';
+                    d.textContent = v; wrap.appendChild(d);
+                });
+                box.appendChild(wrap);
+            }
+            function setResult(kind, ans, detail, lines) {
+                $('oracle-out').className = 'oracle-out ' + kind;
+                $('oracle-answer').textContent = ans;
+                $('oracle-detail').textContent = detail;
+                const sp = $('oracle-spark'); sp.textContent = '';
+                if (lines && lines.length) {
+                    const ul = document.createElement('ul');
+                    lines.forEach((t) => { const li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+                    sp.appendChild(ul);
+                }
+            }
+            function log(text) {
+                const list = $('oracle-log');
+                if (list.dataset.started !== '1') { list.textContent = ''; list.dataset.started = '1'; }
+                const li = document.createElement('li');
+                li.textContent = text;   // user text is never parsed as HTML
+                list.prepend(li);
+                while (list.children.length > 200) list.lastElementChild.remove();
+            }
+
+            $('oracle-ask').addEventListener('click', () => {
+                const q = $('oracle-question').value.trim();
+                const L = LEVELS[$('oracle-odds').value];
+                const a = roll(20), b = roll(20), k = keep(a, b, L.adv);
+                const dice = L.adv ? [a, b] : [a];
+                const [kind, ans] = oracle(k, L.dc);
+                showDice(dice, dice.indexOf(k), k >= L.dc);
+                const how = L.adv === 1 ? 'advantage, kept ' + k : L.adv === -1 ? 'disadvantage, kept ' + k : 'rolled ' + k;
+                setResult(kind, ans, L.name + ': ' + (L.adv ? 'd20s ' + a + ' and ' + b + ', ' : '') + how + ' vs DC ' + L.dc + (k === 20 ? ' (natural 20)' : k === 1 ? ' (natural 1)' : '') + '.', null);
+                log((q ? '“' + q + '” ' : '') + L.name + ': ' + ans + ' (' + (L.adv ? a + '/' + b + ' → ' : '') + k + ')');
+            });
+
+            $('scene-check').addEventListener('click', () => {
+                const r = roll(20);
+                let kind, ans, detail, lines = null;
+                if (r <= 4) { kind = 'no'; ans = 'Interrupted'; detail = 'Something else happens. Build the scene around this spark:'; lines = spark(); }
+                else if (r <= 10) { kind = 'mixed'; ans = 'Altered'; detail = "It's mostly what you expected, but one detail is different."; }
+                else { kind = 'yes'; ans = 'As expected'; detail = 'Play the scene as you imagined it.'; }
+                showDice([r], 0, kind === 'yes');
+                setResult(kind, ans, 'Scene check: d20 = ' + r + '. ' + detail, lines);
+                log('Scene check: ' + ans + ' (' + r + ')' + (lines ? ' — ' + lines.join('; ') : ''));
+            });
+
+            $('spark-btn').addEventListener('click', () => {
+                const s = spark();
+                $('oracle-face').textContent = '';
+                setResult('mixed', 'Spark', 'Use these to build the scene:', s);
+                log('Spark: ' + s.join('; '));
+            });
+
+            $('attitude-btn').addEventListener('click', () => {
+                const r = roll(20), att = attitude(r);
+                const kind = r <= 5 ? 'no' : r <= 15 ? 'mixed' : 'yes';
+                showDice([r], 0, r >= 6);
+                setResult(kind, att, 'Starting attitude: d20 = ' + r + '. Charisma checks (Persuasion, Deception, Intimidation) can change it.', null);
+                log('NPC attitude: ' + att + ' (' + r + ')');
+            });
+
+            $('oracle-question').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('oracle-ask').click(); });
+
+            $('log-copy').addEventListener('click', async () => {
+                const list = $('oracle-log');
+                const text = list.dataset.started === '1' ? [...list.querySelectorAll('li')].reverse().map((li) => li.textContent).join('\n') : '';
+                const btn = $('log-copy');
+                try { await navigator.clipboard.writeText(text); btn.textContent = text ? 'Copied!' : 'Nothing to copy'; }
+                catch (e) { btn.textContent = 'Copy failed'; }
+                setTimeout(() => { btn.textContent = 'Copy Log'; }, 1500);
+            });
+            $('log-clear').addEventListener('click', () => {
+                const list = $('oracle-log');
+                list.textContent = '';
+                const li = document.createElement('li'); li.textContent = 'Your rolls will appear here.'; list.appendChild(li);
+                list.dataset.started = '0';
+            });
+
+            window.dndOracle = { oracle, keep, LEVELS }; // exposed for testing
+        })();
+    </script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
+</body>
+</html>
