@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Core Mechanics: The Dice System</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>Core Mechanics: The Dice System - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
     <header>
+        <span class="lesson-kicker">Part 5</span>
         <h1>Core Mechanics: Understanding the Dice</h1>
         <p><em>How Numbers Become Adventures</em></p>
     </header>
@@ -131,23 +137,30 @@
                     const level = parseInt(document.getElementById('level').value);
                     
                     const abilityMod = Math.floor((abilityScore - 10) / 2);
-                    const profBonus = Math.ceil(level / 4) + 1;
+                    const profBonus = Math.ceil(Math.min(20, Math.max(1, level)) / 4) + 1;
                     const totalMod = abilityMod + (isProficient ? profBonus : 0);
                     
                     const results = document.getElementById('successRates');
-                    let html = `<h4>Your modifier: +${totalMod}</h4><table><tr><th>DC</th><th>Need to Roll</th><th>Success Rate</th></tr>`;
+                    if (isNaN(abilityScore) || isNaN(level)) {
+                        results.textContent = 'Enter an ability score and a character level.';
+                        return;
+                    }
+                    const modText = totalMod >= 0 ? `+${totalMod}` : `${totalMod}`;
+                    let html = `<h4>Your modifier: ${modText}</h4><table><tr><th>DC</th><th>Need to Roll</th><th>Success Rate</th></tr>`;
                     
-                    for (let dc = 5; dc <= 25; dc += 5) {
+                    // Ability checks: a natural 1 or 20 has no special effect, so 0% and 100% are possible
+                    for (let dc = 5; dc <= 30; dc += 5) {
                         const needToRoll = Math.max(1, dc - totalMod);
                         const successRate = Math.max(0, Math.min(100, (21 - needToRoll) * 5));
-                        html += `<tr><td>${dc}</td><td>${needToRoll}+</td><td>${successRate}%</td></tr>`;
+                        const needText = needToRoll > 20 ? 'Impossible' : `${needToRoll}+`;
+                        html += `<tr><td>${dc}</td><td>${needText}</td><td>${successRate}%</td></tr>`;
                     }
                     html += '</table>';
                     results.innerHTML = html;
                 }
                 
                 // Calculate initial values
-                window.onload = calculateSuccessRates;
+                window.addEventListener('load', calculateSuccessRates);
             </script>
         </section>
 
@@ -178,11 +191,11 @@
             <div class="advantage-scenarios">
                 <h4>Common Advantage Situations</h4>
                 <ul>
-                    <li><strong>Attacking a prone enemy:</strong> Like shooting fish in a barrel</li>
+                    <li><strong>Attacking a prone enemy within 5 feet:</strong> Like shooting fish in a barrel (but ranged attacks against a prone target have disadvantage)</li>
                     <li><strong>Hidden attacker:</strong> Sniper's advantage of surprise</li>
                     <li><strong>Help from ally:</strong> Teamwork makes the dream work</li>
                     <li><strong>Perfect conditions:</strong> Optimal environment for the task</li>
-                    <li><strong>Magical enhancement:</strong> Spells like Bless or Guidance</li>
+                    <li><strong>Magical enhancement:</strong> Spells like Faerie Fire or Enhance Ability (Bless and Guidance add a d4 instead)</li>
                 </ul>
 
                 <h4>Common Disadvantage Situations</h4>
@@ -191,13 +204,13 @@
                     <li><strong>Blinded or restrained:</strong> Severe physical impairment</li>
                     <li><strong>Poor conditions:</strong> Fighting in darkness, climbing in a storm</li>
                     <li><strong>Magical hindrance:</strong> Curses or hostile spells</li>
-                    <li><strong>Improvised actions:</strong> Using a table leg as a weapon</li>
+                    <li><strong>Long-range shots:</strong> Firing beyond a weapon's normal range</li>
                 </ul>
             </div>
 
             <div class="probability-analysis">
                 <h3>The Mathematics of Advantage</h3>
-                <p>Advantage is roughly equivalent to a +3 to +5 bonus, while disadvantage is like a -3 to -5 penalty. But it's not linear – the effect varies based on what you need to roll:</p>
+                <p>Advantage is worth up to about a +5 bonus (when you need around an 11), while disadvantage is like a penalty of up to about -5. But it's not linear – the effect varies based on what you need to roll:</p>
                 
                 <canvas id="probabilityChart" width="500" height="300"></canvas>
                 
@@ -213,10 +226,10 @@
                         const roll2 = Math.floor(Math.random() * 20) + 1;
                         const finalResult = Math.max(roll1, roll2);
                         
-                        drawDie20(ctx, 150, 50, roll1, roll1 < roll2);
-                        drawDie20(ctx, 300, 50, roll2, roll2 < roll1);
+                        drawDie20(ctx, 220, 50, roll1, roll1 < roll2);
+                        drawDie20(ctx, 380, 50, roll2, roll2 < roll1);
                         
-                        ctx.fillStyle = '#2E8B57';
+                        ctx.fillStyle = '#1e6b42';
                         ctx.font = '20px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText('ADVANTAGE', 300, 30);
@@ -234,9 +247,9 @@
                         
                         const roll = Math.floor(Math.random() * 20) + 1;
                         
-                        drawDie20(ctx, 250, 50, roll, false);
+                        drawDie20(ctx, 300, 50, roll, false);
                         
-                        ctx.fillStyle = '#4682B4';
+                        ctx.fillStyle = '#2f5f8a';
                         ctx.font = '20px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText('NORMAL ROLL', 300, 30);
@@ -256,10 +269,10 @@
                         const roll2 = Math.floor(Math.random() * 20) + 1;
                         const finalResult = Math.min(roll1, roll2);
                         
-                        drawDie20(ctx, 150, 50, roll1, roll1 > roll2);
-                        drawDie20(ctx, 300, 50, roll2, roll2 > roll1);
+                        drawDie20(ctx, 220, 50, roll1, roll1 > roll2);
+                        drawDie20(ctx, 380, 50, roll2, roll2 > roll1);
                         
-                        ctx.fillStyle = '#DC143C';
+                        ctx.fillStyle = '#b3102f';
                         ctx.font = '20px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText('DISADVANTAGE', 300, 30);
@@ -272,7 +285,7 @@
                         var cx = x, cy = y + 10, r = 32;
                         var hexColor = grayed ? '#555' : '#b91c1c';
                         var edgeColor = grayed ? '#888' : '#fca5a5';
-                        var textColor = grayed ? '#999' : '#fff';
+                        var textColor = grayed ? '#e5e5e5' : '#fff';
 
                         ctx.beginPath();
                         for (var i = 0; i < 6; i++) {
@@ -296,13 +309,24 @@
                         ctx.textBaseline = 'alphabetic';
 
                         if (grayed) {
-                            ctx.fillStyle = '#cc4444';
-                            ctx.font = '11px "Segoe UI", system-ui, sans-serif';
+                            ctx.fillStyle = '#9b1c1c';
+                            ctx.font = '12px "Segoe UI", system-ui, sans-serif';
                             ctx.textAlign = 'center';
                             ctx.fillText('NOT USED', cx, cy + r + 16);
                         }
                     }
                     
+                    function drawAdvantagePrompt() {
+                        const canvas = document.getElementById('advantageCanvas');
+                        const ctx = canvas.getContext('2d');
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.fillStyle = '#14152b';
+                        ctx.font = '16px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Pick a roll type below to roll the dice', canvas.width / 2, canvas.height / 2);
+                    }
+                    window.addEventListener('load', drawAdvantagePrompt);
+
                     // Draw probability chart
                     function drawProbabilityChart() {
                         const canvas = document.getElementById('probabilityChart');
@@ -316,7 +340,7 @@
                         const chartHeight = canvas.height - 2 * margin;
                         
                         // Draw axes
-                        ctx.strokeStyle = '#c9cdd8';
+                        ctx.strokeStyle = '#14152b';
                         ctx.lineWidth = 2;
                         ctx.beginPath();
                         ctx.moveTo(margin, margin);
@@ -325,18 +349,43 @@
                         ctx.stroke();
                         
                         // Labels
-                        ctx.fillStyle = '#c9cdd8';
+                        ctx.fillStyle = '#14152b';
                         ctx.font = '12px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText('Target Roll', margin + chartWidth/2, canvas.height - 10);
                         ctx.save();
-                        ctx.translate(15, margin + chartHeight/2);
+                        ctx.translate(12, margin + chartHeight/2);
                         ctx.rotate(-Math.PI/2);
                         ctx.fillText('Success Probability', 0, 0);
                         ctx.restore();
                         
+                        // Axis ticks: target roll 2-20 (x), 0-100% (y)
+                        ctx.fillStyle = '#14152b';
+                        ctx.font = '11px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.strokeStyle = '#14152b';
+                        ctx.lineWidth = 1;
+                        [2, 5, 8, 11, 14, 17, 20].forEach(t => {
+                            const tx = margin + (t - 2) * chartWidth / 18;
+                            ctx.beginPath();
+                            ctx.moveTo(tx, margin + chartHeight);
+                            ctx.lineTo(tx, margin + chartHeight + 5);
+                            ctx.stroke();
+                            ctx.fillText(t, tx, margin + chartHeight + 17);
+                        });
+                        ctx.textAlign = 'right';
+                        [0, 25, 50, 75, 100].forEach(pc => {
+                            const ty = margin + chartHeight - (pc / 100) * chartHeight;
+                            ctx.strokeStyle = '#d4d4e0';
+                            ctx.beginPath();
+                            ctx.moveTo(margin + 1, ty);
+                            ctx.lineTo(margin + chartWidth, ty);
+                            ctx.stroke();
+                            ctx.fillText(pc + '%', margin - 5, ty + 4);
+                        });
+
                         // Draw probability lines
-                        const colors = ['#DC143C', '#4682B4', '#2E8B57'];
+                        const colors = ['#b3102f', '#2f5f8a', '#1e6b42'];
                         const labels = ['Disadvantage', 'Normal', 'Advantage'];
                         
                         for (let type = 0; type < 3; type++) {
@@ -346,12 +395,13 @@
                             
                             for (let target = 2; target <= 20; target++) {
                                 let prob;
-                                if (type === 0) { // Disadvantage
-                                    prob = Math.pow((21 - target) / 20, 2);
+                                const p = (21 - target) / 20; // one d20 meeting the target
+                                if (type === 0) { // Disadvantage: both dice must succeed
+                                    prob = p * p;
                                 } else if (type === 1) { // Normal
-                                    prob = (21 - target) / 20;
-                                } else { // Advantage
-                                    prob = 1 - Math.pow((target - 1) / 20, 2);
+                                    prob = p;
+                                } else { // Advantage: at least one die succeeds
+                                    prob = 1 - (1 - p) * (1 - p);
                                 }
                                 
                                 const x = margin + (target - 2) * chartWidth / 18;
@@ -369,11 +419,11 @@
                         // Legend
                         for (let i = 0; i < 3; i++) {
                             ctx.fillStyle = colors[i];
-                            ctx.fillRect(canvas.width - 150, 20 + i * 20, 15, 15);
-                            ctx.fillStyle = '#c9cdd8';
+                            ctx.fillRect(canvas.width - 130, 8 + i * 18, 14, 14);
+                            ctx.fillStyle = '#14152b';
                             ctx.font = '12px Arial';
                             ctx.textAlign = 'left';
-                            ctx.fillText(labels[i], canvas.width - 130, 32 + i * 20);
+                            ctx.fillText(labels[i], canvas.width - 110, 19 + i * 18);
                         }
                     }
                     
@@ -408,7 +458,7 @@
                 <div class="skill-category">
                     <h4>Strength Skills</h4>
                     <p><strong>Athletics:</strong> Climbing, jumping, swimming, wrestling</p>
-                    <p><em>Real-world parallel:</em> Physical education class or gym membership</p>
+                    <p><em>Real-world parallel:</em> Gym membership or team sports</p>
                 </div>
 
                 <div class="skill-category">
@@ -457,7 +507,7 @@
                     <div class="approach">
                         <h4>Gorok the Barbarian (STR 18, no thief tools)</h4>
                         <p><strong>Approach:</strong> "I'll break it down!"</p>
-                        <p><strong>Roll:</strong> Strength (Athletics) check vs DC 15</p>
+                        <p><strong>Roll:</strong> Strength check vs DC 15</p>
                         <p><strong>Modifier:</strong> +4 (STR) = needs 11+ on d20</p>
                         <p><strong>Success rate:</strong> 50%</p>
                         <p><strong>Consequence:</strong> Loud noise alerts everyone nearby</p>
@@ -477,7 +527,7 @@
                         <p><strong>Approach:</strong> "Magic will open any lock."</p>
                         <p><strong>Roll:</strong> No roll needed, spell automatically works</p>
                         <p><strong>Success rate:</strong> 100%</p>
-                        <p><strong>Consequence:</strong> Uses a spell slot, magical energy detected</p>
+                        <p><strong>Consequence:</strong> Uses a 2nd-level spell slot, and the spell makes a loud knock audible up to 300 feet away</p>
                     </div>
 
                     <div class="approach">
@@ -532,7 +582,7 @@
                 <h4>Ranged Attack Formula</h4>
                 <p><strong>d20 + Dexterity Modifier + Proficiency Bonus ≥ Target's AC</strong></p>
                 <ul>
-                    <li><strong>Examples:</strong> Bows, crossbows, thrown weapons, most spells</li>
+                    <li><strong>Examples:</strong> Bows and crossbows. Thrown weapons such as javelins use Strength unless they have the finesse property (like a dagger), and spell attacks use your spellcasting ability instead.</li>
                 </ul>
             </div>
 
@@ -588,10 +638,10 @@
                 <div class="weapon-damage-examples">
                     <h4>Common Weapon Damage</h4>
                     <ul>
-                        <li><strong>Dagger:</strong> 1d4 + ability modifier (2-7 damage typically)</li>
-                        <li><strong>Shortsword:</strong> 1d6 + ability modifier (4-9 damage typically)</li>
-                        <li><strong>Longsword:</strong> 1d8 + ability modifier (4-11 damage typically)</li>
-                        <li><strong>Greatsword:</strong> 2d6 + ability modifier (5-15 damage typically)</li>
+                        <li><strong>Dagger:</strong> 1d4 + ability modifier (4-7 with a +3 modifier, average 5.5)</li>
+                        <li><strong>Shortsword:</strong> 1d6 + ability modifier (4-9 with a +3 modifier, average 6.5)</li>
+                        <li><strong>Longsword:</strong> 1d8 + ability modifier (4-11 with a +3 modifier, average 7.5)</li>
+                        <li><strong>Greatsword:</strong> 2d6 + ability modifier (5-15 with a +3 modifier, average 10)</li>
                     </ul>
                 </div>
             </div>
@@ -603,46 +653,53 @@
                     
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     
+                    // Bar height = average of the damage dice alone (dN averages (N + 1) / 2)
                     const weapons = [
-                        {name: 'Dagger', dice: 'd4', color: '#FFD700'},
-                        {name: 'Shortsword', dice: 'd6', color: '#87CEEB'},
-                        {name: 'Longsword', dice: 'd8', color: '#DDA0DD'},
-                        {name: 'Greatsword', dice: '2d6', color: '#F0E68C'}
+                        {name: 'Dagger', dice: '1d4', avg: 2.5, range: '1-4', color: '#f2c94c'},
+                        {name: 'Shortsword', dice: '1d6', avg: 3.5, range: '1-6', color: '#7fb8d9'},
+                        {name: 'Longsword', dice: '1d8', avg: 4.5, range: '1-8', color: '#c49bd6'},
+                        {name: 'Greatsword', dice: '2d6', avg: 7, range: '2-12', color: '#e0b84a'}
                     ];
                     
-                    const barWidth = 120;
-                    const barHeight = 150;
+                    const barWidth = 110;
                     const spacing = 140;
-                    const startX = 30;
-                    const startY = 50;
-                    const labelColor = '#c9cdd8';
+                    const startX = 45;
+                    const baseY = 196;
+                    const scale = 17; // pixels per point of damage
+                    const labelColor = '#14152b';
                     
                     weapons.forEach((weapon, index) => {
                         const x = startX + index * spacing;
+                        const h = weapon.avg * scale;
+                        const top = baseY - h;
                         
                         // Draw bar
                         ctx.fillStyle = weapon.color;
-                        ctx.fillRect(x, startY, barWidth, barHeight);
-                        ctx.strokeStyle = '#000';
-                        ctx.strokeRect(x, startY, barWidth, barHeight);
+                        ctx.fillRect(x, top, barWidth, h);
+                        ctx.strokeStyle = '#14152b';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(x, top, barWidth, h);
                         
-                        // Draw dice representation
-                        ctx.fillStyle = '#fff';
-                        ctx.font = '24px Arial';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(weapon.dice, x + barWidth/2, startY + barHeight/2);
-                        
-                        // Weapon name
+                        // Dice and average above the bar
                         ctx.fillStyle = labelColor;
-                        ctx.font = '14px Arial';
-                        ctx.fillText(weapon.name, x + barWidth/2, startY + barHeight + 20);
+                        ctx.textAlign = 'center';
+                        ctx.font = 'bold 18px Arial';
+                        ctx.fillText(weapon.dice, x + barWidth/2, top - 24);
+                        ctx.font = '13px Arial';
+                        ctx.fillText('average ' + weapon.avg, x + barWidth/2, top - 8);
+                        
+                        // Weapon name and range below
+                        ctx.font = 'bold 14px Arial';
+                        ctx.fillText(weapon.name, x + barWidth/2, baseY + 20);
+                        ctx.font = '12px Arial';
+                        ctx.fillText('rolls ' + weapon.range, x + barWidth/2, baseY + 38);
                     });
                     
                     // Title
                     ctx.fillStyle = labelColor;
                     ctx.font = '18px Arial';
                     ctx.textAlign = 'center';
-                    ctx.fillText('Weapon Damage Dice Comparison', canvas.width/2, 30);
+                    ctx.fillText('Weapon Damage Dice: Average Roll (before modifiers)', canvas.width/2, 24);
                 }
                 
                 window.addEventListener('load', drawDamageComparison);
@@ -672,7 +729,7 @@
 
                     <div class="save-type">
                         <h4>Constitution Saves</h4>
-                        <p><strong>Resisting:</strong> Poison, disease, exhaustion, death</p>
+                        <p><strong>Resisting:</strong> Poison, disease, exhaustion, and losing concentration on a spell</p>
                         <p><strong>Example:</strong> Fighting off a deadly toxin</p>
                         <p><strong>Real-world:</strong> Your immune system fighting illness</p>
                     </div>
@@ -726,7 +783,7 @@
                 <details>
                     <summary>Click for answers</summary>
                     <ul>
-                        <li>Rogue needs to roll 7+ (DEX +3, proficiency +2, total +5)</li>
+                        <li>Rogue needs to roll 9+ (DEX +3, proficiency +2, total +5; a 60% chance)</li>
                         <li>Fighter has +4 to hit (STR +2, proficiency +2), needs 12+ to hit AC 16</li>
                         <li>Longsword deals 1d8+2, average damage is 6.5</li>
                     </ul>
@@ -745,9 +802,9 @@
                 <details>
                     <summary>Click for answers</summary>
                     <ul>
-                        <li>Advantage (help from ally distraction)</li>
+                        <li>Advantage, if the ally takes the Help action or the DM rules the distraction gives you the edge</li>
                         <li>Disadvantage (ranged attacks while prone)</li>
-                        <li>Normal (unless the blessing specifically grants advantage)</li>
+                        <li>Normal (Bless adds a d4 to the roll rather than granting advantage)</li>
                         <li>Disadvantage (attacking unseen target)</li>
                     </ul>
                 </details>
@@ -796,7 +853,7 @@
 
                 <h3>Advantage Stacking</h3>
                 <p><strong>Problem:</strong> Thinking multiple advantages give extra benefits</p>
-                <p><strong>Solution:</strong> Multiple advantages = one advantage. Multiple disadvantages = one disadvantage. They cancel each other out.</p>
+                <p><strong>Solution:</strong> Multiple advantages = one advantage. Multiple disadvantages = one disadvantage. If you have any advantage and any disadvantage at all, they cancel out and you roll one d20, no matter how many of each.</p>
 
                 <h3>AC vs. Damage Confusion</h3>
                 <p><strong>Problem:</strong> Rolling damage when you miss, or forgetting damage when you hit</p>
@@ -810,10 +867,10 @@
 
         <section class="next-steps">
             <h2>What's Coming Next?</h2>
-            <p>Now that you understand how the dice work, our next lesson will dive into combat tactics and strategy. You'll learn how to position your character effectively, when to use different actions, and how to work as a team to overcome challenging encounters.</p>
+            <p>Now that you understand how the dice work, the next part dives into combat tactics and strategy. You'll learn how to position your character effectively, when to use different actions, and how to work as a team to overcome challenging encounters.</p>
             
             <div class="preview-box">
-                <h3>Next Lesson Preview:<a href="/dnd_combat.html">Combat Tactics and Strategy</a></h3>
+                <h3>Next Part Preview: <a href="/dnd_combat.html">Combat Tactics and Strategy</a></h3>
                 <ul>
                     <li>Action economy and why it matters</li>
                     <li>Positioning and movement in combat</li>
@@ -831,19 +888,18 @@
                 <li><strong>Dice Rolling Apps:</strong> Digital alternatives for physical dice</li>
                 <li><strong>Probability Calculators:</strong> Online tools to understand your chances</li>
                 <li><strong>Combat Trackers:</strong> Apps to help manage initiative and health</li>
-                <li><strong>Character Sheet Guides:</strong> Tutorials on filling out and using character sheets</li>
+                <li><strong>Character Sheet Guides:</strong> Guides to filling out and using character sheets</li>
             </ul>
         </section>
     </main>
 
     <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_groups.html">Party Dynamics</a>
+    <a class="next" href="/dnd_combat.html">Combat</a>
+</div>
         <p><em>Remember: The dice add excitement and uncertainty, but the story is what makes those numbers meaningful!</em></p>
     </footer>
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_groups.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Group Dynamics</a>
-        <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
-        <a href="/dnd_dice_roller.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Dice Roller &rarr;</a>
-    </nav>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Combat Tactics and Strategy</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>Combat - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
     <header>
+        <span class="lesson-kicker">Part 6</span>
         <h1>Combat Tactics and Strategy</h1>
         <p><em>From Dice Rolling to Battlefield Mastery</em></p>
     </header>
@@ -39,8 +45,8 @@
                     A[Your Turn] --> B[Movement - 30 feet typical]
                     A --> C[Action - Main activity]
                     A --> D[Bonus Action - If available]
-                    A --> E[Reaction - Response to triggers]
-                    A --> F[Free Actions - Speaking, etc.]
+                    A --> E[Reaction - Response to triggers, once per round]
+                    A --> F[Free - Speak briefly, interact with one object]
                     
                     C --> G[Attack]
                     C --> H[Cast a Spell]
@@ -50,6 +56,8 @@
                     C --> L[Hide - Stealth attempt]
                     C --> M[Ready - Prepare an action]
                     C --> N[Search - Look for something]
+                    C --> O[Disengage - No opportunity attacks]
+                    C --> P[Use an Object]
                     
                     style A fill:#FFE4B5
                     style C fill:#98FB98
@@ -64,8 +72,8 @@
                     <ul>
                         <li><strong>Standard speed:</strong> 30 feet for most characters (6 seconds of movement)</li>
                         <li><strong>Split movement:</strong> Move 15 feet, attack, then move 15 more feet</li>
-                        <li><strong>Opportunity attacks:</strong> Leaving an enemy's reach triggers a free attack</li>
-                        <li><strong>Difficult terrain:</strong> Costs double movement (mud, stairs, crowds)</li>
+                        <li><strong>Opportunity attacks:</strong> Leaving a hostile creature's reach lets it use its reaction to make one melee attack against you (unless you Disengage)</li>
+                        <li><strong>Difficult terrain:</strong> Costs double movement (rubble, steep stairs, deep snow)</li>
                     </ul>
                 </div>
 
@@ -73,13 +81,14 @@
                     <h4>Action - Your Main Event</h4>
                     <p><strong>Real-world parallel:</strong> The primary thing you do in those 6 seconds, like throwing a punch in a fight</p>
                     <div class="action-options">
-                        <p><strong>Attack:</strong> Strike with weapon or unarmed. Extra attacks at higher levels.</p>
-                        <p><strong>Cast a Spell:</strong> Most spells require your full action to cast.</p>
+                        <p><strong>Attack:</strong> Strike with weapon or unarmed. Some classes gain Extra Attack at 5th level.</p>
+                        <p><strong>Cast a Spell:</strong> Most spells have a casting time of 1 action.</p>
                         <p><strong>Dash:</strong> Move again (total: double your speed). Great for escaping or closing distance.</p>
-                        <p><strong>Dodge:</strong> All attacks against you have disadvantage until your next turn.</p>
-                        <p><strong>Help:</strong> Give an ally advantage on their next roll. Teamwork in action!</p>
-                        <p><strong>Hide:</strong> Attempt to become unseen. Requires cover or concealment.</p>
-                        <p><strong>Ready:</strong> "I'll shoot when the orc comes around the corner." Prepare a response.</p>
+                        <p><strong>Dodge:</strong> Until your next turn, attacks against you have disadvantage if you can see the attacker, and you make Dexterity saves with advantage.</p>
+                        <p><strong>Disengage:</strong> Your movement doesn't provoke opportunity attacks for the rest of the turn.</p>
+                        <p><strong>Help:</strong> Give an ally advantage on their next ability check, or on their next attack against a creature within 5 feet of you, before your next turn. Teamwork in action!</p>
+                        <p><strong>Hide:</strong> Make a Dexterity (Stealth) check to become hidden. You can't hide from a creature that can see you clearly, so you need cover or heavy obscurement.</p>
+                        <p><strong>Ready:</strong> "I'll shoot when the orc comes around the corner." Prepare a response that uses your reaction when the trigger happens.</p>
                     </div>
                 </div>
 
@@ -89,7 +98,7 @@
                     <ul>
                         <li>Only usable if you have a specific feature that grants one</li>
                         <li><strong>Examples:</strong> Rogue's Cunning Action, Fighter's Second Wind, some spells</li>
-                        <li>Can't use multiple bonus actions per turn</li>
+                        <li>Only one bonus action per turn, even if you have several options</li>
                     </ul>
                 </div>
 
@@ -100,7 +109,7 @@
                         <li>Triggered by specific events, usable once per round</li>
                         <li><strong>Opportunity attack:</strong> When enemy leaves your reach</li>
                         <li><strong>Counterspell:</strong> Interrupt an enemy's spellcasting</li>
-                        <li><strong>Shield spell:</strong> Boost AC when attacked</li>
+                        <li><strong>Shield spell:</strong> +5 AC until your next turn when you're hit</li>
                     </ul>
                 </div>
             </div>
@@ -126,35 +135,41 @@
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     
                     // Draw party actions (left side)
-                    ctx.fillStyle = '#4CAF50';
                     for (let i = 0; i < 4; i++) {
+                        ctx.fillStyle = '#2e7d32';
                         ctx.fillRect(50 + i * 60, 100, 50, 100);
                         ctx.fillStyle = '#fff';
-                        ctx.font = '12px Arial';
+                        ctx.font = 'bold 13px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText(`P${i+1}`, 75 + i * 60, 140);
-                        ctx.fillText('Action', 75 + i * 60, 155);
-                        ctx.fillStyle = '#4CAF50';
+                        ctx.font = '12px Arial';
+                        ctx.fillText('Action', 75 + i * 60, 158);
                     }
                     
                     // Draw enemy action (right side)
-                    ctx.fillStyle = '#F44336';
+                    ctx.fillStyle = '#c62828';
                     ctx.fillRect(450, 60, 80, 140);
                     ctx.fillStyle = '#fff';
-                    ctx.font = '16px Arial';
+                    ctx.font = 'bold 16px Arial';
                     ctx.textAlign = 'center';
                     ctx.fillText('BOSS', 490, 125);
+                    ctx.font = '14px Arial';
                     ctx.fillText('Action', 490, 145);
                     
                     // Labels
-                    ctx.fillStyle = '#c9cdd8';
-                    ctx.font = '18px Arial';
-                    ctx.fillText('Party (4 actions per round)', 170, 50);
-                    ctx.fillText('Enemy (1 action per round)', 490, 30);
+                    ctx.fillStyle = '#14152b';
+                    ctx.font = '15px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Party (4 actions per round)', 165, 40);
+                    ctx.fillText('Enemy (1 action per round)', 480, 40);
                     
                     // VS
-                    ctx.font = '24px Arial';
-                    ctx.fillText('VS', 350, 150);
+                    ctx.font = 'bold 24px Arial';
+                    ctx.fillText('VS', 360, 158);
+
+                    // Footnote
+                    ctx.font = '13px Arial';
+                    ctx.fillText('Every round the party takes four turns for each one the enemy takes.', canvas.width / 2, 255);
                 }
                 
                 window.addEventListener('load', drawActionEconomyChart);
@@ -173,7 +188,7 @@
                     <canvas id="tacticalCanvas" width="400" height="400"></canvas>
                     <div class="grid-controls">
                         <button onclick="showMeleeRange()">Show Melee Range</button>
-                        <button onclick="showRangedAdvantage()">Show Ranged Advantage</button>
+                        <button onclick="showRangedAdvantage()">Show Line of Sight</button>
                         <button onclick="showAreaEffect()">Show Area Effect</button>
                         <button onclick="clearCanvas()">Clear</button>
                     </div>
@@ -222,7 +237,7 @@
                     <p><strong>Real-world parallel:</strong> Like wolves hunting – attack from multiple angles</p>
                     <ul>
                         <li>Surround enemies to limit their movement</li>
-                        <li>Attack from behind for potential advantage</li>
+                        <li>Flank for advantage, but only if your DM uses the optional flanking rule</li>
                         <li>Split enemy attention between multiple threats</li>
                         <li>Use movement to avoid being surrounded yourself</li>
                     </ul>
@@ -230,6 +245,14 @@
             </div>
 
             <script>
+                // 8 x 8 grid, 50 px per 5-foot square. Token positions are square corners.
+                const TOKENS = {
+                    F:  {x: 200, y: 150, color: '#2e7d32', label: 'F'},
+                    W:  {x: 50,  y: 300, color: '#1565c0', label: 'W'},
+                    E1: {x: 250, y: 150, color: '#c62828', label: 'E1'},
+                    E2: {x: 250, y: 200, color: '#c62828', label: 'E2'}
+                };
+
                 function setupTacticalCanvas() {
                     const canvas = document.getElementById('tacticalCanvas');
                     const ctx = canvas.getContext('2d');
@@ -237,7 +260,7 @@
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                     // Draw grid
-                    ctx.strokeStyle = '#2e3347';
+                    ctx.strokeStyle = '#c9c9d9';
                     ctx.lineWidth = 1;
                     for (let i = 0; i <= 8; i++) {
                         // Vertical lines
@@ -253,31 +276,17 @@
                         ctx.stroke();
                     }
                     
-                    // Draw characters
-                    // Fighter in center
-                    ctx.fillStyle = '#4CAF50';
-                    ctx.fillRect(175, 175, 50, 50);
-                    ctx.fillStyle = '#fff';
-                    ctx.font = '12px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('F', 200, 205);
-                    
-                    // Wizard behind
-                    ctx.fillStyle = '#2196F3';
-                    ctx.fillRect(175, 125, 50, 50);
-                    ctx.fillStyle = '#fff';
-                    ctx.fillText('W', 200, 155);
-                    
-                    // Enemies
-                    ctx.fillStyle = '#F44336';
-                    ctx.fillRect(275, 175, 50, 50);
-                    ctx.fillStyle = '#fff';
-                    ctx.fillText('E1', 300, 205);
-                    
-                    ctx.fillStyle = '#F44336';
-                    ctx.fillRect(275, 225, 50, 50);
-                    ctx.fillStyle = '#fff';
-                    ctx.fillText('E2', 300, 255);
+                    // Draw characters: fighter (F) in front, wizard (W) back and to the side, two enemies (E1, E2)
+                    Object.values(TOKENS).forEach(t => {
+                        ctx.fillStyle = t.color;
+                        ctx.fillRect(t.x + 3, t.y + 3, 44, 44);
+                        ctx.fillStyle = '#fff';
+                        ctx.font = 'bold 14px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(t.label, t.x + 25, t.y + 25);
+                        ctx.textBaseline = 'alphabetic';
+                    });
                 }
                 
                 let activeOverlay = null;
@@ -298,31 +307,50 @@
                 function showMeleeRange() {
                     toggleOverlay('melee', () => {
                         const ctx = document.getElementById('tacticalCanvas').getContext('2d');
-                        ctx.fillStyle = 'rgba(76, 175, 80, 0.3)';
-                        ctx.fillRect(125, 125, 150, 150);
-                    }, '<p><strong>Melee Range:</strong> Fighter (F) can attack any adjacent square (green area). Each square = 5 feet.</p>');
+                        const f = TOKENS.F;
+                        ctx.fillStyle = 'rgba(46, 125, 50, 0.25)';
+                        ctx.fillRect(f.x - 50, f.y - 50, 150, 150);
+                        ctx.strokeStyle = '#2e7d32';
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(f.x - 50, f.y - 50, 150, 150);
+                    }, '<p><strong>Melee Range:</strong> With a normal 5-foot reach, the fighter (F) can attack any of the eight surrounding squares (green area), so both enemies are in reach. If either one walks out of that area, the fighter can use its reaction for an opportunity attack. Each square = 5 feet.</p>');
                 }
                 
                 function showRangedAdvantage() {
                     toggleOverlay('ranged', () => {
                         const ctx = document.getElementById('tacticalCanvas').getContext('2d');
-                        ctx.strokeStyle = '#2196F3';
+                        const w = TOKENS.W, e = TOKENS.E2;
+                        ctx.strokeStyle = '#1565c0';
                         ctx.lineWidth = 3;
+                        ctx.setLineDash([8, 6]);
+                        // Stop the line at the token edges so it doesn't cover the labels
+                        const x1 = w.x + 25, y1 = w.y + 25, x2 = e.x + 25, y2 = e.y + 25;
+                        const len = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / len, uy = (y2 - y1) / len;
                         ctx.beginPath();
-                        ctx.moveTo(200, 150);
-                        ctx.lineTo(300, 200);
+                        ctx.moveTo(x1 + ux * 30, y1 + uy * 30);
+                        ctx.lineTo(x2 - ux * 30, y2 - uy * 30);
                         ctx.stroke();
-                    }, '<p><strong>Ranged Advantage:</strong> Wizard (W) has clear line of sight to enemy, while fighter provides cover and blocks enemy movement.</p>');
+                        ctx.setLineDash([]);
+                    }, '<p><strong>Line of Sight:</strong> The wizard (W) stays out of the enemies&#39; reach with a clear line of sight to E2, while the fighter blocks the enemies&#39; path. Shooting past another creature, friend or foe, would give the target half cover (+2 AC), so a clear line matters.</p>');
                 }
                 
                 function showAreaEffect() {
                     toggleOverlay('area', () => {
                         const ctx = document.getElementById('tacticalCanvas').getContext('2d');
-                        ctx.fillStyle = 'rgba(255, 193, 7, 0.5)';
+                        // Shatter: 10-foot-radius sphere = 100 px, from a grid intersection two squares past the fighter
+                        const cx = 350, cy = 200;
+                        ctx.fillStyle = 'rgba(230, 160, 0, 0.35)';
                         ctx.beginPath();
-                        ctx.arc(300, 225, 75, 0, 2 * Math.PI);
+                        ctx.arc(cx, cy, 100, 0, 2 * Math.PI);
                         ctx.fill();
-                    }, '<p><strong>Area Effect:</strong> Fireball (20-foot radius) can hit multiple enemies while avoiding allies through careful positioning.</p>');
+                        ctx.strokeStyle = '#b37400';
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                        ctx.fillStyle = '#7a4f00';
+                        ctx.beginPath();
+                        ctx.arc(cx, cy, 5, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }, '<p><strong>Area Effect:</strong> A Shatter spell (10-foot-radius sphere) aimed at a point just beyond the enemies catches both of them but leaves the adjacent fighter outside the blast. A bigger area such as Fireball (20-foot radius, eight squares across) would cover most of this map, fighter included, so careful placement matters.</p>');
                 }
                 
                 function clearCanvas() {
@@ -431,7 +459,7 @@
                     
                     <div class="role-classes">
                         <p><strong>Best classes:</strong> Cleric, Druid, Bard, some Paladins</p>
-                        <p><strong>Key stats:</strong> Strong spellcasting, good Wisdom, spell slots</p>
+                        <p><strong>Key stats:</strong> Strong spellcasting ability score, plenty of spell slots</p>
                     </div>
                 </div>
 
@@ -488,7 +516,7 @@
                         <h4>Optimal Strategy:</h4>
                         <ul>
                             <li><strong>Back-to-back formation:</strong> Protect each other's flanks</li>
-                            <li><strong>Prioritize mobility:</strong> Use Dash actions to break out</li>
+                            <li><strong>Prioritize mobility:</strong> Disengage (or a rogue's Cunning Action) to break out without provoking opportunity attacks</li>
                             <li><strong>Area effects:</strong> Hit multiple enemies with one spell/ability</li>
                             <li><strong>Create chaos:</strong> Fear, sleep, or confusion effects</li>
                         </ul>
@@ -523,7 +551,7 @@
                         <ul>
                             <li><strong>Action economy abuse:</strong> Use your numbers advantage</li>
                             <li><strong>Debuff stacking:</strong> Multiple characters apply different penalties</li>
-                            <li><strong>Hit-and-run:</strong> Attack and retreat to avoid retaliation</li>
+                            <li><strong>Hit-and-run:</strong> Attack and retreat to avoid retaliation (watch out for opportunity attacks)</li>
                             <li><strong>Environmental hazards:</strong> Lure enemy into traps or difficult terrain</li>
                         </ul>
                         
@@ -644,7 +672,7 @@
             </div>
 
             <div class="activity">
-                <h3>Activity 3: Role Assignment</h3>
+                <h3>Activity 3: Assigning Roles</h3>
                 <p>For each party composition, identify the primary role of each character:</p>
                 <ul>
                     <li><strong>Party 1:</strong> Human Fighter, Elf Wizard, Dwarf Cleric, Halfling Rogue</li>
@@ -743,10 +771,10 @@
 
         <section class="next-steps">
             <h2>What's Coming Next?</h2>
-            <p>Now that you understand tactical combat, our next lesson will explore magic and spellcasting – the most complex and versatile system in D&D. You'll learn how spells work, how to manage spell slots, and how magic can solve problems both in and out of combat.</p>
+            <p>Now that you understand tactical combat, the next part explores magic and spellcasting – the most complex and versatile system in D&D. You'll learn how spells work, how to manage spell slots, and how magic can solve problems both in and out of combat.</p>
             
             <div class="preview-box">
-                <h3>Next Lesson Preview:<a href="/dnd_magic.html">Magic and Spellcasting</a></h3>
+                <h3>Next Part Preview: <a href="/dnd_magic.html">Magic and Spellcasting</a></h3>
                 <ul>
                     <li>Understanding spell slots and spell levels</li>
                     <li>Components: verbal, somatic, and material</li>
@@ -772,13 +800,12 @@
     </main>
 
     <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_core.html">Core Mechanics</a>
+    <a class="next" href="/dnd_magic.html">Magic &amp; Spellcasting</a>
+</div>
         <p><em>Remember: The best tactics are the ones your party can execute together. Communication and coordination beat perfect strategy every time!</em></p>
     </footer>
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_dice_roller.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Dice Roller</a>
-        <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
-        <a href="/dnd_magic.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Magic &rarr;</a>
-    </nav>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

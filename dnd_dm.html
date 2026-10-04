@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Introduction to Dungeon Mastering</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>Dungeon Mastering - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
     <header>
+        <span class="lesson-kicker">Part 9</span>
         <h1>Introduction to Dungeon Mastering</h1>
         <p><em>Becoming the Architect of Adventure</em></p>
     </header>
@@ -410,15 +416,16 @@
 
                 <script>
                     function calculateEncounter() {
-                        const level = parseInt(document.getElementById('partyLevel').value);
-                        const size = parseInt(document.getElementById('partySize').value);
+                        const result = document.getElementById('encounterResult');
+                        const level = parseInt(document.getElementById('partyLevel').value, 10);
+                        const size = parseInt(document.getElementById('partySize').value, 10);
                         const difficulty = document.getElementById('encounterDifficulty').value;
                         
-                        // XP thresholds by level (Easy, Medium, Hard, Deadly)
+                        // XP thresholds per character by level (Easy, Medium, Hard, Deadly), DMG 2014
                         const thresholds = {
                             1: [25, 50, 75, 100],
                             2: [50, 100, 150, 200],
-                            3: [75, 150, 225, 300],
+                            3: [75, 150, 225, 400],
                             4: [125, 250, 375, 500],
                             5: [250, 500, 750, 1100],
                             6: [300, 600, 900, 1400],
@@ -429,34 +436,46 @@
                         };
                         
                         if (!thresholds[level]) {
-                            document.getElementById('encounterResult').innerHTML = 
-                                '<p>Please select a level between 1 and 10 for this calculator.</p>';
+                            result.innerHTML = '<p>Please enter a level between 1 and 10 for this calculator.</p>';
+                            return;
+                        }
+                        if (!(size >= 1 && size <= 8)) {
+                            result.innerHTML = '<p>Please enter between 1 and 8 characters.</p>';
                             return;
                         }
                         
-                        const difficultyIndex = {
-                            'easy': 0,
-                            'medium': 1,
-                            'hard': 2,
-                            'deadly': 3
-                        };
+                        const difficultyIndex = { easy: 0, medium: 1, hard: 2, deadly: 3 };
+                        const label = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+                        const budget = thresholds[level][difficultyIndex[difficulty]] * size;
                         
-                        const baseXP = thresholds[level][difficultyIndex[difficulty]];
-                        const totalXP = baseXP * size;
+                        // Encounter multipliers (DMG 2014). Groups of fewer than 3 characters use the
+                        // next higher multiplier; groups of 6 or more use the next lower one.
+                        const steps = [0.5, 1, 1.5, 2, 2.5, 3, 4];
+                        const groups = [
+                            { name: '1 monster', idx: 1 },
+                            { name: '2 monsters', idx: 2 },
+                            { name: '3–6 monsters', idx: 3 },
+                            { name: '7–10 monsters', idx: 4 },
+                            { name: '11–14 monsters', idx: 5 },
+                            { name: '15 or more monsters', idx: 6 }
+                        ];
+                        const shift = size < 3 ? 1 : (size >= 6 ? -1 : 0);
+                        const rows = groups.map(function (g) {
+                            const i = Math.min(steps.length - 1, Math.max(0, g.idx + shift));
+                            const m = steps[i];
+                            return '<li><strong>' + g.name + ':</strong> ×' + m +
+                                ' — up to ' + Math.floor(budget / m).toLocaleString() + ' XP of monsters in total</li>';
+                        }).join('');
                         
-                        const result = document.getElementById('encounterResult');
                         result.innerHTML = `
-                            <h5>Encounter Budget for ${size} Level ${level} Characters:</h5>
-                            <p><strong>${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Encounter:</strong> ${totalXP} XP</p>
+                            <h5>Encounter Budget for ${size} Level ${level} Character${size === 1 ? '' : 's'}:</h5>
+                            <p><strong>${label} Encounter:</strong> ${budget.toLocaleString()} XP (adjusted)</p>
                             <div class="encounter-suggestions">
-                                <h6>Monster Suggestions:</h6>
-                                <ul>
-                                    <li><strong>Single Enemy:</strong> CR ${Math.round(level * 0.75)} - ${Math.round(level * 1.25)}</li>
-                                    <li><strong>Multiple Enemies:</strong> 2-4 creatures of CR ${Math.round(level * 0.4)} - ${Math.round(level * 0.6)}</li>
-                                    <li><strong>Horde:</strong> 6+ creatures of CR ${Math.round(level * 0.2)} - ${Math.round(level * 0.3)}</li>
-                                </ul>
+                                <h6>How Much Raw Monster XP Fits:</h6>
+                                <p>Add up the monsters' XP, then multiply by the encounter multiplier for the group size. The adjusted total should stay at or under the budget.</p>
+                                <ul>${rows}</ul>
                             </div>
-                            <p><em>Remember: Adjust based on party composition, rested state, and tactical situation!</em></p>
+                            <p><em>Party XP awards use the monsters' raw XP, not the adjusted total. The DMG suggests an adventuring day of roughly six to eight medium or hard encounters with two short rests. Adjust for party composition, how rested they are, and the terrain.</em></p>
                         `;
                     }
                     
@@ -900,12 +919,12 @@
     </main>
 
     <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_rp_and_char_dev.html">Roleplaying &amp; Character Development</a>
+    <a class="next" href="/dnd_dice_roller.html">Dice Roller</a>
+</div>
         <p><em>The best DM is not the one who never makes mistakes, but the one who helps everyone have the most fun!</em></p>
     </footer>
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_rp_and_char_dev.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Roleplay &amp; Character Dev</a>
-        <a href="/index.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Home &rarr;</a>
-    </nav>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

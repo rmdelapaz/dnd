@@ -1,0 +1,7 @@
+# Internal notes stay in git but are not served
+/continue.md    /404.html    404!
+/readme.md    /404.html    404!
+
+# Old fragment of the sample-characters page (removed 2026-10-04)
+/dnd_100inc.html    /dnd_100    301
+/dnd_100inc    /dnd_100    301

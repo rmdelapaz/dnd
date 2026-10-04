@@ -3,53 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Introduction: What is Dungeons and Dragons?</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>The Dungeons &amp; Dragons 5e Guide: Roll for Adventure</title>
+    <meta name="description" content="A free 9-part guide to Dungeons &amp; Dragons 5th Edition (2014 rules): character creation, parties, the d20 system, advantage, combat, magic, roleplaying and Dungeon Mastering, plus a dice roller with exact odds, 420 sample characters and 150 names.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <style>
+        .home { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding-bottom: 24px; }
+        .hero {
+            margin-top: 28px;
+            padding: clamp(36px, 7vw, 72px) clamp(20px, 5vw, 56px);
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(253, 186, 116, 0.2), transparent 45%),
+                linear-gradient(135deg, var(--hero-1), var(--hero-2));
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+        .hero h1 { color: #fff; font-size: clamp(2.1rem, 6vw, 3.4rem); margin: 0 0 14px; }
+        .hero p { color: rgba(255, 255, 255, 0.93); font-size: clamp(1.05rem, 2.2vw, 1.22rem); max-width: 64ch; margin: 0 0 24px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+        .btn-hero { display: inline-block; padding: 12px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; background: #fff; color: #12132b; border: 2px solid #fff; }
+        .btn-hero:hover { background: #f7e6ec; color: #12132b; }
+        .btn-hero.ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.7); }
+        .btn-hero.ghost:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+        .turn-card {
+            display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px; padding: 10px 16px; font-weight: 700; color: #fff;
+        }
+        .turn-card .pips { font-size: 1.3rem; letter-spacing: 2px; color: #fdba74; }
+        .turn-card .lbl { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.9); }
+
+        .section-head { margin: 52px 0 16px; }
+        .section-head h2 { margin: 0 0 8px; }
+        .section-head p { color: var(--muted); max-width: 70ch; margin: 0; }
+        .group-label { font-family: "EB Garamond", Georgia, serif; font-weight: 700; color: var(--gold); letter-spacing: 0.04em; text-transform: uppercase; margin: 26px 0 10px; font-size: 0.95rem; }
+        .part-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 14px; }
+        .part-card {
+            display: flex; flex-direction: column; gap: 6px;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+            padding: 18px 20px; box-shadow: var(--shadow); text-decoration: none; color: var(--text);
+            border-left: 4px solid var(--accent); transition: transform 0.15s, border-color 0.15s;
+        }
+        .part-card:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--text); }
+        .part-card .num { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+        .part-card h3 { margin: 0; font-size: 1.12rem; color: var(--heading); }
+        .part-card h3 .icon { margin-right: 6px; }
+        .part-card p { margin: 0; color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
+        .part-card.tool { border-left-color: var(--gold); }
+        .quick { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 12px; }
+        .quick div { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+        .quick h3 { margin: 0 0 4px; font-size: 1.02rem; color: var(--heading); }
+        .quick p { margin: 0; color: var(--text); font-size: 0.95rem; line-height: 1.55; }
+        .home-footer { text-align: center; color: var(--muted); margin-top: 36px; }
+    </style>
 </head>
 <body>
-    <!-- Theme toggle -->
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
-    <header>
-        <h1>Welcome to Dungeons & Dragons 5th Edition</h1>
-        <p><em>Your Gateway to Collaborative Storytelling and Adventure</em></p>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
+
+<div class="home">
+    <header class="hero">
+        <h1>The Dungeons &amp; Dragons 5e Guide</h1>
+        <p>Dungeons &amp; Dragons from Wizards of the Coast is the world's best-known tabletop roleplaying game: a group of friends, a Dungeon Master, and a d20 that decides what happens next. This 9-part guide follows the 5th Edition rules (the 2014 Player's Handbook) and takes you from your first character to running your own table.</p>
+        <div class="hero-actions">
+            <a class="btn-hero" href="/dnd_intro.html">Start with Part 1 →</a>
+            <a class="btn-hero ghost" href="/dnd_dice_roller.html">Roll the Dice</a>
+        </div>
+        <div class="turn-card" aria-label="The core roll: d20 plus modifier against a target number">
+            <span class="lbl">The core roll</span><span class="pips" aria-hidden="true">d20 + mod ≥ DC</span><span class="lbl">advantage: roll 2, keep the best</span>
+        </div>
     </header>
 
     <main>
-        <section class="intro">
-          <h3>Dungeons &amp; Dragons (D&amp;D) 5th Edition</h3>
-            <p>The most famous TTRPG, like the "Coca-Cola" of the hobby. Fantasy setting with wizards, dragons, and medieval adventures. Great for beginners because there are tons of resources and other players.</p>
-            <ul>
-                <li><a href="/dnd_intro.html">Introduction</a></li>
-                <li><a href="/dnd_char.html">Character Creation</a></li>
-                <li><a href="/dnd_character_examples.html">Character Examples</a></li>
-                <li><a href="/dnd_100.html">100 Characters</a></li>
-                <li><a href="/dnd_names.html">Character Names</a></li>
-                <li><a href="/dnd_groups.html">Character Group Dynamics</a></li>
-                <li><a href="/dnd_core.html">DnD Core Mechanics</a></li>                               <li><a href="/dnd_dice_roller.html">Dice Roller</a></li>
-                <li><a href="/dnd_combat.html">DnD Combat</a></li>
-                <li><a href="/dnd_magic.html">DnD Magic</a></li>
-                <li><a href="/dnd_rp_and_char_dev.html">Dnd Roleplay and Character Development</a></li>
-                <li><a href="/dnd_dm.html">Introduction to Dungeon Mastery</a></li>
-               
-                
-
-
-            </ul>
+        <section>
+            <div class="section-head">
+                <h2>D&amp;D 5e at a Glance</h2>
+                <p>Four ideas carry most of the game. Each part of the guide builds on them.</p>
+            </div>
+            <div class="quick">
+                <div><h3>One Die to Rule Them</h3><p>Roll a d20, add a modifier, and meet or beat a Difficulty Class (DC) or Armor Class (AC). Easy is DC 10, medium 15, hard 20.</p></div>
+                <div><h3>Advantage</h3><p>Good circumstances give advantage: roll two d20s and keep the higher. Bad ones give disadvantage: keep the lower. They never stack.</p></div>
+                <div><h3>Proficiency</h3><p>Things your character is trained in add a proficiency bonus that grows from +2 at 1st level to +6 at 17th.</p></div>
+                <div><h3>Your Turn</h3><p>Move, take one action, and maybe a bonus action, plus one reaction each round, like an opportunity attack.</p></div>
+            </div>
         </section>
 
-       <footer>
-        <p><em>Dungeons and Dragons is a tabletop role-playing game published by Wizards of the Coast.</em></p>
-        <p style="margin-top: 0.5rem;"><a href="https://rays-home.netlify.app/" style="color: #ccc; text-decoration: underline;">← Back to Ray's House of Fun</a></p>
-           <p style="margin-top: 0.5rem;"><a href="https://rays-home.netlify.app/contact" style="color: #ccc; text-decoration: underline;">Contact Me</a></p>
+        <section>
+            <div class="section-head">
+                <h2>The 9 Parts</h2>
+                <p>Players come first, then the rules in play, then running the game. Read in order or jump to what you need.</p>
+            </div>
+
+            <p class="group-label">Heroes</p>
+            <div class="part-grid">
+                <a class="part-card" href="/dnd_intro.html"><span class="num">Part 1</span><h3><span class="icon" aria-hidden="true">🐉</span>Welcome to D&amp;D 5e</h3><p>What the game is, how a session flows and who does what at the table.</p></a>
+                <a class="part-card" href="/dnd_char.html"><span class="num">Part 2</span><h3><span class="icon" aria-hidden="true">🧝</span>Character Creation</h3><p>Race, class, background and ability scores, step by step.</p></a>
+                <a class="part-card" href="/dnd_character_examples.html"><span class="num">Part 3</span><h3><span class="icon" aria-hidden="true">👤</span>Character Examples</h3><p>Worked heroes and the adventuring parties they fit into.</p></a>
+                <a class="part-card" href="/dnd_groups.html"><span class="num">Part 4</span><h3><span class="icon" aria-hidden="true">👥</span>Party Dynamics</h3><p>Roles, synergy and building a party that works together.</p></a>
+            </div>
+
+            <p class="group-label">Play the Game</p>
+            <div class="part-grid">
+                <a class="part-card" href="/dnd_core.html"><span class="num">Part 5</span><h3><span class="icon" aria-hidden="true">🎲</span>Core Mechanics</h3><p>The d20 system, DCs, advantage, proficiency and the odds behind every roll.</p></a>
+                <a class="part-card" href="/dnd_combat.html"><span class="num">Part 6</span><h3><span class="icon" aria-hidden="true">⚔️</span>Combat</h3><p>Initiative, actions and bonus actions, opportunity attacks, cover and tactics.</p></a>
+                <a class="part-card" href="/dnd_magic.html"><span class="num">Part 7</span><h3><span class="icon" aria-hidden="true">✨</span>Magic &amp; Spellcasting</h3><p>Spell slots, cantrips, concentration and casting at higher levels.</p></a>
+                <a class="part-card" href="/dnd_rp_and_char_dev.html"><span class="num">Part 8</span><h3><span class="icon" aria-hidden="true">🎭</span>Roleplaying &amp; Character Development</h3><p>Personality, bonds and flaws, and growing your character through the story.</p></a>
+            </div>
+
+            <p class="group-label">Run the Game</p>
+            <div class="part-grid">
+                <a class="part-card" href="/dnd_dm.html"><span class="num">Part 9</span><h3><span class="icon" aria-hidden="true">📖</span>Dungeon Mastering</h3><p>Running sessions, building encounters with the XP budget, and keeping everyone engaged.</p></a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-head">
+                <h2>Tools</h2>
+                <p>Use these at the table or while you build characters.</p>
+            </div>
+            <div class="part-grid">
+                <a class="part-card tool" href="/dnd_dice_roller.html"><span class="num">Tool</span><h3><span class="icon" aria-hidden="true">🎲</span>Dice Roller</h3><p>Attacks, checks and saves with advantage and exact odds, plus damage, death saves and ability scores.</p></a>
+                <a class="part-card tool" href="/dnd_100.html"><span class="num">Tool</span><h3><span class="icon" aria-hidden="true">🧙</span>Sample Characters</h3><p>420 ready-made heroes: 20 solo characters and 100 parties of two to six, all legal under the 2014 rules.</p></a>
+                <a class="part-card tool" href="/dnd_names.html"><span class="num">Tool</span><h3><span class="icon" aria-hidden="true">📜</span>150 Character Names</h3><p>Names for every race and setting, with tips for choosing one.</p></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="home-footer">
+        <p>Dungeons &amp; Dragons is published by Wizards of the Coast. The core rules are in the Player's Handbook, and the free SRD 5.1 covers the basics.</p>
     </footer>
-    <script>
-    document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});
-    </script>
+</div>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

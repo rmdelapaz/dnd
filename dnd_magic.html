@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Magic and Spellcasting</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>Magic &amp; Spellcasting - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
     <header>
+        <span class="lesson-kicker">Part 7</span>
         <h1>Magic and Spellcasting</h1>
         <p><em>Weaving Reality with Words and Will</em></p>
     </header>
@@ -48,7 +54,7 @@
                     F --> J[Rare slots, reality-bending]
                     
                     G --> K[Magic Missile, Cure Wounds]
-                    H --> L[Fireball, Invisibility]
+                    H --> L[Misty Step, Invisibility]
                     I --> M[Lightning Bolt, Counterspell]
                     J --> N[Polymorph, Wall of Fire]
                     
@@ -68,7 +74,7 @@
                     <div class="level-comparison">
                         <table>
                             <tr>
-                                <th>Character Level</th>
+                                <th>Character Level (full caster, e.g. wizard)</th>
                                 <th>Spell Slots Available</th>
                                 <th>Highest Spell Level</th>
                                 <th>Real-World Parallel</th>
@@ -151,7 +157,7 @@
                     const result = document.getElementById('upcastingResult');
                     
                     if (castLevel < baseLevel) {
-                        result.innerHTML = '<p style="color: red;">Cannot cast a spell at a lower level than its base level!</p>';
+                        result.innerHTML = '<p style="color: var(--danger);">Cannot cast a spell at a lower level than its base level!</p>';
                         return;
                     }
                     
@@ -192,13 +198,13 @@
                             examples = [
                                 'Fireball: 8d6 fire damage',
                                 'Lightning Bolt: 8d6 lightning damage',
-                                'Counterspell: counters 3rd level or lower'
+                                'Counterspell: automatically stops spells of 3rd level or lower (higher needs an ability check)'
                             ];
                         } else {
                             examples = [
                                 `Fireball: ${8 + levelDifference}d6 fire damage`,
                                 `Lightning Bolt: ${8 + levelDifference}d6 lightning damage`,
-                                `Counterspell: counters ${3 + levelDifference}rd level or lower automatically`
+                                `Counterspell: automatically stops spells of ${castLevel}${getOrdinal(castLevel)} level or lower`
                             ];
                         }
                     }
@@ -233,7 +239,7 @@
                     <div class="component-details">
                         <h5>Mechanical Effects:</h5>
                         <ul>
-                            <li><strong>Can't cast if silenced:</strong> Magical silence, gag, or underwater</li>
+                            <li><strong>Can't cast if silenced:</strong> Magical silence (such as the Silence spell) or a gag stops you</li>
                             <li><strong>Others can hear you:</strong> Casting isn't subtle</li>
                             <li><strong>Language doesn't matter:</strong> It's mystical sounds, not conversation</li>
                         </ul>
@@ -241,7 +247,7 @@
                         <h5>Example Situations:</h5>
                         <ul>
                             <li>"I want to cast Fireball, but I'm gagged by the bandits"</li>
-                            <li>"Can I cast healing word while underwater?" (No, verbal component)</li>
+                            <li>"Can I cast Healing Word while underwater?" (Yes: the rules don't forbid verbal components underwater, though some DMs rule otherwise)</li>
                             <li>"The guards hear me chanting as I cast Charm Person"</li>
                         </ul>
                     </div>
@@ -256,13 +262,13 @@
                         <h5>Mechanical Effects:</h5>
                         <ul>
                             <li><strong>Need free hand:</strong> Can't cast if both hands are occupied</li>
-                            <li><strong>Shield exception:</strong> Can use the same hand that holds a focus</li>
-                            <li><strong>Restrained problems:</strong> Tied up = no somatic components</li>
+                            <li><strong>Focus hand counts:</strong> If the spell has a material component, the hand holding the focus or component can also perform the gestures</li>
+                            <li><strong>Bound hands:</strong> Hands tied = no somatic components (the restrained condition by itself doesn't stop gestures)</li>
                         </ul>
                         
                         <h5>Hand Management Examples:</h5>
                         <ul>
-                            <li><strong>Sword + Shield:</strong> Can't cast somatic spells without War Caster feat</li>
+                            <li><strong>Sword + Shield:</strong> No free hand for somatic components, unless you have the War Caster feat (a cleric can also use a holy symbol on the shield as a focus for spells with material components)</li>
                             <li><strong>Staff + Free Hand:</strong> Staff is focus, hand is free for gestures</li>
                             <li><strong>Two-Handed Weapon:</strong> Can briefly let go with one hand</li>
                         </ul>
@@ -280,7 +286,7 @@
                             <li><strong>Spellcasting Focus:</strong> Wand, staff, crystal, holy symbol (reusable)</li>
                             <li><strong>Component Pouch:</strong> Contains all common spell materials</li>
                             <li><strong>Specific Materials:</strong> Diamonds for resurrection, pearls for identify</li>
-                            <li><strong>Consumed Components:</strong> Materials with a gold cost are used up</li>
+                            <li><strong>Consumed Components:</strong> Used up only when the spell says so (a focus or pouch can't replace a component with a gold cost)</li>
                         </ul>
                         
                         <h5>Cost Examples:</h5>
@@ -300,7 +306,7 @@
                 <div class="component-scenarios">
                     <button onclick="showScenario('normal')">Normal Casting</button>
                     <button onclick="showScenario('silenced')">Silenced Caster</button>
-                    <button onclick="showScenario('restrained')">Restrained Caster</button>
+                    <button onclick="showScenario('restrained')">Hands Bound</button>
                     <button onclick="showScenario('underwater')">Underwater</button>
                 </div>
                 <div id="scenarioExplanation"></div>
@@ -342,13 +348,13 @@
                             ctx.beginPath();
                             ctx.ellipse(400, 150, 80, 30, 0, 0, 2 * Math.PI);
                             ctx.fill();
-                            ctx.fillStyle = '#000';
-                            ctx.font = '12px Arial';
+                            ctx.fillStyle = '#14152b';
+                            ctx.font = '13px Arial';
                             ctx.textAlign = 'center';
                             ctx.fillText('Fireball!', 400, 155);
                             
                             // Draw hand gesture (somatic)
-                            ctx.strokeStyle = '#FFD700';
+                            ctx.strokeStyle = '#B8860B';
                             ctx.lineWidth = 3;
                             ctx.beginPath();
                             ctx.arc(350, 220, 20, 0, Math.PI);
@@ -357,7 +363,7 @@
                             // Draw focus (material)
                             ctx.fillStyle = '#8B4513';
                             ctx.fillRect(250, 200, 5, 40);
-                            ctx.fillStyle = '#FFD700';
+                            ctx.fillStyle = '#B8860B';
                             ctx.beginPath();
                             ctx.arc(252, 195, 8, 0, 2 * Math.PI);
                             ctx.fill();
@@ -377,7 +383,7 @@
                             ctx.stroke();
                             
                             // Hand gesture still works
-                            ctx.strokeStyle = '#FFD700';
+                            ctx.strokeStyle = '#B8860B';
                             ctx.lineWidth = 3;
                             ctx.beginPath();
                             ctx.arc(350, 220, 20, 0, Math.PI);
@@ -386,12 +392,12 @@
                             // Focus still works
                             ctx.fillStyle = '#8B4513';
                             ctx.fillRect(250, 200, 5, 40);
-                            ctx.fillStyle = '#FFD700';
+                            ctx.fillStyle = '#B8860B';
                             ctx.beginPath();
                             ctx.arc(252, 195, 8, 0, 2 * Math.PI);
                             ctx.fill();
                             
-                            explanation.innerHTML = '<h4>Silenced Caster</h4><p>Cannot speak, so Verbal component fails. Can only cast spells without Verbal components (like Shield or Misty Step).</p>';
+                            explanation.innerHTML = '<h4>Silenced Caster</h4><p>Cannot speak, so Verbal component fails. Can only cast spells without a Verbal component (like Minor Illusion or Hypnotic Pattern), or use a sorcerer\'s Subtle Spell.</p>';
                             break;
                             
                         case 'restrained':
@@ -410,37 +416,38 @@
                             ctx.beginPath();
                             ctx.ellipse(400, 150, 80, 30, 0, 0, 2 * Math.PI);
                             ctx.fill();
-                            ctx.fillStyle = '#000';
-                            ctx.font = '12px Arial';
+                            ctx.fillStyle = '#14152b';
+                            ctx.font = '13px Arial';
                             ctx.textAlign = 'center';
                             ctx.fillText('Verbal only!', 400, 155);
                             
-                            explanation.innerHTML = '<h4>Restrained Caster</h4><p>Arms are tied, preventing Somatic components. Can only cast spells that are purely Verbal (very few exist) or have no Somatic requirement.</p>';
+                            explanation.innerHTML = '<h4>Hands Bound</h4><p>Hands are tied, preventing Somatic components. Can only cast spells with no Somatic component, such as Healing Word, Command, or Misty Step.</p>';
                             break;
                             
                         case 'underwater':
-                            // Water bubbles
+                            // Water tint and bubbles
                             ctx.fillStyle = 'rgba(135, 206, 235, 0.3)';
                             ctx.fillRect(0, 0, 600, 400);
                             
                             for (let i = 0; i < 10; i++) {
-                                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                                ctx.fillStyle = 'rgba(70, 130, 180, 0.35)';
                                 ctx.beginPath();
                                 ctx.arc(Math.random() * 600, Math.random() * 400, Math.random() * 10 + 5, 0, 2 * Math.PI);
                                 ctx.fill();
                             }
                             
-                            // X over mouth for verbal
-                            ctx.strokeStyle = '#FF0000';
-                            ctx.lineWidth = 4;
+                            // Speech bubble: verbal still works (rules as written)
+                            ctx.fillStyle = '#FFE4B5';
                             ctx.beginPath();
-                            ctx.moveTo(290, 175);
-                            ctx.lineTo(310, 185);
-                            ctx.moveTo(310, 175);
-                            ctx.lineTo(290, 185);
-                            ctx.stroke();
+                            ctx.ellipse(400, 150, 90, 30, 0, 0, 2 * Math.PI);
+                            ctx.fill();
+                            ctx.fillStyle = '#14152b';
+                            ctx.font = '13px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('Still casts (RAW)', 400, 155);
+                            ctx.fillText('Fire damage: resisted underwater', 300, 360);
                             
-                            explanation.innerHTML = '<h4>Underwater Casting</h4><p>Cannot speak clearly underwater, so Verbal components fail. Somatic and Material components work fine. Great time for Shield, Misty Step, or other non-verbal spells!</p>';
+                            explanation.innerHTML = '<h4>Underwater Casting</h4><p>The core rules do not stop Verbal, Somatic, or Material components underwater, so spells cast normally (some DMs rule that you cannot speak clearly). The real catch: creatures fully immersed in water have resistance to fire damage, so Fireball is a poor choice.</p>';
                             break;
                     }
                 }
@@ -531,7 +538,7 @@
                         <div class="school-spells">
                             <p><strong>Signature spells:</strong> Misty Step, Conjure Animals, Teleport</p>
                             <p><strong>What it's good for:</strong> Mobility, summoning allies, creating objects</p>
-                            <p><strong>Wizard specialist:</strong> Conjurer excels at battlefield control</p>
+                            <p><strong>Wizard specialist:</strong> Conjurer excels at summoning and short-range teleportation</p>
                         </div>
                     </div>
 
@@ -574,7 +581,7 @@
                         <p><strong>Real-world parallel:</strong> Medicine (both healing and understanding death)</p>
                         <div class="school-spells">
                             <p><strong>Signature spells:</strong> Animate Dead, Speak with Dead, Vampiric Touch</p>
-                            <p><strong>What it's good for:</strong> Healing, harming, communicating with dead</p>
+                            <p><strong>What it's good for:</strong> Draining life, raising undead, communicating with the dead (most healing spells are actually evocation)</p>
                             <p><strong>Wizard specialist:</strong> Necromancer gains power over death itself</p>
                         </div>
                     </div>
@@ -607,7 +614,7 @@
                             <li>Only ONE concentration spell at a time</li>
                             <li>Casting a new concentration spell ends the previous one</li>
                             <li>Some spells require concentration, others don't</li>
-                            <li>Duration varies: 1 minute to 24 hours</li>
+                            <li>Duration varies by spell: most last 1 minute to 1 hour, a few longer</li>
                         </ul>
                     </div>
 
@@ -681,7 +688,7 @@
                     result.innerHTML = `
                         <h5>Concentration Save Results:</h5>
                         <p><strong>DC:</strong> ${dc} (${Math.floor(damage / 2)} from damage, minimum 10)</p>
-                        <p><strong>Your save bonus:</strong> +${saveBonus} (${conMod} CON ${isProficient ? '+ ' + profBonus + ' proficiency' : ''})</p>
+                        <p><strong>Your save bonus:</strong> ${saveBonus >= 0 ? '+' : ''}${saveBonus} (${conMod >= 0 ? '+' : ''}${conMod} CON${isProficient ? ' + ' + profBonus + ' proficiency' : ''})</p>
                         <p><strong>Need to roll:</strong> ${needToRoll}+ on d20</p>
                         <p><strong>Success rate:</strong> ${successRate}%</p>
                         <p><em>${successRate >= 75 ? 'Very likely to maintain' : successRate >= 50 ? 'Good chance to maintain' : successRate >= 25 ? 'Risky but possible' : 'Very likely to lose concentration'}</em></p>
@@ -754,7 +761,7 @@
                 <h3>Understanding Each Casting Style</h3>
                 
                 <div class="caster-type">
-                    <h4>Prepared Casters (Wizard, Cleric, Druid)</h4>
+                    <h4>Prepared Casters (Wizard, Cleric, Druid, Paladin)</h4>
                     <p><strong>How it works:</strong> You know many spells but choose a limited number each day</p>
                     <p><strong>Analogy:</strong> Like having a huge music library but only loading certain songs onto your portable device</p>
                     <p><strong>Advantage:</strong> Incredible versatility and adaptability</p>
@@ -762,7 +769,7 @@
                 </div>
 
                 <div class="caster-type">
-                    <h4>Known Casters (Sorcerer, Bard, Warlock)</h4>
+                    <h4>Known Casters (Sorcerer, Bard, Warlock, Ranger)</h4>
                     <p><strong>How it works:</strong> You permanently know a limited number of spells</p>
                     <p><strong>Analogy:</strong> Like knowing a smaller repertoire of songs by heart</p>
                     <p><strong>Advantage:</strong> Always have your best spells available</p>
@@ -781,7 +788,7 @@
                     <li><strong>Extra time:</strong> Takes 10 minutes longer than normal casting</li>
                     <li><strong>No spell slot:</strong> Doesn't consume magical energy</li>
                     <li><strong>Same effect:</strong> Works exactly like the normal version</li>
-                    <li><strong>Limited spells:</strong> Only certain spells have the ritual tag</li>
+                    <li><strong>Limited spells:</strong> Only spells with the ritual tag, and only if your class can cast rituals (wizards, clerics, druids, and bards can; a wizard can ritual-cast straight from the spellbook without preparing the spell)</li>
                 </ul>
 
                 <h4>Popular Ritual Spells</h4>
@@ -790,7 +797,7 @@
                         <li><strong>Detect Magic:</strong> See magical auras and enchantments</li>
                         <li><strong>Identify:</strong> Learn the properties of magic items</li>
                         <li><strong>Find Familiar:</strong> Summon a magical animal companion</li>
-                        <li><strong>Comprehend Languages:</strong> Understand any written language</li>
+                        <li><strong>Comprehend Languages:</strong> Understand any spoken language and read any written one</li>
                         <li><strong>Alarm:</strong> Set a magical security system</li>
                         <li><strong>Tiny Hut:</strong> Create a magical camping shelter</li>
                     </ul>
@@ -891,7 +898,7 @@
                         <li>Conjuration (Misty Step, Dimension Door)</li>
                         <li>Enchantment (Suggestion, Charm Person)</li>
                         <li>Divination (Detect Magic, Locate Object)</li>
-                        <li>Abjuration (Shield, Protection from Arrows)</li>
+                        <li>Abjuration (Shield)</li>
                         <li>Evocation (Fireball, Lightning Bolt)</li>
                     </ul>
                 </details>
@@ -928,9 +935,9 @@
                 <p>Combining spells for greater effect than the sum of their parts</p>
                 <ul>
                     <li><strong>Web + Fire spells:</strong> Webs are flammable, deal extra damage</li>
-                    <li><strong>Grease + Fire spells:</strong> Turn slippery surface into damaging inferno</li>
+                    <li><strong>Grease + Fire spells:</strong> Some DMs let grease burn, though the spell itself doesn't say it's flammable; ask first</li>
                     <li><strong>Faerie Fire + Attack spells:</strong> Reveal invisible enemies for advantage</li>
-                    <li><strong>Hold Person + Coup de grace:</strong> Automatic critical hits on helpless foes</li>
+                    <li><strong>Hold Person + melee attacks:</strong> Attacks against a paralyzed foe have advantage, and any hit from within 5 feet is a critical hit</li>
                 </ul>
             </div>
 
@@ -940,7 +947,7 @@
                 <ul>
                     <li><strong>Cantrips first:</strong> Use unlimited spells before spending slots</li>
                     <li><strong>Ritual when possible:</strong> Free utility magic during exploration</li>
-                    <li><strong>Short rest recovery:</strong> Some classes regain spells on short rests</li>
+                    <li><strong>Short rest recovery:</strong> Warlocks regain their slots on a short rest; wizards get some back with Arcane Recovery</li>
                     <li><strong>Environmental solutions:</strong> Use terrain instead of magic when possible</li>
                 </ul>
             </div>
@@ -952,7 +959,7 @@
                     <li><strong>Counterspell baiting:</strong> Force enemies to use their reactions</li>
                     <li><strong>Concentration targeting:</strong> Focus fire on concentrating casters</li>
                     <li><strong>Spell identification:</strong> Recognize incoming spells to counter appropriately</li>
-                    <li><strong>Action economy abuse:</strong> Bonus action spells and quickened metamagic</li>
+                    <li><strong>Action economy:</strong> Bonus action spells and Quickened Spell (if you cast a spell as a bonus action, your only other spell that turn can be a 1-action cantrip)</li>
                 </ul>
             </div>
         </section>
@@ -964,7 +971,7 @@
                 <h3>The Hoarder's Curse</h3>
                 <p><strong>Problem:</strong> Saving spell slots "for when I really need them"</p>
                 <p><strong>Why it fails:</strong> Underperforms consistently while waiting for perfect moment</p>
-                <p><strong>Solution:</strong> Use 75% of your spell slots before the final encounter</p>
+                <p><strong>Solution:</strong> Spend slots steadily through the day instead of saving nearly all of them for the end</p>
 
                 <h3>The Concentration Shuffle</h3>
                 <p><strong>Problem:</strong> Constantly switching concentration spells</p>
@@ -985,10 +992,10 @@
 
         <section class="next-steps">
             <h2>What's Coming Next?</h2>
-            <p>With magic mastered, our next lesson will explore roleplaying and character development – how to bring your character to life beyond their statistics. You'll learn how to create compelling personalities, memorable interactions, and character growth that makes every session memorable.</p>
+            <p>With magic mastered, the next part explores roleplaying and character development – how to bring your character to life beyond their statistics. You'll see how to create compelling personalities, memorable interactions, and character growth that makes every session memorable.</p>
             
             <div class="preview-box">
-                <h3>Next Lesson Preview: <a href="/dnd_rp_and_char_dev.html">Roleplaying and Character Development</a></h3>
+                <h3>Next Part Preview: <a href="/dnd_rp_and_char_dev.html">Roleplaying and Character Development</a></h3>
                 <ul>
                     <li>Creating believable character personalities and motivations</li>
                     <li>Voice, mannerisms, and bringing characters to life</li>
@@ -1014,13 +1021,12 @@
     </main>
 
     <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_combat.html">Combat</a>
+    <a class="next" href="/dnd_rp_and_char_dev.html">Roleplaying &amp; Character Development</a>
+</div>
         <p><em>Remember: Magic is a tool to enhance the story, not replace clever thinking and good teamwork!</em></p>
     </footer>
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_combat.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Combat</a>
-        <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
-        <a href="/dnd_rp_and_char_dev.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Roleplay &amp; Character Dev &rarr;</a>
-    </nav>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

@@ -3,422 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5th Edition Dice Roller</title>
+    <title>Dice Roller - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
     <style>
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #0f1117;
-            color: #c9cdd8;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-            max-width: 960px;
-            line-height: 1.6;
+        /* The roller is laid out by hand, so opt out of the shared card rules. */
+        main section.roller-layout { display: grid; gap: 14px; margin-top: 18px; }
+        main section.roller-layout > div[class] { margin: 0 !important; }
+        main .outcome-panel { text-align: center; padding: 16px !important; }
+        .outcome-total { font-family: "EB Garamond", Georgia, serif; font-size: clamp(2.6rem, 11vw, 3.6rem); font-weight: 700; line-height: 1; color: var(--heading); }
+        .outcome-degree { display: inline-block; margin-top: 8px; padding: 3px 14px; border-radius: 999px; font-weight: 700; font-size: 1.05rem; background: var(--surface-2); color: var(--heading); }
+        .outcome-degree[data-kind="crit"] { background: #1f6b35; color: #fff; }
+        .outcome-degree[data-kind="hit"] { background: #2f5fb8; color: #fff; }
+        .outcome-degree[data-kind="miss"] { background: #8a4b00; color: #fff; }
+        .outcome-degree[data-kind="fumble"] { background: #a11d1d; color: #fff; }
+        .outcome-line { margin: 8px 0 0; color: var(--muted); font-size: 0.97rem; }
+        .roll-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+        main .roll-row button { margin: 0; flex: 1 1 140px; }
+        main button.roll-main { font-size: 1.1rem; min-height: 48px; }
+        main button.secondary { background: var(--surface); color: var(--accent); border-color: var(--border-strong); }
+        main button.secondary:hover { background: var(--accent-soft); color: var(--accent); }
+        main button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+        main button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 10px 14px; }
+        .field-grid label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 0.93rem; color: var(--heading); }
+        main .field-grid input, main .field-grid select { width: 100%; }
+        .preset-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
+        main .preset-row button { margin: 0; min-height: 36px; padding: 6px 12px; font-size: 0.9rem; }
+        main details { margin-top: 12px; }
+        main summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+        .odds-bar { display: flex; height: 26px; border-radius: 8px; overflow: hidden; margin: 10px 0 8px; border: 1px solid var(--border); }
+        .odds-bar span { display: block; height: 100%; }
+        .seg-crit { background: #1f6b35; } .seg-hit { background: #2f5fb8; } .seg-miss { background: #c27a1a; } .seg-fumble { background: #a11d1d; }
+        .odds-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 4px 12px; }
+        .odds-list li { margin: 0; display: flex; align-items: center; gap: 8px; }
+        .odds-list i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
+        .tracker { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .pips { font-size: 1.3rem; letter-spacing: 3px; }
+        .pips.good { color: var(--success); } .pips.bad { color: var(--danger); }
+        main .tracker button { margin: 0; min-height: 36px; padding: 6px 12px; }
+        .scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(90px, 100%), 1fr)); gap: 8px; margin-top: 10px; }
+        .score { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px; text-align: center; }
+        .score b { display: block; font-size: 1.5rem; color: var(--heading); }
+        .score small { color: var(--muted); }
+        .history { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+        .history li { padding: 6px 0; border-bottom: 1px solid var(--border); margin: 0; }
+        .history li:last-child { border-bottom: 0; }
+        .note { color: var(--muted); font-size: 0.93rem; margin: 8px 0 0; }
+        main .roller-layout h2 { margin-top: 0; font-size: 1.3rem; }
+        @media (max-width: 600px) {
+            body > header { padding: 18px 18px 20px; margin-top: 12px; }
+            body > header h1 { font-size: 1.7rem; margin-bottom: 0.2rem; }
+            body > header p { font-size: 1rem; }
+            main .roll-row button { width: auto; }
         }
-
-        h1 { font-size: clamp(1.8rem,5vw,3rem); color:#e8ebf2; font-weight:700; text-align:center; margin-bottom:4px; }
-        h2 { font-size: 1.15rem; font-weight:700; color:#e8ebf2; background:#232734; border-left:4px solid #3b82f6; padding:0.6rem 1rem; border-radius:8px; margin:0 0 16px 0; text-align:left; }
-        .subtitle { font-size:1.1em; color:#7c8298; margin-bottom:24px; font-style:italic; text-align:center; }
-
-        .dice-section { background:#1a1d27; border-radius:8px; padding:20px; margin:16px 0; border:1px solid #2e3347; }
-
-        /* --- Quick action buttons --- */
-        .quick-actions { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:10px; margin:0 0 12px 0; }
-        .quick-group { display:flex; gap:0; }
-        .quick-group .quick-adv-btn { flex:0 0 auto; padding:10px 10px; font-size:0.78em; font-weight:700; border:1px solid #2e3347; cursor:pointer; transition:all .2s; font-family:inherit; background:#232734; }
-        .quick-group .quick-adv-btn.disadv { border-radius:8px 0 0 8px; color:#f87171; border-right:none; }
-        .quick-group .quick-adv-btn.disadv:hover { background:rgba(239,68,68,0.2); border-color:#ef4444; }
-        .quick-group .quick-adv-btn.adv { border-radius:0 8px 8px 0; color:#4ade80; border-left:none; }
-        .quick-group .quick-adv-btn.adv:hover { background:rgba(34,197,94,0.2); border-color:#22c55e; }
-        .quick-group .quick-btn { flex:1; border-radius:0; }
-        .quick-btn { background:#232734; border:1px solid #3b82f6; border-radius:8px; color:#60a5fa; padding:10px 12px; font-size:0.9em; cursor:pointer; transition:all .2s; font-weight:600; font-family:inherit; }
-        .quick-btn:hover { background:#3b82f6; color:#fff; }
-
-        /* --- Advantage toggle (inside quick actions) --- */
-        .advantage-row { display:flex; justify-content:center; gap:10px; margin:12px 0 0 0; flex-wrap:wrap; }
-        .advantage-row.disabled { opacity:0.35; pointer-events:none; }
-        .adv-btn { background:#232734; border:1px solid #2e3347; border-radius:8px; color:#7c8298; padding:8px 18px; cursor:pointer; transition:all .2s; font-family:inherit; font-size:0.9em; font-weight:600; }
-        .adv-btn.active { border-color:#3b82f6; background:rgba(59,130,246,0.15); color:#60a5fa; }
-        .adv-btn.adv-advantage.active { border-color:#22c55e; background:rgba(34,197,94,0.15); color:#4ade80; }
-        .adv-btn.adv-disadvantage.active { border-color:#ef4444; background:rgba(239,68,68,0.15); color:#f87171; }
-        .adv-label { font-size:0.85em; color:#7c8298; text-align:center; margin-top:8px; }
-
-        /* --- Dice grid --- */
-        .dice-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(105px,1fr)); gap:10px; margin:0 0 16px 0; }
-        .die-type { background:#232734; border-radius:8px; padding:12px 8px; border:1px solid; text-align:center; }
-        .die-name { font-size:1.15em; font-weight:700; color:#e8ebf2; margin-bottom:6px; }
-        .die-controls { display:flex; align-items:center; justify-content:center; gap:6px; }
-        .die-controls button { background:#2e3347; border:none; border-radius:6px; color:#e8ebf2; width:32px; height:32px; font-size:1.1em; font-weight:bold; cursor:pointer; transition:background .2s; font-family:inherit; display:flex; align-items:center; justify-content:center; }
-        .die-controls button:hover { background:#3b82f6; color:#fff; }
-        .die-controls input { background:#0f1117; border:1px solid #2e3347; border-radius:6px; padding:4px; color:#e8ebf2; text-align:center; width:44px; font-size:1em; font-family:inherit; }
-
-        .d4 { border-color:#f87171; } .d6 { border-color:#34d399; } .d8 { border-color:#60a5fa; }
-        .d10 { border-color:#a78bfa; } .d12 { border-color:#fbbf24; } .d20 { border-color:#f472b6; } .d100 { border-color:#818cf8; }
-
-        /* --- Modifier --- */
-        .modifier-section { display:flex; align-items:center; justify-content:center; gap:12px; margin:16px 0; flex-wrap:wrap; }
-        .modifier-section span { font-size:1em; font-weight:700; color:#e8ebf2; }
-        .modifier-section input { background:#0f1117; border:1px solid #2e3347; border-radius:8px; padding:6px 10px; color:#e8ebf2; text-align:center; width:70px; font-size:1em; font-family:inherit; }
-
-        /* --- Roll / Clear buttons --- */
-        .action-row { text-align:center; margin:20px 0 0 0; }
-        .roll-btn { background:#2563eb; border:none; border-radius:8px; color:#fff; padding:14px 44px; font-size:1.4em; font-weight:700; cursor:pointer; transition:all .2s; text-transform:uppercase; letter-spacing:2px; font-family:inherit; }
-        .roll-btn:hover { background:#1d4ed8; transform:scale(1.03); }
-        .clear-btn { background:#232734; border:1px solid #2e3347; border-radius:8px; color:#7c8298; padding:10px 20px; cursor:pointer; margin-left:10px; transition:all .2s; font-family:inherit; font-size:0.95em; }
-        .clear-btn:hover { background:#2e3347; color:#c9cdd8; }
-
-        /* --- Modal results overlay --- */
-        .modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center; padding:20px; }
-        .modal-overlay.visible { display:flex; }
-        .modal-inner { background:#1a1d27; border:1px solid #2e3347; border-radius:8px; padding:28px 24px 24px; max-width:480px; width:100%; position:relative; text-align:center; }
-        .close-btn { position:absolute; top:10px; right:10px; background:#2e3347; border:none; border-radius:6px; color:#c9cdd8; width:30px; height:30px; font-size:1.2em; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; padding:0; line-height:1; font-family:inherit; }
-        .close-btn:hover { background:#ef4444; color:#fff; }
-
-        .result-total { font-size:clamp(2.5rem,8vw,4rem); font-weight:700; margin:12px 0; padding:16px; background:rgba(59,130,246,0.1); border-radius:8px; border:1px solid #3b82f6; color:#60a5fa; }
-        .result-breakdown { font-size:1em; margin:10px 0; color:#7c8298; }
-        .dice-results { display:flex; justify-content:center; gap:10px; margin:16px 0; flex-wrap:wrap; }
-        .result-die { width:44px; height:44px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1em; font-weight:700; color:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.3); border:2px solid; }
-        .result-die.critical { animation:glow 1s infinite alternate; }
-        .result-die.fumble { animation:shake .5s infinite alternate; }
-        @keyframes glow { from{box-shadow:0 2px 8px rgba(0,0,0,0.3)} to{box-shadow:0 4px 20px rgba(96,165,250,0.7)} }
-        @keyframes shake { from{transform:translateX(-2px)} to{transform:translateX(2px)} }
-        .critical-text { color:#60a5fa; font-size:1.3em; font-weight:700; margin:8px 0; }
-        .fumble-text { color:#f87171; font-size:1.3em; font-weight:700; margin:8px 0; }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
-    <h1>D&D 5th Edition</h1>
-    <div class="subtitle">Dice Roller</div>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
+    <header>
+        <span class="lesson-kicker">Tool</span>
+        <h1>Dice Roller</h1>
+        <p>Checks, attacks and saves with advantage, exact odds, damage and death saves.</p>
+    </header>
 
-    <!-- Quick Actions + Advantage -->
-    <div class="dice-section">
-        <h2>Quick Actions</h2>
-        <div class="quick-actions">
-            <div class="quick-group">
-                <button class="quick-adv-btn disadv" onclick="quickRoll('1d20','attack','disadvantage')" title="Disadvantage">DISADV</button>
-                <button class="quick-btn" onclick="quickRoll('1d20','attack','normal')">Attack Roll (1d20)</button>
-                <button class="quick-adv-btn adv" onclick="quickRoll('1d20','attack','advantage')" title="Advantage">ADV</button>
-            </div>
-            <div class="quick-group">
-                <button class="quick-adv-btn disadv" onclick="quickRoll('1d20','save','disadvantage')" title="Disadvantage">DISADV</button>
-                <button class="quick-btn" onclick="quickRoll('1d20','save','normal')">Saving Throw (1d20)</button>
-                <button class="quick-adv-btn adv" onclick="quickRoll('1d20','save','advantage')" title="Advantage">ADV</button>
-            </div>
-            <div class="quick-group">
-                <button class="quick-adv-btn disadv" onclick="quickRoll('1d20','skill','disadvantage')" title="Disadvantage">DISADV</button>
-                <button class="quick-btn" onclick="quickRoll('1d20','skill','normal')">Skill Check (1d20)</button>
-                <button class="quick-adv-btn adv" onclick="quickRoll('1d20','skill','advantage')" title="Advantage">ADV</button>
-            </div>
-            <div class="quick-group">
-                <button class="quick-adv-btn disadv" onclick="quickRoll('1d20','init','disadvantage')" title="Disadvantage">DISADV</button>
-                <button class="quick-btn" onclick="quickRoll('1d20','init','normal')">Initiative (1d20)</button>
-                <button class="quick-adv-btn adv" onclick="quickRoll('1d20','init','advantage')" title="Advantage">ADV</button>
-            </div>
-            <button class="quick-btn" onclick="quickRoll('4d6','stats','normal')">Ability Scores (4d6)</button>
-            <button class="quick-btn" onclick="quickRoll('1d100','percentile','normal')">Percentile (d100)</button>
-        </div>
-    </div>
-
-    <!-- Custom Roll -->
-    <div class="dice-section">
-        <h2>Custom Roll</h2>
-        <div class="dice-grid">
-            <div class="die-type d4">
-                <div class="die-name">d4</div>
-                <div class="die-controls">
-                    <button onclick="changeDie('d4',-1)">−</button>
-                    <input type="number" id="d4-count" value="0" min="0" max="99" onchange="onDiceChange()">
-                    <button onclick="changeDie('d4',1)">+</button>
+    <main>
+        <section class="roller-layout">
+            <div class="outcome-panel" aria-live="polite">
+                <div class="outcome-total" id="out-total">–</div>
+                <div class="outcome-degree" id="out-degree" data-kind="">Set up a roll and press Roll</div>
+                <p class="outcome-line" id="out-line">d20 + modifier vs DC or AC</p>
+                <div class="roll-row">
+                    <button type="button" class="roll-main" id="roll-check">🎲 Roll d20</button>
+                    <button type="button" class="secondary" id="roll-dmg-top">🗡️ Roll damage</button>
                 </div>
             </div>
-            <div class="die-type d6">
-                <div class="die-name">d6</div>
-                <div class="die-controls">
-                    <button onclick="changeDie('d6',-1)">−</button>
-                    <input type="number" id="d6-count" value="0" min="0" max="99" onchange="onDiceChange()">
-                    <button onclick="changeDie('d6',1)">+</button>
-                </div>
-            </div>
-            <div class="die-type d8">
-                <div class="die-name">d8</div>
-                <div class="die-controls">
-                    <button onclick="changeDie('d8',-1)">−</button>
-                    <input type="number" id="d8-count" value="0" min="0" max="99" onchange="onDiceChange()">
-                    <button onclick="changeDie('d8',1)">+</button>
-                </div>
-            </div>
-            <div class="die-type d10">
-                <div class="die-name">d10</div>
-                <div class="die-controls">
-                    <button onclick="changeDie('d10',-1)">−</button>
-                    <input type="number" id="d10-count" value="0" min="0" max="99" onchange="onDiceChange()">
-                    <button onclick="changeDie('d10',1)">+</button>
-                </div>
-            </div>
-            <div class="die-type d12">
-                <div class="die-name">d12</div>
-                <div class="die-controls">
-                    <button onclick="changeDie('d12',-1)">−</button>
-                    <input type="number" id="d12-count" value="0" min="0" max="99" onchange="onDiceChange()">
-                    <button onclick="changeDie('d12',1)">+</button>
-                </div>
-            </div>
-            <div class="die-type d20">
-                <div class="die-name">d20</div>
-                <div class="die-controls">
-                    <button onclick="changeDie('d20',-1)">−</button>
-                    <input type="number" id="d20-count" value="0" min="0" max="99" onchange="onDiceChange()">
-                    <button onclick="changeDie('d20',1)">+</button>
-                </div>
-            </div>
-            <div class="die-type d100">
-                <div class="die-name">d100</div>
-                <div class="die-controls">
-                    <button onclick="changeDie('d100',-1)">−</button>
-                    <input type="number" id="d100-count" value="0" min="0" max="99" onchange="onDiceChange()">
-                    <button onclick="changeDie('d100',1)">+</button>
-                </div>
-            </div>
-        </div>
 
-        <div class="advantage-row disabled" id="advantage-row">
-            <button class="adv-btn active" id="normal-btn" onclick="setAdvantage('normal')">Normal</button>
-            <button class="adv-btn adv-advantage" id="advantage-btn" onclick="setAdvantage('advantage')">Advantage</button>
-            <button class="adv-btn adv-disadvantage" id="disadvantage-btn" onclick="setAdvantage('disadvantage')">Disadvantage</button>
-        </div>
-        <div class="adv-label" id="adv-label">Add d20 dice above to enable advantage/disadvantage</div>
+            <div class="check-panel">
+                <h2>The roll</h2>
+                <div class="field-grid">
+                    <label>What are you rolling?
+                        <select id="kind">
+                            <option value="attack">Attack roll</option>
+                            <option value="check">Ability check</option>
+                            <option value="save">Saving throw</option>
+                            <option value="init">Initiative</option>
+                        </select>
+                    </label>
+                    <label>Total modifier
+                        <input type="number" id="mod" value="5" min="-10" max="30" inputmode="numeric">
+                    </label>
+                    <label><span id="dc-label">Target AC</span>
+                        <input type="number" id="dc" value="13" min="1" max="40" inputmode="numeric">
+                    </label>
+                    <label>Advantage
+                        <select id="adv">
+                            <option value="0">Normal roll</option>
+                            <option value="1">Advantage</option>
+                            <option value="-1">Disadvantage</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="preset-row" aria-label="Typical DCs">
+                    <button type="button" class="secondary" data-dc="5">Very easy 5</button>
+                    <button type="button" class="secondary" data-dc="10">Easy 10</button>
+                    <button type="button" class="secondary" data-dc="15">Medium 15</button>
+                    <button type="button" class="secondary" data-dc="20">Hard 20</button>
+                    <button type="button" class="secondary" data-dc="25">Very hard 25</button>
+                    <button type="button" class="secondary" data-dc="30">Nearly impossible 30</button>
+                </div>
 
-        <div class="modifier-section">
-            <span>Modifier:</span>
-            <input type="number" id="modifier" value="0">
-        </div>
+                <details>
+                    <summary>Build the modifier from your sheet</summary>
+                    <div class="field-grid" style="margin-top:10px">
+                        <label>Ability score
+                            <input type="number" id="b-score" value="16" min="1" max="30">
+                        </label>
+                        <label>Character level
+                            <input type="number" id="b-level" value="1" min="1" max="20">
+                        </label>
+                        <label>Proficiency
+                            <select id="b-prof">
+                                <option value="0">Not proficient</option>
+                                <option value="1" selected>Proficient</option>
+                                <option value="2">Expertise (double)</option>
+                            </select>
+                        </label>
+                        <label>Other bonuses
+                            <input type="number" id="b-other" value="0" min="-10" max="10">
+                        </label>
+                    </div>
+                    <p class="note" id="b-sum">= +5</p>
+                    <button type="button" class="secondary" id="b-apply">Use this modifier</button>
+                </details>
+            </div>
 
-        <div class="action-row">
-            <button class="roll-btn" onclick="rollDice()">Roll Dice</button>
-            <button class="clear-btn" onclick="clearAll()">Clear All</button>
-        </div>
-    </div>
+            <div class="odds-panel">
+                <h2>Your odds</h2>
+                <div class="odds-bar" id="odds-bar" role="img" aria-label="Chance of each result"></div>
+                <ul class="odds-list" id="odds-list"></ul>
+                <p class="note" id="odds-note">Exact chances for this modifier, target and advantage setting.</p>
+            </div>
 
-    <!-- Results modal -->
-    <div id="results-modal" class="modal-overlay">
-        <div class="modal-inner">
-            <button class="close-btn" onclick="closeResults()">&times;</button>
-            <div class="result-total" id="total-result">0</div>
-            <div class="result-breakdown" id="breakdown"></div>
-            <div class="dice-results" id="dice-display"></div>
-            <div id="special-text"></div>
-        </div>
-    </div>
+            <div class="insp-panel">
+                <h2>Inspiration</h2>
+                <div class="tracker">
+                    <span class="pips good" id="insp-state" aria-live="polite">No Inspiration</span>
+                    <button type="button" class="secondary" id="insp-give">DM awards Inspiration</button>
+                    <button type="button" class="secondary" id="insp-use" aria-pressed="false" disabled>Spend on next roll</button>
+                </div>
+                <p class="note">You either have Inspiration or you don't. Spend it to roll the next attack, save or check with advantage.</p>
+            </div>
 
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_core.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Core Mechanics</a>
-        <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
-        <a href="/dnd_combat.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Combat &rarr;</a>
-    </nav>
+            <div class="damage-panel">
+                <h2>Damage and other dice</h2>
+                <div class="field-grid">
+                    <label>Dice (e.g. 1d8+3 or 2d6+1d4+3)
+                        <input type="text" id="dmg-expr" value="1d8+3" autocomplete="off" spellcheck="false">
+                    </label>
+                    <label>Critical hit?
+                        <select id="dmg-crit">
+                            <option value="0">No: normal damage</option>
+                            <option value="1">Yes: roll the dice twice</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="roll-row">
+                    <button type="button" id="roll-dmg">🗡️ Roll damage</button>
+                </div>
+                <p class="outcome-line" id="dmg-line" aria-live="polite">A natural 20 on an attack sets "Critical hit?" to Yes for you. A critical rolls all the damage dice twice; modifiers are added once.</p>
+            </div>
+
+            <div class="death-panel">
+                <h2>Death saving throws</h2>
+                <div class="tracker">
+                    <span>Successes</span><span class="pips good" id="ds-ok">○○○</span>
+                    <span>Failures</span><span class="pips bad" id="ds-bad">○○○</span>
+                </div>
+                <div class="roll-row">
+                    <button type="button" id="ds-roll">💀 Roll death save</button>
+                    <button type="button" class="secondary" id="ds-hit">Took damage at 0 HP</button>
+                    <button type="button" class="secondary" id="ds-reset">Reset</button>
+                </div>
+                <p class="outcome-line" id="ds-line" aria-live="polite">10 or higher is a success. A natural 20 brings you back with 1 hit point; a natural 1 counts as two failures.</p>
+            </div>
+
+            <div class="scores-panel">
+                <h2>Ability scores</h2>
+                <div class="roll-row" style="justify-content:flex-start">
+                    <button type="button" class="secondary" id="scores-roll">Roll 4d6, drop the lowest (×6)</button>
+                </div>
+                <div class="scores" id="scores"></div>
+                <p class="note">Alternatives: the standard array (15, 14, 13, 12, 10, 8) or 27-point buy. Ask your DM which method your table uses.</p>
+            </div>
+
+            <div class="history-panel">
+                <h2>Recent rolls</h2>
+                <ul class="history" id="history"><li>No rolls yet.</li></ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_dm.html">Dungeon Mastering</a>
+    <a class="next" href="/dnd_100.html">Sample Characters</a>
+</div>
+        <p>Rolls use your browser's random numbers; odds are calculated exactly, not simulated.</p>
+    </footer>
 
     <script>
-    let currentAdvantage = 'normal';
+    (function () {
+        'use strict';
+        var $ = function (id) { return document.getElementById(id); };
+        var inspiration = false, spendNext = false, ds = { ok: 0, bad: 0 };
 
-    const dieColors = {
-        'd4':'#f87171','d6':'#34d399','d8':'#60a5fa',
-        'd10':'#a78bfa','d12':'#fbbf24','d20':'#f472b6','d100':'#818cf8'
-    };
-
-    // --- Dice count helpers ---
-    function changeDie(type, delta) {
-        const inp = document.getElementById(type + '-count');
-        inp.value = Math.max(0, Math.min(99, (parseInt(inp.value)||0) + delta));
-        onDiceChange();
-    }
-
-    // Enable/disable advantage row based on whether d20 is in play
-    function onDiceChange() {
-        const d20count = parseInt(document.getElementById('d20-count').value) || 0;
-        const row = document.getElementById('advantage-row');
-        const label = document.getElementById('adv-label');
-        if (d20count > 0) {
-            row.classList.remove('disabled');
-            label.textContent = 'Advantage/Disadvantage applies to d20 rolls';
-        } else {
-            row.classList.add('disabled');
-            label.textContent = 'Select a d20 roll to enable advantage/disadvantage';
-            setAdvantage('normal');
-        }
-    }
-
-    function setAdvantage(type) {
-        currentAdvantage = type;
-        document.querySelectorAll('.adv-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(type + '-btn').classList.add('active');
-    }
-
-    // --- Quick rolls ---
-    function quickRoll(diceStr, type, advMode) {
-        clearAll();
-        if (type === 'stats') { rollAbilityScore(); return; }
-
-        // Set advantage mode for this roll
-        currentAdvantage = advMode || 'normal';
-
-        const parts = diceStr.split('+');
-        const match = parts[0].match(/(\d+)d(\d+)/);
-        if (match) {
-            document.getElementById('d' + match[2] + '-count').value = parseInt(match[1]);
-        }
-        if (parts[1]) document.getElementById('modifier').value = parseInt(parts[1]);
-
-        rollDice();
-    }
-
-    // --- Ability score roll (4d6 drop lowest) ---
-    function rollAbilityScore() {
-        const rolls = [];
-        for (let i = 0; i < 4; i++) rolls.push(Math.floor(Math.random()*6)+1);
-        rolls.sort((a,b) => b-a);
-        const kept = rolls.slice(0,3);
-        const dropped = rolls[3];
-        const total = kept.reduce((s,v)=>s+v,0);
-
-        const display = rolls.map(v => ({value:v, type:'d6', sides:6, dropped: v===dropped && rolls.filter(r=>r===dropped).length===1}));
-        showAbilityResult(display, total, kept, dropped);
-    }
-
-    function showAbilityResult(rolls, total, kept, dropped) {
-        const modal = document.getElementById('results-modal');
-        document.getElementById('total-result').textContent = total;
-        document.getElementById('breakdown').textContent = '4d6: '+rolls.map(r=>r.value).join(', ')+' | Kept: '+kept.join(', ')+' | Dropped: '+dropped;
-
-        const dd = document.getElementById('dice-display');
-        dd.innerHTML = '';
-        rolls.forEach(r => {
-            const d = document.createElement('div');
-            d.className = 'result-die';
-            d.style.backgroundColor = r.dropped ? '#555' : dieColors[r.type];
-            d.style.borderColor = r.dropped ? '#444' : dieColors[r.type];
-            d.style.opacity = r.dropped ? '0.5' : '1';
-            if (r.dropped) d.style.textDecoration = 'line-through';
-            d.textContent = r.value;
-            dd.appendChild(d);
-        });
-
-        const sp = document.getElementById('special-text');
-        sp.innerHTML = '';
-        if (total >= 15) sp.innerHTML = '<div class="critical-text">🌟 Excellent Ability Score!</div>';
-        else if (total <= 8) sp.innerHTML = '<div class="fumble-text">😬 Low Ability Score</div>';
-
-        modal.classList.add('visible');
-    }
-
-    // --- Custom roll ---
-    function rollDice() {
-        const types = ['d4','d6','d8','d10','d12','d20','d100'];
-        const mod = parseInt(document.getElementById('modifier').value) || 0;
-        let allRolls = [], total = mod, hasD20 = false;
-
-        types.forEach(dt => {
-            const n = parseInt(document.getElementById(dt+'-count').value) || 0;
-            if (n > 0) {
-                const sides = parseInt(dt.substring(1));
-                if (sides === 20) hasD20 = true;
-                for (let i = 0; i < n; i++) {
-                    let roll = Math.floor(Math.random()*sides)+1;
-                    if (sides === 20 && currentAdvantage !== 'normal') {
-                        const r2 = Math.floor(Math.random()*sides)+1;
-                        const kept = currentAdvantage === 'advantage' ? Math.max(roll,r2) : Math.min(roll,r2);
-                        const dropped = currentAdvantage === 'advantage' ? Math.min(roll,r2) : Math.max(roll,r2);
-                        allRolls.push({value:kept, altValue:dropped, type:dt, sides:sides});
-                        total += kept;
-                    } else {
-                        allRolls.push({value:roll, type:dt, sides:sides});
-                        total += roll;
-                    }
-                }
+        function d(n) {
+            if (window.crypto && crypto.getRandomValues) {
+                var a = new Uint32Array(1), lim = Math.floor(4294967296 / n) * n;
+                do { crypto.getRandomValues(a); } while (a[0] >= lim);
+                return (a[0] % n) + 1;
             }
-        });
+            return Math.floor(Math.random() * n) + 1;
+        }
+        function num(id, fallback) { var v = parseInt($(id).value, 10); return isNaN(v) ? fallback : v; }
+        function signed(n) { return (n < 0 ? '−' : '+') + Math.abs(n); }
+        function pct(x) { var v = Math.round(x * 1000) / 10; return (v % 1 === 0 ? v.toFixed(0) : v.toFixed(1)) + '%'; }
+        function isAttack() { return $('kind').value === 'attack'; }
+        // Spending Inspiration adds advantage; advantage and disadvantage cancel to a normal roll.
+        function advMode() {
+            var base = parseInt($('adv').value, 10);
+            if (!spendNext) return base;
+            return base === -1 ? 0 : 1;
+        }
 
-        if (allRolls.length === 0) return; // nothing selected
-
-        showResults(allRolls, total, mod, hasD20);
-    }
-
-    function showResults(rolls, total, mod, hasD20) {
-        const modal = document.getElementById('results-modal');
-        document.getElementById('total-result').textContent = total;
-
-        const grouped = {};
-        rolls.forEach(r => { if(!grouped[r.type]) grouped[r.type]=[]; grouped[r.type].push({val:r.value, alt:r.altValue}); });
-        const parts = [];
-        Object.keys(grouped).forEach(dt => {
-            const vals = grouped[dt].map(r => {
-                if (r.alt !== undefined) return r.val + ' / ' + r.alt;
-                return '' + r.val;
+        // Result of one kept d20 face.
+        function outcome(face, mod, dc) {
+            if (isAttack()) {
+                if (face === 20) return 'crit';
+                if (face === 1) return 'fumble';
+                return face + mod >= dc ? 'hit' : 'miss';
+            }
+            return face + mod >= dc ? 'hit' : 'miss';
+        }
+        // Exact probabilities for each outcome, over all kept faces.
+        function odds(mod, dc, adv) {
+            var c = { crit: 0, hit: 0, miss: 0, fumble: 0 };
+            for (var k = 1; k <= 20; k++) {
+                var pk;   // chance the kept die shows k
+                if (adv === 1) pk = (k * k - (k - 1) * (k - 1)) / 400;
+                else if (adv === -1) pk = ((21 - k) * (21 - k) - (20 - k) * (20 - k)) / 400;
+                else pk = 1 / 20;
+                c[outcome(k, mod, dc)] += pk;
+            }
+            return c;
+        }
+        var LABEL = { crit: 'Critical hit (natural 20)', hit: 'Hit', miss: 'Miss', fumble: 'Automatic miss (natural 1)' };
+        function renderOdds() {
+            var mod = num('mod', 0), dc = num('dc', 10), adv = advMode(), p = odds(mod, dc, adv);
+            var bar = $('odds-bar'), list = $('odds-list'); bar.textContent = ''; list.textContent = '';
+            var keys = isAttack() ? ['crit', 'hit', 'miss', 'fumble'] : ['hit', 'miss'];
+            var names = isAttack() ? LABEL : { hit: 'Success', miss: 'Failure' };
+            keys.forEach(function (k) {
+                if (p[k] > 0) { var seg = document.createElement('span'); seg.className = 'seg-' + k; seg.style.width = (p[k] * 100) + '%'; bar.appendChild(seg); }
+                var li = document.createElement('li'), sw = document.createElement('i'); sw.className = 'seg-' + k; li.appendChild(sw);
+                li.appendChild(document.createTextNode(names[k] + ': ' + pct(p[k]))); list.appendChild(li);
             });
-            parts.push(grouped[dt].length+dt+': '+vals.join(', '));
-        });
-        if (mod !== 0) parts.push('Modifier: '+(mod>=0?'+':'')+mod);
-        if (currentAdvantage !== 'normal' && hasD20) parts.push('('+currentAdvantage+')');
-        document.getElementById('breakdown').textContent = parts.join(' | ');
+            bar.setAttribute('aria-label', keys.map(function (k) { return names[k] + ' ' + pct(p[k]); }).join(', '));
+            var any = isAttack() ? p.crit + p.hit : p.hit;
+            $('odds-note').textContent = (isAttack() ? 'Chance to hit: ' : 'Chance to succeed: ') + pct(any) +
+                (adv === 1 ? ' with advantage.' : adv === -1 ? ' with disadvantage.' : '.') +
+                (isAttack() ? ' A natural 20 always hits and a natural 1 always misses.' : ' Natural 20s and 1s have no special effect on checks and saves.');
+        }
 
-        const dd = document.getElementById('dice-display');
-        dd.innerHTML = '';
-        rolls.forEach(r => {
-            if (r.altValue !== undefined) {
-                // Show dropped die first (dimmed)
-                const disc = document.createElement('div');
-                disc.className = 'result-die';
-                disc.style.backgroundColor = '#555';
-                disc.style.borderColor = '#444';
-                disc.style.opacity = '0.45';
-                disc.style.textDecoration = 'line-through';
-                disc.textContent = r.altValue;
-                dd.appendChild(disc);
+        function roll20(adv) {
+            var a = d(20);
+            if (!adv) return { face: a, dice: [a] };
+            var b = d(20), keep = adv === 1 ? Math.max(a, b) : Math.min(a, b);
+            return { face: keep, dice: [a, b] };
+        }
+        function rollCheck() {
+            var mod = num('mod', 0), dc = num('dc', 10), adv = advMode(), note = '';
+            if (spendNext) { note = ' · Inspiration spent'; inspiration = false; spendNext = false; updateInsp(); }
+            var r = roll20(adv), total = r.face + mod, kind = outcome(r.face, mod, dc);
+            $('out-total').textContent = total;
+            var deg = $('out-degree');
+            if (isAttack()) { deg.textContent = LABEL[kind]; deg.setAttribute('data-kind', kind); }
+            else { deg.textContent = kind === 'hit' ? 'Success' : 'Failure'; deg.setAttribute('data-kind', kind === 'hit' ? 'hit' : 'miss'); }
+            if ($('kind').value === 'init') { deg.textContent = 'Initiative ' + total; deg.setAttribute('data-kind', ''); }
+            var diceTxt = r.dice.length === 2 ? 'd20s (' + r.dice.join(', ') + ') keep ' + r.face : 'd20 (' + r.face + ')';
+            var line = diceTxt + ' ' + signed(mod) + ' = ' + total + ($('kind').value === 'init' ? '' : ' vs ' + (isAttack() ? 'AC ' : 'DC ') + dc) + note;
+            $('out-line').textContent = line;
+            if (isAttack()) $('dmg-crit').value = kind === 'crit' ? '1' : '0';
+            addHistory($('kind').selectedOptions[0].text.split(' (')[0] + ': ' + line + ' → ' + deg.textContent);
+            renderOdds();
+        }
+
+        function parseDice(expr) {
+            var clean = expr.replace(/\s+/g, '').toLowerCase();
+            if (!/^[+-]?(\d*d\d+|\d+)([+-](\d*d\d+|\d+))*$/.test(clean)) return null;
+            var terms = clean.match(/[+-]?(\d*d\d+|\d+)/g), out = [];
+            for (var i = 0; i < terms.length; i++) {
+                var t = terms[i], sign = t[0] === '-' ? -1 : 1, body = t.replace(/^[+-]/, '');
+                if (body.indexOf('d') >= 0) {
+                    var p = body.split('d'), n = p[0] === '' ? 1 : parseInt(p[0], 10), sides = parseInt(p[1], 10);
+                    if (n < 1 || n > 100 || sides < 2 || sides > 1000) return null;
+                    out.push({ sign: sign, n: n, sides: sides });
+                } else out.push({ sign: sign, flat: parseInt(body, 10) });
             }
-            const d = document.createElement('div');
-            d.className = 'result-die';
-            d.style.backgroundColor = dieColors[r.type];
-            d.style.borderColor = dieColors[r.type];
-            d.textContent = r.value;
-            if (r.sides===20 && r.value===20) d.classList.add('critical');
-            if (r.sides===20 && r.value===1) d.classList.add('fumble');
-            dd.appendChild(d);
+            return out;
+        }
+        function rollDamage() {
+            var terms = parseDice($('dmg-expr').value);
+            if (!terms) { $('dmg-line').textContent = 'Write dice like 2d6+3 or 1d8+1d6+2.'; return; }
+            var crit = $('dmg-crit').value === '1', total = 0, shown = [];
+            terms.forEach(function (t) {
+                if (t.flat !== undefined) { total += t.sign * t.flat; shown.push(signed(t.sign * t.flat)); return; }
+                var n = crit ? t.n * 2 : t.n, rolls = [];
+                for (var i = 0; i < n; i++) rolls.push(d(t.sides));
+                var sum = rolls.reduce(function (a, b) { return a + b; }, 0);
+                total += t.sign * sum;
+                shown.push((t.sign < 0 ? '−' : '') + n + 'd' + t.sides + ' [' + rolls.join(', ') + ']');
+            });
+            var final = Math.max(0, total);
+            var text = shown.join(' ') + ' = ' + final + (crit ? ' (critical: dice rolled twice)' : '') + (total < 0 ? ' (minimum 0)' : '');
+            $('dmg-line').textContent = 'Damage: ' + final + ' · ' + text;
+            $('out-total').textContent = final; $('out-degree').textContent = 'Damage'; $('out-degree').setAttribute('data-kind', ''); $('out-line').textContent = text;
+            addHistory('Damage: ' + text);
+        }
+
+        function pips(n) { return '●●●'.slice(0, n) + '○○○'.slice(0, 3 - n); }
+        function updateDs(msg) {
+            $('ds-ok').textContent = pips(Math.min(3, ds.ok)); $('ds-bad').textContent = pips(Math.min(3, ds.bad));
+            if (ds.ok >= 3) msg += ' You are stable at 0 hit points.';
+            if (ds.bad >= 3) msg += ' Three failures: the character dies.';
+            $('ds-line').textContent = msg;
+            var done = ds.ok >= 3 || ds.bad >= 3;
+            $('ds-roll').disabled = done; $('ds-hit').disabled = done;
+        }
+        $('ds-roll').addEventListener('click', function () {
+            var f = d(20), msg;
+            if (f === 20) { ds = { ok: 0, bad: 0 }; msg = 'Natural 20! You regain 1 hit point and wake up.'; updateDs(msg); $('ds-roll').disabled = true; $('ds-hit').disabled = true; addHistory('Death save: 20 → back with 1 HP'); return; }
+            if (f === 1) { ds.bad += 2; msg = 'Natural 1: two failures.'; }
+            else if (f >= 10) { ds.ok += 1; msg = 'Rolled ' + f + ': success.'; }
+            else { ds.bad += 1; msg = 'Rolled ' + f + ': failure.'; }
+            updateDs(msg); addHistory('Death save: ' + f + ' → ' + ds.ok + ' successes, ' + Math.min(3, ds.bad) + ' failures');
+        });
+        $('ds-hit').addEventListener('click', function () { ds.bad += 1; updateDs('Damage at 0 hit points: one failure (two if it was a critical hit).'); });
+        $('ds-reset').addEventListener('click', function () { ds = { ok: 0, bad: 0 }; updateDs('Reset. 10 or higher is a success.'); });
+
+        function updateInsp() {
+            $('insp-state').textContent = inspiration ? (spendNext ? 'Spending on next roll' : 'You have Inspiration') : 'No Inspiration';
+            $('insp-use').disabled = !inspiration;
+            $('insp-use').setAttribute('aria-pressed', String(spendNext));
+            $('insp-give').disabled = inspiration;
+            renderOdds();
+        }
+        $('insp-give').addEventListener('click', function () { inspiration = true; updateInsp(); });
+        $('insp-use').addEventListener('click', function () { if (inspiration) { spendNext = !spendNext; updateInsp(); } });
+
+        function scoreMod(sc) { return Math.floor((sc - 10) / 2); }
+        $('scores-roll').addEventListener('click', function () {
+            var box = $('scores'); box.textContent = ''; var all = [];
+            for (var i = 0; i < 6; i++) {
+                var r = [d(6), d(6), d(6), d(6)], low = Math.min.apply(null, r), sum = r.reduce(function (a, b) { return a + b; }, 0) - low;
+                all.push(sum);
+                var div = document.createElement('div'); div.className = 'score';
+                var b = document.createElement('b'); b.textContent = sum; div.appendChild(b);
+                var sm = document.createElement('small'); sm.textContent = signed(scoreMod(sum)) + ' · [' + r.join(', ') + '] drop ' + low; div.appendChild(sm);
+                box.appendChild(div);
+            }
+            addHistory('Ability scores: ' + all.join(', ') + ' (total ' + all.reduce(function (a, b) { return a + b; }, 0) + ')');
         });
 
-        const sp = document.getElementById('special-text');
-        sp.innerHTML = '';
-        const d20s = rolls.filter(r=>r.sides===20);
-        if (d20s.some(r=>r.value===20)) sp.innerHTML += '<div class="critical-text">🎲 Natural 20! Critical Hit!</div>';
-        if (d20s.some(r=>r.value===1)) sp.innerHTML += '<div class="fumble-text">💀 Natural 1! Critical Fumble!</div>';
-
-        modal.classList.add('visible');
-    }
-
-    // --- Clear & close ---
-    function clearAll() {
-        ['d4','d6','d8','d10','d12','d20','d100'].forEach(dt => { document.getElementById(dt+'-count').value = 0; });
-        document.getElementById('modifier').value = 0;
-        setAdvantage('normal');
-        onDiceChange();
-        closeResults();
-    }
-
-    function closeResults() {
-        document.getElementById('results-modal').classList.remove('visible');
-    }
-
-    document.getElementById('results-modal').addEventListener('click', function(e) {
-        if (e.target === this) closeResults();
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) rollDice();
-        else if (e.key === 'Escape') closeResults();
-    });
+        function addHistory(text) {
+            var h = $('history');
+            if (h.firstElementChild && h.firstElementChild.textContent === 'No rolls yet.') h.textContent = '';
+            var li = document.createElement('li'); li.textContent = text;
+            h.insertBefore(li, h.firstChild);
+            while (h.children.length > 12) h.removeChild(h.lastChild);
+        }
+        function profBonus(level) { return 2 + Math.floor((Math.max(1, Math.min(20, level)) - 1) / 4); }
+        function builderSum() {
+            return scoreMod(num('b-score', 10)) + profBonus(num('b-level', 1)) * parseInt($('b-prof').value, 10) + num('b-other', 0);
+        }
+        function syncKind() {
+            $('dc-label').textContent = isAttack() ? 'Target AC' : 'DC';
+            $('dc').disabled = $('kind').value === 'init';
+            renderOdds();
+        }
+        document.querySelectorAll('[data-dc]').forEach(function (b) {
+            b.addEventListener('click', function () { $('dc').value = b.getAttribute('data-dc'); renderOdds(); });
+        });
+        ['mod', 'dc', 'adv'].forEach(function (id) { $(id).addEventListener('input', renderOdds); $(id).addEventListener('change', renderOdds); });
+        $('kind').addEventListener('change', syncKind);
+        ['b-score', 'b-level', 'b-prof', 'b-other'].forEach(function (id) {
+            var f = function () { $('b-sum').textContent = '= ' + signed(builderSum()) + ' (proficiency bonus ' + signed(profBonus(num('b-level', 1))) + ')'; };
+            $(id).addEventListener('input', f); $(id).addEventListener('change', f);
+        });
+        $('b-apply').addEventListener('click', function () { $('mod').value = builderSum(); renderOdds(); });
+        $('roll-check').addEventListener('click', rollCheck);
+        $('roll-dmg').addEventListener('click', rollDamage);
+        $('roll-dmg-top').addEventListener('click', rollDamage);
+        $('dmg-expr').addEventListener('keydown', function (e) { if (e.key === 'Enter') rollDamage(); });
+        $('b-sum').textContent = '= ' + signed(builderSum()) + ' (proficiency bonus ' + signed(profBonus(1)) + ')';
+        syncKind(); updateInsp(); updateDs('10 or higher is a success. A natural 20 brings you back with 1 hit point; a natural 1 counts as two failures.');
+        window.dndOdds = odds; window.dndOutcomeKind = function () { return isAttack(); };
+    })();
     </script>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

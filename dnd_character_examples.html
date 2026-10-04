@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5th Edition Character Examples and Party Groups</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>Character Examples &amp; Adventuring Parties - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
-    <div class="container">
-        <header>
-            <h1>D&D 5th Edition Character Examples and Party Groups</h1>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
+    <header>
+        <span class="lesson-kicker">Part 3</span>
+        <h1>D&D 5th Edition Character Examples and Party Groups</h1>
             <p>A comprehensive guide to creating memorable characters and balanced adventuring parties</p>
         </header>
 
@@ -155,7 +160,7 @@
                     <h3>The Noble Court</h3>
                     <p><em>High society adventurers with refined tastes and hidden depths</em></p>
                     <ul>
-                        <li><strong>Lady Valentina Rosethorne</strong> - Human Noble Fighter (Battlemaster)</li>
+                        <li><strong>Lady Valentina Rosethorne</strong> - Human Noble Fighter (Battle Master)</li>
                         <li><strong>Count Aldric Shadowmere</strong> - Half-Elf Warlock with mysterious patron</li>
                         <li><strong>Dame Seraphina Goldvoice</strong> - Dragonborn Bard (College of Glamour)</li>
                         <li><strong>Lord Cassius Brightshield</strong> - Aasimar Paladin of devotion</li>
@@ -169,7 +174,7 @@
                     <p><em>Masters of the primal forces, united by their connection to magic</em></p>
                     <ul>
                         <li><strong>Ignis Flameheart</strong> - Fire Genasi Sorcerer wielding burning passion</li>
-                        <li><strong>Aqua Tidesinger</strong> - Water Genasi Druid (Circle of the Coast)</li>
+                        <li><strong>Aqua Tidesinger</strong> - Water Genasi Druid (Circle of the Land, Coast)</li>
                         <li><strong>Zephyr Stormrider</strong> - Air Genasi Monk (Way of the Four Elements)</li>
                         <li><strong>Terra Stonefoot</strong> - Earth Genasi Fighter (Eldritch Knight)</li>
                         <li><strong>Umbra Voidwalker</strong> - Shadar-kai Warlock channeling shadow magic</li>
@@ -182,9 +187,9 @@
                     <h3>The Monster Hunters</h3>
                     <p><em>Specialists in tracking and eliminating supernatural threats</em></p>
                     <ul>
-                        <li><strong>Van Helsing Crosswood</strong> - Human Monster Hunter Ranger</li>
+                        <li><strong>Van Helsing Crosswood</strong> - Human Ranger (Monster Slayer)</li>
                         <li><strong>Cordelia Graveheart</strong> - Human Death Domain Cleric</li>
-                        <li><strong>Blade Silverstrike</strong> - Dhampir Blood Hunter seeking redemption</li>
+                        <li><strong>Blade Silverstrike</strong> - Dhampir Paladin (Oath of Vengeance) seeking redemption</li>
                         <li><strong>Professor Arcanum</strong> - Human Wizard (School of Necromancy, good-aligned)</li>
                         <li><strong>Whisper Tombwalker</strong> - Reborn Rogue with memories of undeath</li>
                     </ul>
@@ -219,7 +224,7 @@
                 
                 <div class="relationship-examples">
                     <div class="relationship">
-                        <h4>The Mentor and Student</h4>
+                        <h4>The Mentor and Apprentice</h4>
                         <p>An experienced cleric teaching a young paladin, their bond growing stronger through shared faith and tested through moral dilemmas.</p>
                     </div>
                     
@@ -284,12 +289,16 @@
                     <p>Don't reveal everything about your character immediately. Let some secrets unfold naturally during play, like slowly opening a treasured book.</p>
                 </div>
             </section>
+        </main>
+
 
             <footer>
-                <p>Remember: The best D&D characters are not just collections of stats and abilities, but living stories waiting to be told through your adventures together.</p>
+<div class="page-nav">
+    <a class="prev" href="/dnd_char.html">Character Creation</a>
+    <a class="next" href="/dnd_groups.html">Party Dynamics</a>
+</div>
+        <p>Remember: The best D&D characters are not just collections of stats and abilities, but living stories waiting to be told through your adventures together.</p>
             </footer>
-        </main>
-    </div>
 
     <script>
         // Party Roles Distribution Chart
@@ -324,7 +333,7 @@
             const labelX = centerX + Math.cos(labelAngle) * (radius + 30);
             const labelY = centerY + Math.sin(labelAngle) * (radius + 30);
             
-            partyCtx.fillStyle = '#333';
+            partyCtx.fillStyle = '#14152b';
             partyCtx.font = '14px Arial';
             partyCtx.textAlign = 'center';
             partyCtx.fillText(role.name, labelX, labelY);
@@ -332,6 +341,12 @@
             
             startAngle += sliceAngle;
         });
+        
+        // Chart title (illustrative, not rules data)
+        partyCtx.fillStyle = '#14152b';
+        partyCtx.font = 'bold 14px Arial';
+        partyCtx.textAlign = 'left';
+        partyCtx.fillText('Role mix in a balanced party (illustrative)', 8, 18);
         
         // Character Growth Chart
         const growthCanvas = document.getElementById('characterGrowthChart');
@@ -383,31 +398,31 @@
         growthCtx.stroke();
         
         // Add labels
-        growthCtx.fillStyle = '#333';
+        growthCtx.fillStyle = '#14152b';
         growthCtx.font = '12px Arial';
         growthCtx.textAlign = 'center';
         stages.forEach((stage, index) => {
             const x = 50 + (index * 100);
-            growthCtx.fillText(stage, x, 270);
+            // stagger alternate labels so neighbours never touch
+            growthCtx.fillText(stage, x, index % 2 === 0 ? 268 : 286);
         });
         
         // Add legend
+        // (kept in the empty upper-left area so it never sits on the curves)
+        growthCtx.font = '12px Arial';
+        growthCtx.textBaseline = 'alphabetic';
         growthCtx.fillStyle = '#ff6b6b';
-        growthCtx.fillRect(350, 70, 20, 10);
-        growthCtx.fillStyle = '#333';
+        growthCtx.fillRect(70, 50, 20, 10);
+        growthCtx.fillStyle = '#14152b';
         growthCtx.textAlign = 'left';
-        growthCtx.fillText('Combat Power', 375, 80);
+        growthCtx.fillText('Combat Power', 95, 60);
         
         growthCtx.fillStyle = '#4ecdc4';
-        growthCtx.fillRect(350, 90, 20, 10);
-        growthCtx.fillStyle = '#333';
-        growthCtx.fillText('Wisdom & Experience', 375, 100);
+        growthCtx.fillRect(70, 70, 20, 10);
+        growthCtx.fillStyle = '#14152b';
+        growthCtx.textAlign = 'left';
+        growthCtx.fillText('Wisdom & Experience', 95, 80);
     </script>
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_char.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Character Creation</a>
-        <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
-        <a href="/dnd_100.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">100 Characters &rarr;</a>
-    </nav>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

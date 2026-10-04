@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5e Roleplaying and Character Development</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>Roleplaying &amp; Character Development - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
     <header>
+        <span class="lesson-kicker">Part 8</span>
         <h1>Roleplaying and Character Development</h1>
         <p><em>From Statistics to Stories</em></p>
     </header>
@@ -122,7 +128,7 @@
                     <div class="relationship-web">
                         <h5>Key Relationship Types:</h5>
                         <ul>
-                            <li><strong>Mentor:</strong> Who taught them their most important lesson?</li>
+                            <li><strong>Mentor:</strong> Who taught them what matters most?</li>
                             <li><strong>Rival:</strong> Who challenges them to be better (or worse)?</li>
                             <li><strong>Love:</strong> Who do they care about more than themselves?</li>
                             <li><strong>Enemy:</strong> Who represents what they stand against?</li>
@@ -364,7 +370,7 @@
                     <div class="pc-relationship-types">
                         <h5>Relationship Dynamics:</h5>
                         <ul>
-                            <li><strong>The Mentor/Student:</strong> Experienced character guides newcomer</li>
+                            <li><strong>The Mentor/Apprentice:</strong> Experienced character guides newcomer</li>
                             <li><strong>The Rivals:</strong> Friendly competition pushes both to excel</li>
                             <li><strong>The Opposites:</strong> Different approaches create interesting friction</li>
                             <li><strong>The Siblings:</strong> Deep loyalty despite constant bickering</li>
@@ -492,7 +498,7 @@
                         <ul>
                             <li><strong>Strangers to Family:</strong> Party members become chosen family</li>
                             <li><strong>Rivals to Respect:</strong> Competition evolves into mutual admiration</li>
-                            <li><strong>Mentor Becomes Equal:</strong> Student grows to match teacher</li>
+                            <li><strong>Mentor Becomes Equal:</strong> Apprentice grows to match teacher</li>
                             <li><strong>Enemy to Ally:</strong> Former foe joins the cause</li>
                         </ul>
                     </div>
@@ -635,7 +641,7 @@
                     <li>What do they have in common?</li>
                     <li>What do they disagree about?</li>
                     <li>What does each character learn from the other?</li>
-                    <li>How might this relationship change over the course of a campaign?</li>
+                    <li>How might this relationship change as the campaign goes on?</li>
                 </ul>
                 <p><em>Bonus: Discuss this with another player and develop the relationship together</em></p>
             </div>
@@ -761,10 +767,10 @@
 
         <section class="next-steps">
             <h2>What's Coming Next?</h2>
-            <p>You've now mastered the fundamentals of D&D 5e! Our final lesson will be about becoming a Dungeon Master - taking on the role of storyteller, referee, and world-builder. Whether you plan to DM or just want to understand the game better, this knowledge will make you a more informed and helpful player.</p>
+            <p>You've now covered the fundamentals of D&D 5e! The final part of this guide is about becoming a Dungeon Master - taking on the role of storyteller, referee, and world-builder. Whether you plan to DM or just want to understand the game better, this knowledge will make you a more informed and helpful player.</p>
             
             <div class="preview-box">
-                <h3>Next Lesson Preview:<a href="/dnd_dm.html">Introduction to Dungeon Mastering</a></h3>
+                <h3>Next Up: <a href="/dnd_dm.html">Introduction to Dungeon Mastering</a></h3>
                 <ul>
                     <li>Understanding the DM's role and responsibilities</li>
                     <li>Basic adventure design and story structure</li>
@@ -779,8 +785,8 @@
         <section class="resources">
             <h2>Roleplaying Resources</h2>
             <ul>
-                <li><strong>Character Voice Guides:</strong> Online tutorials for developing character speech patterns</li>
-                <li><strong>Improv Classes:</strong> Real-world training that directly improves roleplaying skills</li>
+                <li><strong>Character Voice Guides:</strong> Online videos and articles on developing character speech patterns</li>
+                <li><strong>Improv Workshops:</strong> Real-world training that directly improves roleplaying skills</li>
                 <li><strong>Character Art:</strong> Visual references help you embody your character</li>
                 <li><strong>Personality Tests:</strong> Myers-Briggs, Enneagram for character development</li>
                 <li><strong>Acting Resources:</strong> Method acting techniques applicable to D&D</li>
@@ -791,13 +797,12 @@
     </main>
 
     <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_magic.html">Magic &amp; Spellcasting</a>
+    <a class="next" href="/dnd_dm.html">Dungeon Mastering</a>
+</div>
         <p><em>Remember: The goal isn't to be the best actor at the table - it's to create memorable stories together!</em></p>
     </footer>
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_magic.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Magic</a>
-        <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
-        <a href="/dnd_dm.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Dungeon Mastering &rarr;</a>
-    </nav>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>

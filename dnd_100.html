@@ -4,23 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D 5th Edition Character Examples - Complete Guide</title>
-    <link rel="stylesheet" href="/styles/main.css">
+    <title>Sample Characters - The Dungeons &amp; Dragons 5e Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <script type="module" src="/js/diagrams.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
     <link rel="icon" href="/favicon.png" type="image/png">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <style>
+        /* In-page "jump to" list */
+        body > nav.page-toc { width: min(var(--measure), calc(100% - 32px)); margin: 1.2rem auto 0; }
+        nav.page-toc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+        nav.page-toc li { margin: 0; }
+        nav.page-toc a {
+            display: inline-block; padding: 4px 12px; border-radius: 999px; text-decoration: none; font-size: 0.92rem;
+            background: var(--surface); border: 1px solid var(--border); color: var(--accent);
+        }
+        nav.page-toc a:hover { border-color: var(--accent); }
+    </style>
 </head>
 <body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">☀️</button>
-    <script>(function(){var s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);})();</script>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
     <header>
+        <span class="lesson-kicker">Tool</span>
         <h1>D&D 5th Edition Character Examples</h1>
-        <p>A comprehensive guide to creating memorable heroes across all tiers and party sizes</p>
+        <p>420 sample characters for every tier of play: 20 solo heroes and 100 parties of two to six adventurers</p>
     </header>
 
-    <nav>
+    <nav class="page-toc" aria-label="On this page">
         <ul>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#character-creation">Character Creation</a></li>
@@ -47,10 +64,10 @@
                     B --> E[Racial Traits]
                     C --> F[Class Features]
                     D --> G[Skills & Proficiencies]
-                    E --> H[Ability Score Increases]
+                    E --> H[Ability Scores &amp; Build]
                     F --> H
                     G --> H
-                    H --> I[Subclass Choice]
+                    H --> I[Subclass Choice: level 1-3 by class]
                     I --> J[Equipment & Spells]
                     J --> K[Personality & Backstory]
                     
@@ -132,7 +149,7 @@
             <p><strong>Race:</strong> Variant Human (Feat: Great Weapon Master)</p>
             <p><strong>Background:</strong> Noble</p>
             <p><strong>Concept:</strong> Righteous knight-errant bringing justice to the realm</p>
-            <p><strong>Key Features:</strong> Lay on Hands, Divine Sense, Sacred Weapon, Protection fighting style</p>
+            <p><strong>Key Features:</strong> Lay on Hands, Divine Sense, Sacred Weapon, Great Weapon Fighting style</p>
             <p><strong>Real-world Parallel:</strong> Like a medieval knight-errant or modern peace officer - moral authority combined with martial prowess</p>
             <p><strong>Solo Strengths:</strong> Self-healing, high AC, social authority through divine mandate and noble bearing</p>
             <p><strong>Equipment Focus:</strong> Splint armor, greatsword, holy symbol, noble's pack</p>
@@ -146,7 +163,7 @@
             <p><strong>Solo Adaptability:</strong> Stealth, magic, and social skills provide multiple problem-solving approaches</p>
             <p><strong>Equipment Focus:</strong> Studded leather, rapier, shortbow, thieves' tools, spellcasting focus</p>
 
-            <h4>Thorin Ironforge - Mountain Dwarf Fighter (Battle Master) - Level 2</h4>
+            <h4>Thorin Ironforge - Mountain Dwarf Fighter (Battle Master) - Level 3</h4>
             <p><strong>Race:</strong> Mountain Dwarf (Armor proficiency, weapon familiarity)</p>
             <p><strong>Background:</strong> Soldier</p>
             <p><strong>Concept:</strong> Veteran warrior seeking redemption for wartime failures</p>
@@ -155,11 +172,11 @@
             <p><strong>Solo Effectiveness:</strong> High durability and tactical options for various combat situations</p>
             <p><strong>Equipment Focus:</strong> Chain mail, warhammer, handaxe, soldier's pack</p>
 
-            <h4>Luna Starweaver - High Elf Wizard (Divination) - Level 1</h4>
+            <h4>Luna Starweaver - High Elf Wizard (Divination) - Level 2</h4>
             <p><strong>Race:</strong> High Elf (Extra cantrip, weapon training)</p>
             <p><strong>Background:</strong> Sage</p>
             <p><strong>Concept:</strong> Scholar seeking lost magical knowledge</p>
-            <p><strong>Key Features:</strong> Arcane Recovery, Ritual Casting, Portent (upcoming)</p>
+            <p><strong>Key Features:</strong> Arcane Recovery, Ritual Casting, Portent</p>
             <p><strong>Solo Utility:</strong> Divination magic provides guidance and preparation advantages</p>
             <p><strong>Knowledge Focus:</strong> Research and investigation skills supplement magical abilities</p>
             <p><strong>Equipment Focus:</strong> Robes, quarterstaff, spellbook, scholar's pack</p>
@@ -179,7 +196,7 @@
             <p><strong>Race:</strong> Variant Human (Feat: Inspiring Leader)</p>
             <p><strong>Background:</strong> Soldier</p>
             <p><strong>Concept:</strong> Veteran officer turned mercenary captain</p>
-            <p><strong>Advanced Features:</strong> Extra Attack, Improved Critical, Additional Fighting Style</p>
+            <p><strong>Advanced Features:</strong> Extra Attack, Improved Critical, Remarkable Athlete</p>
             <p><strong>Leadership Focus:</strong> Inspires allies even when working alone through reputation</p>
             <p><strong>Character Arc:</strong> Struggles with loyalty to country versus personal ethics</p>
             <p><strong>Solo Tactics:</strong> Reliable damage output and defensive capabilities</p>
@@ -192,7 +209,7 @@
             <p><strong>Versatility:</strong> Short rest spell recovery and invocations provide flexibility</p>
             <p><strong>Social Power:</strong> Charisma-based abilities for negotiation and manipulation</p>
 
-            <h4>Brother Benedict - Human Cleric (Life) - Level 9</h4>
+            <h4>Brother Benedict - Variant Human Cleric (Life) - Level 9</h4>
             <p><strong>Race:</strong> Variant Human (Feat: Healer)</p>
             <p><strong>Background:</strong> Acolyte</p>
             <p><strong>Concept:</strong> Traveling healer bringing aid to remote communities</p>
@@ -205,7 +222,7 @@
             <p><strong>Background:</strong> Hermit</p>
             <p><strong>Concept:</strong> Shapeshifting guardian of ancient forest</p>
             <p><strong>Wild Shape:</strong> Combat and utility forms provide tactical flexibility</p>
-            <p><strong>Nature Magic:</strong> Control weather, communicate with animals, heal naturally</p>
+            <p><strong>Nature Magic:</strong> Call lightning, speak with animals, heal naturally</p>
             <p><strong>Environmental Mastery:</strong> Unmatched in natural settings</p>
 
             <h4>Melody Heartstring - Half-Elf Bard (Lore) - Level 10</h4>
@@ -238,7 +255,7 @@
             <p><strong>Race:</strong> Tabaxi (Dexterity, climbing speed, feline agility)</p>
             <p><strong>Background:</strong> Hermit</p>
             <p><strong>Concept:</strong> Mysterious figure who moves between shadows</p>
-            <p><strong>Shadow Magic:</strong> Teleportation and illusion abilities</p>
+            <p><strong>Shadow Magic:</strong> Shadow Step teleportation and Shadow Arts spells such as darkness and silence</p>
             <p><strong>Perfect Movement:</strong> Unhindered by physical obstacles</p>
             <p><strong>Mystical Philosophy:</strong> Understands balance between light and dark</p>
 
@@ -264,7 +281,7 @@
             <p><strong>Race:</strong> Warforged (Constructed resilience, integrated protection)</p>
             <p><strong>Background:</strong> Soldier</p>
             <p><strong>Concept:</strong> Ageless protector of natural balance</p>
-            <p><strong>Ultimate Power:</strong> Aura of Faith, Improved Divine Smite</p>
+            <p><strong>Ultimate Power:</strong> Elder Champion, Aura of Warding, Improved Divine Smite</p>
             <p><strong>Immortal Duty:</strong> Endless vigil against cosmic threats</p>
             <p><strong>Living Legend:</strong> Stories span centuries</p>
 
@@ -280,7 +297,7 @@
             <p><strong>Race:</strong> Half-Elf (Versatility, social connections)</p>
             <p><strong>Background:</strong> Outlander</p>
             <p><strong>Concept:</strong> Planar guardian protecting reality's borders</p>
-            <p><strong>Planar Magic:</strong> Travel between dimensions at will</p>
+            <p><strong>Planar Magic:</strong> Ethereal Step and Distant Strike slip between planes mid-fight</p>
             <p><strong>Multiverse Scope:</strong> Adventures span multiple planes</p>
             <p><strong>Cosmic Authority:</strong> Recognized across planes</p>
 
@@ -312,13 +329,13 @@
             <p><strong>Elena Swiftarrow</strong> - Half-Elf Ranger (Hunter) - Level 3</p>
             <p><strong>Partnership Dynamic:</strong> Experienced knight mentoring young archer</p>
             <p><strong>Tactical Synergy:</strong> Marcus engages in melee while Elena provides ranged support and scouting</p>
-            <p><strong>Real-world Example:</strong> Mentor-student relationship like master craftsman and apprentice</p>
+            <p><strong>Real-world Example:</strong> Mentor-protégé relationship like master craftsman and apprentice</p>
             <p><strong>Character Growth:</strong> Marcus learns humility, Elena gains confidence and honor</p>
             <p><strong>Combat Roles:</strong> Tank/support and striker/utility combination</p>
 
             <h4>The Scholar and Bodyguard</h4>
-            <p><strong>Professor Aldric Quillwright</strong> - Variant Human Wizard (Divination) - Level 2</p>
-            <p><strong>Gareth Ironwall</strong> - Dwarf Fighter (Protection) - Level 2</p>
+            <p><strong>Professor Aldric Quillwright</strong> - Variant Human Wizard (Divination) - Level 3</p>
+            <p><strong>Gareth Ironwall</strong> - Dwarf Fighter (Cavalier) - Level 3</p>
             <p><strong>Partnership Dynamic:</strong> Brilliant academic protected by loyal warrior</p>
             <p><strong>Complementary Skills:</strong> Magical knowledge combined with martial prowess</p>
             <p><strong>Social Dynamic:</strong> Intellectual aristocrat and working-class guardian</p>
@@ -333,8 +350,8 @@
             <p><strong>Humanitarian Mission:</strong> Bringing medical aid to underserved communities</p>
 
             <h4>The Unlikely Allies</h4>
-            <p><strong>Zara Shadowbane</strong> - Tiefling Warlock (Fiend) - Level 1</p>
-            <p><strong>Celeste Lightbringer</strong> - Aasimar Paladin (Devotion) - Level 1</p>
+            <p><strong>Zara Shadowbane</strong> - Tiefling Warlock (Fiend) - Level 3</p>
+            <p><strong>Celeste Lightbringer</strong> - Aasimar Paladin (Devotion) - Level 3</p>
             <p><strong>Partnership Dynamic:</strong> Fiendish heritage working with celestial champion</p>
             <p><strong>Redemption Theme:</strong> Proving that origin doesn't determine destiny</p>
             <p><strong>Moral Complexity:</strong> Different approaches to achieving good</p>
@@ -352,7 +369,7 @@
 
             <h4>The Elemental Wardens</h4>
             <p><strong>Blaze Stormcaller</strong> - Dragonborn Sorcerer (Storm) - Level 8</p>
-            <p><strong>Terra Stoneheeart</strong> - Earth Genasi Monk (Elements) - Level 8</p>
+            <p><strong>Terra Stoneheart</strong> - Earth Genasi Monk (Elements) - Level 8</p>
             <p><strong>Elemental Mastery:</strong> Lightning and earth magic in perfect balance</p>
             <p><strong>Philosophical Difference:</strong> Chaotic storm nature versus steady earth wisdom</p>
             <p><strong>Environmental Control:</strong> Shape weather and terrain together</p>
@@ -409,7 +426,7 @@
             <p><strong>Epic Stakes:</strong> Decisions affect entire planes of existence</p>
 
             <h4>The Time Guardians</h4>
-            <p><strong>Chronos the Eternal</strong> - Variant Human Wizard (Chronurgy) - Level 12</p>
+            <p><strong>Chronos the Eternal</strong> - Variant Human Wizard (Divination) - Level 12</p>
             <p><strong>Destiny the Inevitable</strong> - Kalashtar Cleric (Forge) - Level 12</p>
             <p><strong>Temporal Authority:</strong> Protect timeline from paradoxes</p>
             <p><strong>Causal Enforcement:</strong> Maintain cause-and-effect relationships</p>
@@ -435,7 +452,7 @@
             <h3>Tier 4 Duos (Levels 17-20)</h3>
 
             <h4>The Reality Shapers</h4>
-            <p><strong>Genesis</strong> - Human Wizard (School of Creation) - Level 20</p>
+            <p><strong>Genesis</strong> - Human Wizard (Conjuration) - Level 20</p>
             <p><strong>Apocalypse</strong> - Tiefling Sorcerer (Aberrant Mind) - Level 20</p>
             <p><strong>Cosmic Power:</strong> Create and destroy on universal scales</p>
             <p><strong>Perfect Opposition:</strong> Creation and entropy in balance</p>
@@ -491,9 +508,9 @@
             <p><strong>Role Distribution:</strong> Tank/damage, scout/skills, healer/authority</p>
 
             <h4>The Apprentice Adventurers</h4>
-            <p><strong>Tam the Brave</strong> - Human Fighter (Battle Master) - Level 2</p>
-            <p><strong>Luna the Wise</strong> - High Elf Wizard (Evocation) - Level 2</p>
-            <p><strong>Pip the Quick</strong> - Halfling Rogue (Thief) - Level 2</p>
+            <p><strong>Tam the Brave</strong> - Human Fighter (Battle Master) - Level 3</p>
+            <p><strong>Luna the Wise</strong> - High Elf Wizard (Evocation) - Level 3</p>
+            <p><strong>Pip the Quick</strong> - Halfling Rogue (Thief) - Level 3</p>
             <p><strong>Group Dynamic:</strong> Young heroes learning their trade together</p>
             <p><strong>Classic Roles:</strong> Warrior, wizard, thief - the fundamental trio</p>
             <p><strong>Growth Focus:</strong> Develop from novices into competent adventurers</p>
@@ -518,9 +535,9 @@
             <p><strong>Secret Agenda:</strong> Use performances to gather information and help others</p>
 
             <h4>The Academy Graduates</h4>
-            <p><strong>Valedictorian Brightmind</strong> - Variant Human Artificer (Armorer) - Level 1</p>
-            <p><strong>Class President Charm</strong> - Half-Elf Bard (Eloquence) - Level 1</p>
-            <p><strong>Star Athlete Strong</strong> - Dragonborn Barbarian (Totem) - Level 1</p>
+            <p><strong>Valedictorian Brightmind</strong> - Variant Human Artificer (Armorer) - Level 3</p>
+            <p><strong>Class President Charm</strong> - Half-Elf Bard (Eloquence) - Level 3</p>
+            <p><strong>Star Athlete Strong</strong> - Dragonborn Barbarian (Totem) - Level 3</p>
             <p><strong>Group Dynamic:</strong> Recent graduates applying academic knowledge to real world</p>
             <p><strong>School Pride:</strong> Represent their institution's reputation</p>
             <p><strong>Learning Curve:</strong> Theory meets practice in dangerous situations</p>
@@ -585,9 +602,9 @@
             <p><strong>Transcendent Purpose:</strong> Guide evolution of consciousness itself</p>
 
             <h4>The Reality Architects</h4>
-            <p><strong>Creator</strong> - Variant Human Wizard (School of Creation) - Level 15</p>
+            <p><strong>Creator</strong> - Variant Human Wizard (Conjuration) - Level 15</p>
             <p><strong>Preserver</strong> - Wood Elf Druid (Stars) - Level 15</p>
-            <p><strong>Destroyer</strong> - Githyanki Fighter (Echo Knight) - Level 15</p>
+            <p><strong>Destroyer</strong> - Githyanki Fighter (Eldritch Knight) - Level 15</p>
             <p><strong>Group Dynamic:</strong> Forces of creation, preservation, and destruction in balance</p>
             <p><strong>Universal Scope:</strong> Shape fundamental laws of reality</p>
             <p><strong>Eternal Cycle:</strong> Maintain balance between growth and decay</p>
@@ -595,7 +612,7 @@
 
             <h4>The Temporal Court</h4>
             <p><strong>Judge</strong> - Variant Human Paladin (Devotion) - Level 13</p>
-            <p><strong>Prosecutor</strong> - Githzerai Monk (Long Death) - Level 13</p>
+            <p><strong>Prosecutor</strong> - Githzerai Monk (Open Hand) - Level 13</p>
             <p><strong>Defender</strong> - Half-Elf Bard (Eloquence) - Level 13</p>
             <p><strong>Group Dynamic:</strong> Court system for crimes against time itself</p>
             <p><strong>Temporal Authority:</strong> Judge violations of causality</p>
@@ -612,7 +629,7 @@
             <p><strong>Universal Respect:</strong> Honored across all cultures</p>
 
             <h4>The Infinite Spiral</h4>
-            <p><strong>Past</strong> - Reborn Wizard (Chronurgy) - Level 11</p>
+            <p><strong>Past</strong> - Reborn Wizard (Divination) - Level 11</p>
             <p><strong>Present</strong> - Variant Human Monk (Astral Self) - Level 11</p>
             <p><strong>Future</strong> - Kalashtar Cleric (Forge) - Level 11</p>
             <p><strong>Group Dynamic:</strong> Represent all of time in eternal cycle</p>
@@ -675,7 +692,7 @@
             <h3>Tier 1 Quartets (Levels 1-4)</h3>
 
             <h4>The Classic Adventuring Party</h4>
-            <p><strong>Tank</strong> - Human Fighter (Protection) - Level 3</p>
+            <p><strong>Tank</strong> - Human Fighter (Cavalier) - Level 3</p>
             <p><strong>Striker</strong> - Wood Elf Ranger (Hunter) - Level 3</p>
             <p><strong>Controller</strong> - High Elf Wizard (Evocation) - Level 3</p>
             <p><strong>Support</strong> - Hill Dwarf Cleric (Life) - Level 3</p>
@@ -689,26 +706,26 @@
             <p><strong>Specialist</strong> - Half-Elf Rogue (Arcane Trickster) - Level 4</p>
             <p><strong>Battle Mage</strong> - Dragonborn Sorcerer (Draconic) - Level 4</p>
             <p><strong>Field Medic</strong> - Halfling Cleric (Life) - Level 4</p>
-            <p><strong>Military Academy:</strong> Elite graduates on first major assignment</p>
+            <p><strong>Military Academy:</strong> Elite graduates on their first major mission</p>
             <p><strong>Leadership Structure:</strong> Clear chain of command with specialized roles</p>
             <p><strong>Institutional Pride:</strong> Represent their academy's reputation</p>
             <p><strong>Combined Training:</strong> Trained to work as integrated unit</p>
 
             <h4>The Merchant Company Guards</h4>
-            <p><strong>Captain</strong> - Variant Human Fighter (Battle Master) - Level 2</p>
-            <p><strong>Scout</strong> - Wood Elf Ranger (Beast Master) - Level 2</p>
-            <p><strong>Negotiator</strong> - Half-Elf Bard (Glamour) - Level 2</p>
-            <p><strong>Appraiser</strong> - Rock Gnome Artificer (Artillerist) - Level 2</p>
+            <p><strong>Captain</strong> - Variant Human Fighter (Battle Master) - Level 3</p>
+            <p><strong>Scout</strong> - Wood Elf Ranger (Beast Master) - Level 3</p>
+            <p><strong>Negotiator</strong> - Half-Elf Bard (Glamour) - Level 3</p>
+            <p><strong>Appraiser</strong> - Rock Gnome Artificer (Artillerist) - Level 3</p>
             <p><strong>Commercial Focus:</strong> Protect valuable cargo and negotiate deals</p>
             <p><strong>Economic Stakes:</strong> Success affects trade routes and prosperity</p>
             <p><strong>Diverse Skills:</strong> Combat, diplomacy, and technical expertise</p>
             <p><strong>Reputation Building:</strong> Word of mouth drives future business</p>
 
             <h4>The Temple Guardians</h4>
-            <p><strong>High Priest</strong> - Human Cleric (Light) - Level 1</p>
-            <p><strong>Temple Knight</strong> - Dragonborn Paladin (Devotion) - Level 1</p>
-            <p><strong>Scholar</strong> - Variant Human Wizard (Divination) - Level 1</p>
-            <p><strong>Acolyte</strong> - Half-Elf Bard (Lore) - Level 1</p>
+            <p><strong>High Priest</strong> - Human Cleric (Light) - Level 3</p>
+            <p><strong>Temple Knight</strong> - Dragonborn Paladin (Devotion) - Level 3</p>
+            <p><strong>Scholar</strong> - Variant Human Wizard (Divination) - Level 3</p>
+            <p><strong>Acolyte</strong> - Half-Elf Bard (Lore) - Level 3</p>
             <p><strong>Religious Authority:</strong> Comprehensive temple hierarchy</p>
             <p><strong>Divine Mission:</strong> Serve deity through prayer, action, and protection</p>
             <p><strong>Community Service:</strong> Provide spiritual guidance and practical aid</p>
@@ -779,7 +796,7 @@
             <h3>Tier 3 Quartets (Levels 11-16)</h3>
 
             <h4>The Planar Council</h4>
-            <p><strong>Material Representative</strong> - Variant Human Wizard (Chronurgy) - Level 14</p>
+            <p><strong>Material Representative</strong> - Variant Human Wizard (Divination) - Level 14</p>
             <p><strong>Celestial Voice</strong> - Aasimar Cleric (Light) - Level 14</p>
             <p><strong>Infernal Envoy</strong> - Tiefling Warlock (Fiend) - Level 14</p>
             <p><strong>Elemental Mediator</strong> - Genasi Sorcerer (Storm) - Level 14</p>
@@ -788,8 +805,10 @@
             <p><strong>Reality Maintenance:</strong> Prevent planar catastrophes</p>
             <p><strong>Diplomatic Immunity:</strong> Safe passage across all planes</p>
 
-<p><strong>Chaos Controller</strong> - Gnome Sorcerer (Wild Magic) - Level 15</p>
-            <p><strong>Order Keeper</strong> - Warforged Monk (Long Death) - Level 15</p>
+            <h4>The Existential Guard</h4>
+            <p><strong>Reality Anchor</strong> - Mountain Dwarf Fighter (Eldritch Knight) - Level 15</p>
+            <p><strong>Chaos Controller</strong> - Gnome Sorcerer (Wild Magic) - Level 15</p>
+            <p><strong>Order Keeper</strong> - Warforged Monk (Open Hand) - Level 15</p>
             <p><strong>Balance Maintainer</strong> - Kalashtar Cleric (Twilight) - Level 15</p>
             <p><strong>Existential Defense:</strong> Protect reality from fundamental threats</p>
             <p><strong>Universal Authority:</strong> Override normal laws when necessary</p>
@@ -798,7 +817,7 @@
 
             <h4>The Ascension Protocol</h4>
             <p><strong>Divine Warrior</strong> - Aasimar Paladin (Devotion) - Level 13</p>
-            <p><strong>Perfect Mage</strong> - High Elf Wizard (School of Creation) - Level 13</p>
+            <p><strong>Perfect Mage</strong> - High Elf Wizard (Conjuration) - Level 13</p>
             <p><strong>Eternal Scholar</strong> - Variant Human Cleric (Knowledge) - Level 13</p>
             <p><strong>Cosmic Voice</strong> - Half-Elf Bard (Creation) - Level 13</p>
             <p><strong>Divine Candidacy:</strong> Potential successors to current deities</p>
@@ -807,10 +826,10 @@
             <p><strong>Divine Trial:</strong> Must prove worthiness for cosmic responsibility</p>
 
             <h4>The Time Enforcement Agency</h4>
-            <p><strong>Chronarch Prime</strong> - Variant Human Fighter (Echo Knight) - Level 12</p>
-            <p><strong>Timeline Analyst</strong> - Kalashtar Wizard (Chronurgy) - Level 12</p>
+            <p><strong>Chronarch Prime</strong> - Variant Human Fighter (Eldritch Knight) - Level 12</p>
+            <p><strong>Timeline Analyst</strong> - Kalashtar Wizard (Divination) - Level 12</p>
             <p><strong>Paradox Hunter</strong> - Githyanki Rogue (Phantom) - Level 12</p>
-            <p><strong>Causal Engineer</strong> - Rock Gnome Artificer (Chronurgy) - Level 12</p>
+            <p><strong>Causal Engineer</strong> - Rock Gnome Artificer (Artillerist) - Level 12</p>
             <p><strong>Temporal Authority:</strong> Police crimes against causality</p>
             <p><strong>Timeline Protection:</strong> Maintain stability across all timelines</p>
             <p><strong>Paradox Prevention:</strong> Stop changes that could unravel existence</p>
@@ -896,8 +915,8 @@
             <p><strong>Honor Code:</strong> Bound by military tradition and personal integrity</p>
             <p><strong>Real-world Parallel:</strong> Elite military honor guards or special forces units</p>
 
-            <h4>The Pathfinder Society Lodge</h4>
-            <p><strong>Venture-Captain</strong> - Variant Human Rogue (Mastermind) - Level 4</p>
+            <h4>The Explorers’ Lodge</h4>
+            <p><strong>Lodge Captain</strong> - Variant Human Rogue (Mastermind) - Level 4</p>
             <p><strong>Combat Specialist</strong> - Half-Orc Barbarian (Totem Warrior) - Level 4</p>
             <p><strong>Arcane Researcher</strong> - High Elf Wizard (Divination) - Level 4</p>
             <p><strong>Divine Scholar</strong> - Aasimar Cleric (Knowledge) - Level 4</p>
@@ -908,22 +927,22 @@
             <p><strong>Adventure Variety:</strong> Missions range from archaeology to monster hunting</p>
 
             <h4>The Mercenary Company "Iron Eagles"</h4>
-            <p><strong>Captain</strong> - Human Fighter (Battle Master) - Level 2</p>
-            <p><strong>Lieutenant</strong> - Dwarf Cleric (War) - Level 2</p>
-            <p><strong>Sergeant</strong> - Half-Elf Bard (Valor) - Level 2</p>
-            <p><strong>Specialist</strong> - Tiefling Warlock (Fiend) - Level 2</p>
-            <p><strong>Scout</strong> - Wood Elf Ranger (Beast Master) - Level 2</p>
+            <p><strong>Captain</strong> - Human Fighter (Battle Master) - Level 3</p>
+            <p><strong>Lieutenant</strong> - Dwarf Cleric (War) - Level 3</p>
+            <p><strong>Sergeant</strong> - Half-Elf Bard (Valor) - Level 3</p>
+            <p><strong>Specialist</strong> - Tiefling Warlock (Fiend) - Level 3</p>
+            <p><strong>Scout</strong> - Wood Elf Ranger (Beast Master) - Level 3</p>
             <p><strong>Professional Military:</strong> Experienced soldiers for hire</p>
             <p><strong>Reputation System:</strong> Success builds fame and attracts better contracts</p>
             <p><strong>Military Efficiency:</strong> Clear hierarchy and defined roles</p>
             <p><strong>Economic Focus:</strong> Balance profit with professional ethics</p>
 
             <h4>The Artisan Collective</h4>
-            <p><strong>Guild Master</strong> - Rock Gnome Artificer (Armorer) - Level 1</p>
-            <p><strong>Mastersmith</strong> - Mountain Dwarf Fighter (Champion) - Level 1</p>
-            <p><strong>Enchanter</strong> - High Elf Wizard (Enchantment) - Level 1</p>
-            <p><strong>Appraiser</strong> - Variant Human Rogue (Inquisitive) - Level 1</p>
-            <p><strong>Negotiator</strong> - Half-Elf Bard (Glamour) - Level 1</p>
+            <p><strong>Guild Master</strong> - Rock Gnome Artificer (Armorer) - Level 3</p>
+            <p><strong>Mastersmith</strong> - Mountain Dwarf Fighter (Champion) - Level 3</p>
+            <p><strong>Enchanter</strong> - High Elf Wizard (Enchantment) - Level 3</p>
+            <p><strong>Appraiser</strong> - Variant Human Rogue (Inquisitive) - Level 3</p>
+            <p><strong>Negotiator</strong> - Half-Elf Bard (Glamour) - Level 3</p>
             <p><strong>Craft Focus:</strong> Create exceptional weapons, armor, and magical items</p>
             <p><strong>Economic Network:</strong> Trade relationships across multiple cities</p>
             <p><strong>Innovation Drive:</strong> Develop new techniques and magical applications</p>
@@ -933,7 +952,7 @@
             <p><strong>Chief Physician</strong> - Variant Human Cleric (Life) - Level 4</p>
             <p><strong>Field Surgeon</strong> - Half-Elf Bard (Lore) - Level 4</p>
             <p><strong>Herbalist</strong> - Wood Elf Druid (Land) - Level 4</p>
-            <p><strong>Guard</strong> - Dragonborn Fighter (Protection) - Level 4</p>
+            <p><strong>Guard</strong> - Dragonborn Fighter (Cavalier) - Level 4</p>
             <p><strong>Counselor</strong> - Aasimar Cleric (Peace) - Level 4</p>
             <p><strong>Humanitarian Mission:</strong> Provide medical care to underserved frontier communities</p>
             <p><strong>Medical Specialization:</strong> Each member handles different aspects of healthcare</p>
@@ -1004,7 +1023,7 @@
             <p><strong>Matter Architect</strong> - Earth Genasi Monk (Astral Self) - Level 14</p>
             <p><strong>Energy Weaver</strong> - Fire Genasi Sorcerer (Draconic) - Level 14</p>
             <p><strong>Time Guardian</strong> - Variant Human Cleric (Knowledge) - Level 14</p>
-            <p><strong>Space Walker</strong> - Githyanki Fighter (Echo Knight) - Level 14</p>
+            <p><strong>Space Walker</strong> - Githyanki Fighter (Eldritch Knight) - Level 14</p>
             <p><strong>Universal Authority:</strong> Govern fundamental forces of existence</p>
             <p><strong>Cosmic Responsibility:</strong> Maintain balance across all realities</p>
             <p><strong>Divine Mandate:</strong> Answer to universal principles rather than gods</p>
@@ -1022,10 +1041,10 @@
             <p><strong>Universal Peace:</strong> Maintain balance between creation and destruction</p>
 
             <h4>The Temporal Enforcement Division</h4>
-            <p><strong>Chronarch Supreme</strong> - Variant Human Fighter (Echo Knight) - Level 12</p>
-            <p><strong>Timeline Analyst</strong> - Kalashtar Wizard (Chronurgy) - Level 12</p>
+            <p><strong>Chronarch Supreme</strong> - Variant Human Fighter (Eldritch Knight) - Level 12</p>
+            <p><strong>Timeline Analyst</strong> - Kalashtar Wizard (Divination) - Level 12</p>
             <p><strong>Paradox Hunter</strong> - Githyanki Rogue (Phantom) - Level 12</p>
-            <p><strong>Causal Engineer</strong> - Rock Gnome Artificer (Chronurgy) - Level 12</p>
+            <p><strong>Causal Engineer</strong> - Rock Gnome Artificer (Artillerist) - Level 12</p>
             <p><strong>Probability Oracle</strong> - Half-Elf Cleric (Knowledge) - Level 12</p>
             <p><strong>Temporal Authority:</strong> Police violations of causality across all timelines</p>
             <p><strong>Paradox Prevention:</strong> Ensure timeline stability and prevent reality collapse</p>
@@ -1034,7 +1053,7 @@
 
             <h4>The Ascension Threshold</h4>
             <p><strong>Divine Warrior</strong> - Aasimar Paladin (Devotion) - Level 15</p>
-            <p><strong>Perfect Mage</strong> - High Elf Wizard (School of Creation) - Level 15</p>
+            <p><strong>Perfect Mage</strong> - High Elf Wizard (Conjuration) - Level 15</p>
             <p><strong>Eternal Oracle</strong> - Kalashtar Cleric (Knowledge) - Level 15</p>
             <p><strong>Master Artist</strong> - Half-Elf Bard (Creation) - Level 15</p>
             <p><strong>Shadow Walker</strong> - Shadar-kai Monk (Shadow) - Level 15</p>
@@ -1068,7 +1087,7 @@
             <p><strong>Creation Mandate:</strong> Authorized to build new worlds</p>
 
             <h4>The Infinity Protocol</h4>
-            <p><strong>Alpha Protocol</strong> - Warforged Fighter (Echo Knight) - Level 19</p>
+            <p><strong>Alpha Protocol</strong> - Warforged Fighter (Eldritch Knight) - Level 19</p>
             <p><strong>Beta Interface</strong> - Warforged Wizard (Divination) - Level 19</p>
             <p><strong>Gamma Matrix</strong> - Warforged Artificer (Armorer) - Level 19</p>
             <p><strong>Delta Network</strong> - Warforged Monk (Astral Self) - Level 19</p>
@@ -1143,24 +1162,24 @@
             <p><strong>Academic Mission:</strong> Advance understanding of world's geography and peoples</p>
 
             <h4>The Artisan Guild Consortium</h4>
-            <p><strong>Guild Master</strong> - Rock Gnome Artificer (Armorer) - Level 2</p>
-            <p><strong>Master Smith</strong> - Mountain Dwarf Fighter (Champion) - Level 2</p>
-            <p><strong>Grand Enchanter</strong> - High Elf Wizard (Enchantment) - Level 2</p>
-            <p><strong>Chief Appraiser</strong> - Variant Human Rogue (Inquisitive) - Level 2</p>
-            <p><strong>Trade Negotiator</strong> - Half-Elf Bard (Glamour) - Level 2</p>
-            <p><strong>Security Captain</strong> - Dragonborn Fighter (Protection) - Level 2</p>
+            <p><strong>Guild Master</strong> - Rock Gnome Artificer (Armorer) - Level 3</p>
+            <p><strong>Master Smith</strong> - Mountain Dwarf Fighter (Champion) - Level 3</p>
+            <p><strong>Grand Enchanter</strong> - High Elf Wizard (Enchantment) - Level 3</p>
+            <p><strong>Chief Appraiser</strong> - Variant Human Rogue (Inquisitive) - Level 3</p>
+            <p><strong>Trade Negotiator</strong> - Half-Elf Bard (Glamour) - Level 3</p>
+            <p><strong>Security Captain</strong> - Dragonborn Fighter (Cavalier) - Level 3</p>
             <p><strong>Crafting Excellence:</strong> Premier artisans creating legendary items</p>
             <p><strong>Economic Network:</strong> Trade relationships spanning multiple kingdoms</p>
             <p><strong>Innovation Drive:</strong> Pioneer new crafting techniques and magical applications</p>
             <p><strong>Quality Reputation:</strong> Sought after by nobility and adventurers alike</p>
 
             <h4>The Frontier Settlement Council</h4>
-            <p><strong>Mayor</strong> - Variant Human Fighter (Battle Master) - Level 1</p>
-            <p><strong>Sheriff</strong> - Half-Orc Ranger (Monster Slayer) - Level 1</p>
-            <p><strong>Doctor</strong> - Halfling Cleric (Life) - Level 1</p>
-            <p><strong>Teacher</strong> - Rock Gnome Bard (Lore) - Level 1</p>
-            <p><strong>Engineer</strong> - Mountain Dwarf Artificer (Artillerist) - Level 1</p>
-            <p><strong>Merchant</strong> - Half-Elf Warlock (Archfey) - Level 1</p>
+            <p><strong>Mayor</strong> - Variant Human Fighter (Battle Master) - Level 3</p>
+            <p><strong>Sheriff</strong> - Half-Orc Ranger (Monster Slayer) - Level 3</p>
+            <p><strong>Doctor</strong> - Halfling Cleric (Life) - Level 3</p>
+            <p><strong>Teacher</strong> - Rock Gnome Bard (Lore) - Level 3</p>
+            <p><strong>Engineer</strong> - Mountain Dwarf Artificer (Artillerist) - Level 3</p>
+            <p><strong>Merchant</strong> - Half-Elf Warlock (Archfey) - Level 3</p>
             <p><strong>Community Leadership:</strong> Essential roles in frontier settlement development</p>
             <p><strong>Civic Duty:</strong> Build civilization in wilderness territories</p>
             <p><strong>Mutual Dependence:</strong> Each role crucial for community survival</p>
@@ -1244,7 +1263,7 @@
 
             <h4>The Universal Governance Council</h4>
             <p><strong>Prime Minister</strong> - Variant Human Paladin (Devotion) - Level 14</p>
-            <p><strong>Archmage Chancellor</strong> - High Elf Wizard (School of Creation) - Level 14</p>
+            <p><strong>Archmage Chancellor</strong> - High Elf Wizard (Conjuration) - Level 14</p>
             <p><strong>High Oracle</strong> - Kalashtar Cleric (Knowledge) - Level 14</p>
             <p><strong>Supreme Judge</strong> - Half-Elf Bard (Eloquence) - Level 14</p>
             <p><strong>Grand Admiral</strong> - Dragonborn Fighter (Champion) - Level 14</p>
@@ -1257,8 +1276,8 @@
             <h4>The Cosmic Synthesis Assembly</h4>
             <p><strong>Matter Sovereign</strong> - Earth Genasi Monk (Astral Self) - Level 13</p>
             <p><strong>Energy Empress</strong> - Fire Genasi Sorcerer (Draconic) - Level 13</p>
-            <p><strong>Space Lord</strong> - Githyanki Fighter (Echo Knight) - Level 13</p>
-            <p><strong>Time Guardian</strong> - Variant Human Wizard (Chronurgy) - Level 13</p>
+            <p><strong>Space Lord</strong> - Githyanki Fighter (Eldritch Knight) - Level 13</p>
+            <p><strong>Time Guardian</strong> - Variant Human Wizard (Divination) - Level 13</p>
             <p><strong>Mind Walker</strong> - Kalashtar Cleric (Knowledge) - Level 13</p>
             <p><strong>Soul Speaker</strong> - Aasimar Paladin (Devotion) - Level 13</p>
             <p><strong>Fundamental Forces:</strong> Each member embodies basic aspect of existence</p>
@@ -1280,10 +1299,10 @@
 
             <h4>The Temporal Enforcement Supreme Command</h4>
             <p><strong>Chronarch Emperor</strong> - Variant Human Paladin (Devotion) - Level 15</p>
-            <p><strong>Timeline Director</strong> - Kalashtar Wizard (Chronurgy) - Level 15</p>
+            <p><strong>Timeline Director</strong> - Kalashtar Wizard (Divination) - Level 15</p>
             <p><strong>Paradox Hunter</strong> - Githyanki Rogue (Phantom) - Level 15</p>
             <p><strong>Probability Oracle</strong> - Half-Elf Cleric (Knowledge) - Level 15</p>
-            <p><strong>Causal Engineer</strong> - Rock Gnome Artificer (Chronurgy) - Level 15</p>
+            <p><strong>Causal Engineer</strong> - Rock Gnome Artificer (Artillerist) - Level 15</p>
             <p><strong>Quantum Judge</strong> - Warforged Monk (Astral Self) - Level 15</p>
             <p><strong>Temporal Supremacy:</strong> Ultimate authority over all timelines</p>
             <p><strong>Causal Command:</strong> Maintain cause-and-effect across infinite realities</p>
@@ -1306,7 +1325,7 @@
 
             <h4>The Genesis Protocol</h4>
             <p><strong>Prime Mover</strong> - Custom Lineage Fighter (Rune Knight) - Level 20</p>
-            <p><strong>First Cause</strong> - Variant Human Wizard (School of Creation) - Level 20</p>
+            <p><strong>First Cause</strong> - Variant Human Wizard (Conjuration) - Level 20</p>
             <p><strong>Initial Spark</strong> - Aasimar Cleric (Forge) - Level 20</p>
             <p><strong>Original Word</strong> - Kalashtar Bard (Creation) - Level 20</p>
             <p><strong>Fundamental Force</strong> - Genasi Sorcerer (Divine Soul) - Level 20</p>
@@ -1329,7 +1348,7 @@
             <p><strong>Eternal Resolution:</strong> Provide answers to ultimate questions</p>
 
             <h4>The Infinite Circle</h4>
-            <p><strong>Alpha</strong> - Warforged Fighter (Echo Knight) - Level 18</p>
+            <p><strong>Alpha</strong> - Warforged Fighter (Eldritch Knight) - Level 18</p>
             <p><strong>Beta</strong> - Warforged Wizard (Divination) - Level 18</p>
             <p><strong>Gamma</strong> - Warforged Artificer (Armorer) - Level 18</p>
             <p><strong>Delta</strong> - Warforged Monk (Astral Self) - Level 18</p>
@@ -1508,7 +1527,7 @@
             <h3>Race and Background Optimization</h3>
             
             <h4>Racial Synergy</h4>
-            <p>Choose races that enhance your class features rather than just providing optimal ability scores. A Tiefling Paladin gains fire resistance and social spells, while a Dragonborn Sorcerer adds breath weapon versatility to magical arsenal.</p>
+            <p>Choose races that enhance your class features rather than just providing optimal ability scores. A Tiefling Paladin gains fire resistance and innate spells such as hellish rebuke, while a Dragonborn Sorcerer adds breath weapon versatility to magical arsenal.</p>
 
             <h4>Background Integration</h4>
             <p>Backgrounds provide crucial skills, tool proficiencies, and features that remain relevant throughout campaigns. Criminal provides thieves' tools and underworld contacts, while Noble offers political connections and wealth.</p>
@@ -1522,10 +1541,10 @@
             <p>Plan character development beyond mechanical progression. Consider how personality, relationships, and goals will evolve over 20 levels of play. Build in opportunities for growth through success, failure, and moral challenges that test character beliefs.</p>
 
             <h4>Legacy and Succession</h4>
-            <p>High-level characters often establish organizations, train students, or build institutions. Plan how retiring characters become campaign elements for future adventures. Former player characters make excellent allies, mentors, or complex NPCs with established histories.</p>
+            <p>High-level characters often establish organizations, train apprentices, or build institutions. Plan how retiring characters become campaign elements for future adventures. Former player characters make excellent allies, mentors, or complex NPCs with established histories.</p>
 
             <h4>Generational Campaigns</h4>
-            <p>Consider campaigns spanning multiple generations where new characters are descendants, students, or successors of previous heroes. This creates epic scope while maintaining personal stakes and continuity between campaign arcs.</p>
+            <p>Consider campaigns spanning multiple generations where new characters are descendants, apprentices, or successors of previous heroes. This creates epic scope while maintaining personal stakes and continuity between campaign arcs.</p>
 
             <h3>Advanced Roleplaying Integration</h3>
             
@@ -1544,7 +1563,7 @@
             <p>Tailor character choices to campaign settings and themes. A horror campaign might emphasize investigation skills and mental resilience, while a political intrigue campaign prioritizes social abilities and information networks.</p>
 
             <h4>Seasonal Considerations</h4>
-            <p>Some campaigns follow seasonal structures or episodic formats that reward different character types. Adventure League play favors versatile, self-sufficient characters, while long-form home campaigns can support more specialized or unusual character concepts.</p>
+            <p>Some campaigns follow seasonal structures or episodic formats that reward different character types. Organized play (such as the D&amp;D Adventurers League) favors versatile, self-sufficient characters, while long-form home campaigns can support more specialized or unusual character concepts.</p>
 
             <h4>Table Dynamics</h4>
             <p>Consider your fellow players' preferences and experience levels when creating characters. New players might appreciate straightforward, effective character concepts, while experienced players might enjoy complex, unusual builds that create interesting tactical decisions.</p>
@@ -1579,9 +1598,9 @@
             
             <h4>Official Content Integration</h4>
             <ul>
-                <li><strong>Tasha's Cauldron:</strong> Customizable lineages, additional subclasses, and optional class features</li>
-                <li><strong>Xanathar's Guide:</strong> Expanded subclass options and comprehensive downtime activities</li>
-                <li><strong>Mordenkainen's Tome:</strong> Additional races and expanded multiverse lore</li>
+                <li><strong>Tasha's Cauldron of Everything:</strong> Customizable lineages, additional subclasses, and optional class features</li>
+                <li><strong>Xanathar's Guide to Everything:</strong> Expanded subclass options and comprehensive downtime activities</li>
+                <li><strong>Mordenkainen's Tome of Foes:</strong> Additional races and expanded multiverse lore</li>
                 <li><strong>Adventure Books:</strong> Setting-specific player options and campaign integration</li>
             </ul>
 
@@ -1596,7 +1615,7 @@
             <h4>Character Building Resources</h4>
             <ul>
                 <li><strong>D&D Beyond:</strong> Official digital character creation and management</li>
-                <li><strong>Fifth Edition Character Sheet:</strong> Alternative digital character management</li>
+                <li><strong>Other Character-Sheet Apps:</strong> Alternative digital character management</li>
                 <li><strong>Random Character Generators:</strong> Inspiration for unusual character combinations</li>
                 <li><strong>Background Generators:</strong> Detailed histories connecting characters to campaign worlds</li>
             </ul>
@@ -1618,7 +1637,7 @@
             <ul>
                 <li><strong>Reddit Communities:</strong> r/DMAcademy, r/DnD, and r/3d6 for character building advice</li>
                 <li><strong>Discord Servers:</strong> Real-time discussion with experienced players and DMs</li>
-                <li><strong>Official Forums:</strong> Wizards of the Coast official community discussions</li>
+                <li><strong>D&amp;D Beyond Forums:</strong> Official community discussions</li>
                 <li><strong>Actual Play Shows:</strong> Critical Role, Dimension 20, and other streaming shows demonstrate character interactions</li>
             </ul>
 
@@ -1678,16 +1697,13 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 D&D 5th Edition Character Examples Guide. This comprehensive resource provides over 100 unique character examples across all tiers and party sizes, offering practical guidance for creating memorable heroes in any D&D campaign.</p>
+<div class="page-nav">
+    <a class="prev" href="/dnd_dice_roller.html">Dice Roller</a>
+    <a class="next" href="/dnd_names.html">150 Character Names</a>
+</div>
+        <p>&copy; 2025 D&D 5th Edition Character Examples Guide. This resource provides 420 character examples (20 solo heroes plus 100 parties of two to six) across all tiers and party sizes, offering practical guidance for creating memorable heroes in any D&D campaign.</p>
         <p>Remember: The greatest adventures are born from characters who balance mechanical effectiveness with compelling personalities and strong party dynamics. Use these examples as stepping stones to create the heroes your table deserves and the stories you'll treasure forever.</p>
     </footer>
-
-  
-    <nav style="display:flex;justify-content:space-between;align-items:center;margin:2rem 0;padding:1rem;background:#1a1d27;border:1px solid #2e3347;border-radius:8px;">
-        <a href="/dnd_character_examples.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">&larr; Character Examples</a>
-        <a href="/index.html" style="color:#7c8298;text-decoration:none;">Home</a>
-        <a href="/dnd_names.html" style="color:#60a5fa;text-decoration:none;font-weight:600;">Character Names &rarr;</a>
-    </nav>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const t=document.getElementById('theme-toggle');if(!t)return;function g(){return document.documentElement.getAttribute('data-theme')||'dark';}function u(){t.textContent=g()==='dark'?'☀️':'🌙';}u();t.addEventListener('click',()=>{const n=g()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});});</script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
 </body>
 </html>
