@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Sheets - The Dungeons &amp; Dragons 5e Guide</title>
+    <meta name="description" content="Fillable D&amp;D 5e character sheets in three pages: main sheet with modifiers worked out, details and backstory, and spellcasting. Save in your browser, print and export.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/js/site.js?v=1"></script>
+    <link rel="stylesheet" href="/styles/main.css?v=2">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <style>
+        /* ===== Controls (themed) ===== */
+        main .sheet-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin: 20px auto 6px; max-width: 860px; }
+        main .sheet-controls select {
+            min-height: 40px; padding: 6px 10px; border-radius: 8px; min-width: 200px; width: auto;
+            background: var(--surface); color: var(--text); border: 1px solid var(--border-strong); font: inherit; font-size: 0.95rem;
+        }
+        main .sheet-controls button, main .tabs button {
+            min-height: 40px; padding: 7px 14px; margin: 0; border-radius: 8px; font: inherit; font-size: 0.92rem; font-weight: 600; cursor: pointer;
+            background: var(--surface); color: var(--heading); border: 1px solid var(--border-strong); width: auto;
+        }
+        main .sheet-controls button:hover, main .tabs button:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+        main .sheet-controls button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+        main .sheet-controls button.primary:hover { color: var(--accent-ink); background: var(--accent); filter: brightness(1.08); }
+        main .sheet-controls button.armed { background: #a3161a; border-color: #a3161a; color: #fff; }
+        main .tabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 12px auto 0; background: none; border: 0; box-shadow: none; padding: 0; }
+        main .tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+        main .ddb-panel { max-width: 860px; margin: 10px auto 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; box-shadow: var(--shadow); }
+        main .ddb-panel > summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+        main .ddb-panel p, main .ddb-panel ol { margin: 0.6rem 0; }
+        main .ddb-panel .ddb-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        main .ddb-panel .ddb-row input { flex: 1 1 260px; width: auto; max-width: none; }
+        main .ddb-panel button { min-height: 40px; padding: 7px 14px; margin: 0; border-radius: 8px; font: inherit; font-weight: 600; cursor: pointer; width: auto;
+            background: var(--surface); color: var(--heading); border: 1px solid var(--border-strong); }
+        main .ddb-panel button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+        main .ddb-panel .ddb-alt { margin-top: 10px; }
+        main .ddb-panel .ddb-alt > summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+        main .ddb-panel textarea { width: 100%; min-height: 80px; font-family: ui-monospace, Consolas, monospace; font-size: 0.85rem; }
+        main .ddb-panel .ddb-note { color: var(--muted); font-size: 0.9rem; }
+        #importFile { display: none; }
+        .sheet-status { text-align: center; min-height: 1.6em; margin: 4px 0 0; color: var(--muted); font-weight: 600; }
+        .sheet-help { max-width: 860px; margin: 10px auto 0; color: var(--muted); font-size: 0.95rem; }
+
+        /* ===== The sheet: a light page in both themes ===== */
+        .dnd-sheet {
+            --ink: #1b1d2b; --soft: #4a4f63; --line: #a9aec2; --blue: #3a3fa8; --paper: #fdfcf8;
+            width: min(8.5in, 100%); margin: 14px auto; padding: 14px 16px;
+            background: var(--paper); color: var(--ink); border: 2px solid #2c2f4a; border-radius: 6px;
+            font-family: "Source Sans 3", "Segoe UI", sans-serif; font-size: 14px; line-height: 1.3; box-shadow: var(--shadow);
+            color-scheme: light;
+        }
+        .dnd-sheet .page + .page { display: none; }
+        .dnd-sheet[data-page="details"] .page { display: none; }
+        .dnd-sheet[data-page="details"] .page.p-details { display: block; }
+        .dnd-sheet[data-page="spells"] .page { display: none; }
+        .dnd-sheet[data-page="spells"] .page.p-spells { display: block; }
+        .dnd-sheet .lbl { display: block; font: 700 11px/1.2 "EB Garamond", Georgia, serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue); margin: 0 0 2px; }
+        .dnd-sheet .box { border: 1.5px solid var(--line); border-radius: 5px; padding: 6px 8px; }
+        .dnd-sheet input[type="text"], .dnd-sheet select, .dnd-sheet textarea, .dnd-sheet .val {
+            width: 100%; max-width: none; min-height: 0; margin: 0; background: transparent; color: var(--ink);
+            border: 0; border-bottom: 1px dotted var(--line); border-radius: 0; padding: 2px; font: inherit; box-shadow: none;
+        }
+        .dnd-sheet textarea { border-bottom: 0; resize: vertical; min-height: 54px; line-height: 1.35; }
+        .dnd-sheet .val { display: block; min-height: 1.35em; white-space: pre-wrap; }
+        .dnd-sheet .tx.val { min-height: 3.4em; border-bottom: 0; }
+        .dnd-sheet input::placeholder, .dnd-sheet textarea::placeholder { color: #666a7d; opacity: 1; }
+        .dnd-sheet input:focus, .dnd-sheet select:focus, .dnd-sheet textarea:focus { outline: 2px solid var(--blue); outline-offset: 1px; background: rgba(58, 63, 168, 0.06); }
+        .dnd-sheet select option { background: #fdfcf8; color: #1b1d2b; }
+        .dnd-sheet input[type="checkbox"] { width: 15px; height: 15px; margin: 0; accent-color: var(--blue); vertical-align: middle; }
+        .dnd-sheet .num { font-weight: 700; text-align: center; }
+        .dnd-sheet .misc { display: flex; gap: 4px; align-items: center; justify-content: center; font-size: 11px; color: var(--soft); margin-top: 2px; }
+        .dnd-sheet .misc input, .dnd-sheet .misc .val { width: 2.4em !important; text-align: center; font-size: 12px !important; font-weight: 600 !important; padding: 0 !important; }
+        .dnd-sheet .out { display: inline-block; min-width: 2.2em; text-align: center; font-weight: 700; color: var(--ink); }
+
+        .dnd-sheet .head { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 4px 12px; border-bottom: 2px solid #2c2f4a; padding-bottom: 6px; margin-bottom: 10px; }
+        .dnd-sheet .head .name { grid-row: span 2; align-self: end; }
+        .dnd-sheet .head .name input, .dnd-sheet .head .name .val { font: 700 1.45rem "EB Garamond", Georgia, serif; }
+        .dnd-sheet .head small { display: block; font-size: 10px; color: var(--soft); text-transform: uppercase; letter-spacing: 0.04em; }
+        .dnd-sheet .main3 { display: grid; grid-template-columns: 0.95fr 1.05fr 1.15fr; gap: 10px; }
+        .dnd-sheet .stack > * + * { margin-top: 8px; }
+        .dnd-sheet .abil-col { display: grid; grid-template-columns: 74px 1fr; gap: 8px; }
+        .dnd-sheet .abilities > * + * { margin-top: 6px; }
+        .dnd-sheet .ab { display: block; border: 2px solid var(--ink); border-radius: 8px; text-align: center; padding: 3px 2px 5px; }
+        .dnd-sheet .ab .lbl { color: var(--ink); font-size: 12px; letter-spacing: 0.08em; margin: 0; }
+        .dnd-sheet .ab .mod { display: block; font: 700 1.35rem/1.1 "EB Garamond", Georgia, serif; }
+        .dnd-sheet .ab input, .dnd-sheet .ab .val { width: 44px; margin: 2px auto 0; display: block; text-align: center; border: 1.5px solid var(--line); border-radius: 12px; font-weight: 700; padding: 0; }
+        .dnd-sheet .row { display: flex; gap: 6px; align-items: center; padding: 1px 0; font-size: 13px; }
+        .dnd-sheet .row .out { min-width: 2em; border-bottom: 1px solid var(--line); }
+        .dnd-sheet .row .ab3 { color: var(--soft); font-size: 11px; margin-left: auto; }
+        .dnd-sheet .pill { display: flex; gap: 8px; align-items: center; border: 1.5px solid var(--line); border-radius: 5px; padding: 4px 8px; }
+        .dnd-sheet .pill .out { font-size: 1.1rem; }
+        .dnd-sheet .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .dnd-sheet .trio .box, .dnd-sheet .duo .box { text-align: center; }
+        .dnd-sheet .trio .box input, .dnd-sheet .trio .box .val, .dnd-sheet .duo .box input, .dnd-sheet .duo .box .val { text-align: center; font-weight: 700; font-size: 1.15rem; }
+        .dnd-sheet .trio .out { font-size: 1.2rem; display: block; padding: 2px 0; }
+        .dnd-sheet .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .dnd-sheet .duo .box.hd input, .dnd-sheet .duo .box.hd .val { font-size: 13px; font-weight: 400; text-align: left; }
+        .dnd-sheet .deaths { font-size: 12px; }
+        .dnd-sheet .deaths div { display: flex; gap: 5px; align-items: center; justify-content: center; }
+        .dnd-sheet table.attacks { width: 100%; border-collapse: collapse; display: table; margin: 0; font-size: 13px; }
+        .dnd-sheet table.attacks th { font: 700 10px "EB Garamond", Georgia, serif; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); text-align: left; border: 0; background: none; padding: 1px 3px; }
+        .dnd-sheet table.attacks td { border: 0; padding: 1px 3px; background: none; color: var(--ink); }
+        .dnd-sheet .coins { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 4px; }
+        .dnd-sheet .coins small { display: block; text-align: center; font-size: 10px; font-weight: 700; color: var(--soft); }
+        .dnd-sheet .coins input, .dnd-sheet .coins .val { text-align: center; }
+
+        .dnd-sheet .looks { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px 10px; margin-bottom: 10px; }
+        .dnd-sheet .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .dnd-sheet .spellhead { display: grid; grid-template-columns: 1.4fr 1fr repeat(3, 0.8fr); gap: 6px 10px; margin-bottom: 10px; align-items: end; }
+        .dnd-sheet .spellhead .box { text-align: center; }
+        .dnd-sheet .spellhead .out { font-size: 1.2rem; }
+        .dnd-sheet .spells { columns: 3 230px; column-gap: 10px; }
+        .dnd-sheet .lvl { break-inside: avoid; border: 1.5px solid var(--line); border-radius: 5px; padding: 4px 6px; margin: 0 0 8px; }
+        .dnd-sheet .lvl-head { display: flex; gap: 6px; align-items: center; border-bottom: 1.5px solid var(--ink); padding-bottom: 2px; margin-bottom: 2px; }
+        .dnd-sheet .lvl-head b { font: 700 1.05rem "EB Garamond", Georgia, serif; min-width: 1.4em; text-align: center; border: 1.5px solid var(--ink); border-radius: 4px; }
+        .dnd-sheet .lvl-head small { font-size: 10px; color: var(--soft); text-transform: uppercase; }
+        .dnd-sheet .lvl-head input, .dnd-sheet .lvl-head .val { width: 2.6em; text-align: center; }
+        .dnd-sheet .sp { display: grid; grid-template-columns: 18px 1fr; gap: 4px; align-items: center; }
+        .dnd-sheet .sp.cantrip { grid-template-columns: 1fr; }
+        .dnd-sheet .sp input[type="text"], .dnd-sheet .sp .val { font-size: 13px; padding: 1px 2px; }
+
+        @media (max-width: 760px) {
+            .dnd-sheet { padding: 12px; }
+            .dnd-sheet .head { grid-template-columns: 1fr 1fr; }
+            .dnd-sheet .head .name { grid-column: 1 / -1; grid-row: auto; }
+            .dnd-sheet .main3, .dnd-sheet .two { grid-template-columns: 1fr; }
+            .dnd-sheet .looks { grid-template-columns: repeat(3, 1fr); }
+            .dnd-sheet .spellhead { grid-template-columns: 1fr 1fr; }
+            .dnd-sheet .spellhead > :first-child { grid-column: 1 / -1; }
+        }
+
+        /* ===== Print: three US Letter pages per character ===== */
+        .print-container { display: none; }
+        @media print {
+            @page { size: letter portrait; margin: 0.35in; }
+            .site-nav, .skip-link, body > header, .sheet-controls, .ddb-panel, .tabs, .sheet-status, .sheet-help, #sheet, footer, .site-footer { display: none !important; }
+            html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
+            main { margin: 0 !important; padding: 0 !important; width: auto !important; max-width: none !important; }
+            .print-container { display: block !important; border: 0 !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; background: none !important; border-radius: 0 !important; }
+            .print-container .dnd-sheet { width: 7.8in !important; margin: 0 auto !important; padding: 0 !important; border: 0 !important; box-shadow: none !important; font-size: 10.5px; line-height: 1.15; }
+            .print-container .dnd-sheet .page { display: block !important; border: 1.5pt solid #2c2f4a; border-radius: 4px; padding: 0.12in 0.14in; page-break-after: always; break-after: page; }
+            .print-container .dnd-sheet:last-child .page:last-child { page-break-after: auto; break-after: auto; }
+            .print-container .dnd-sheet .row { font-size: 10px; padding: 0; }
+            .print-container .dnd-sheet .val { min-height: 1.15em; padding: 0 2px; }
+            .print-container .dnd-sheet .tx.val { min-height: 2.4em; }
+            .print-container .dnd-sheet .box { padding: 3px 6px; }
+            .print-container .dnd-sheet .stack > * + * { margin-top: 5px; }
+            .print-container .dnd-sheet .abilities > * + * { margin-top: 4px; }
+            .print-container .dnd-sheet .ab .mod { font-size: 1.15rem; }
+            .print-container .dnd-sheet .sp .val { font-size: 10px; min-height: 1.05em; }
+            .print-container .dnd-sheet .lvl { margin-bottom: 5px; padding: 3px 5px; }
+            /* each page fills the paper: the writing boxes stretch */
+            .print-container .dnd-sheet .page { height: 10.25in; display: flex !important; flex-direction: column; box-sizing: border-box; overflow: hidden; }
+            .print-container .dnd-sheet .main3, .print-container .dnd-sheet .two { flex: 1; min-height: 0; }
+            .print-container .dnd-sheet .main3 > .stack, .print-container .dnd-sheet .two > .stack, .print-container .dnd-sheet .abil-col > .stack { display: flex; flex-direction: column; }
+            .print-container .dnd-sheet .grow, .print-container .dnd-sheet .grow-lg { flex: 1; display: flex; flex-direction: column; }
+            .print-container .dnd-sheet .grow-lg { flex: 2; }
+            .print-container .dnd-sheet .grow-sm { flex: 0.45; display: flex; flex-direction: column; }
+            .print-container .dnd-sheet .grow-sm .tx.val { flex: 1; }
+            .print-container .dnd-sheet .grow .tx.val, .print-container .dnd-sheet .grow-lg .tx.val { flex: 1; }
+            .print-container .dnd-sheet .abil-col .stack > .box:last-child { flex: 1; }
+            .print-container .dnd-sheet .spells { flex: 1; }
+            .print-container .dnd-sheet .sp .val { min-height: 2.4em; }
+            .print-container .dnd-sheet .lvl-head .val { min-height: 1.2em; }
+        }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav">
+    <a href="https://rays-home.netlify.app/">Ray's House of Fun</a>
+    <a href="/index.html">Home</a>
+    <a href="https://rays-home.netlify.app/contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+</nav>
+    <header>
+        <h1>Character Sheets</h1>
+        <p>Fill in, save and print D&amp;D 5e characters on three pages, with modifiers, saves, skills and spell numbers worked out for you.</p>
+    </header>
+
+    <main id="main">
+        <div class="sheet-controls">
+            <select id="sheetSelect" aria-label="Saved sheets"><option value="">— Select Sheet —</option></select>
+            <button type="button" class="primary" id="newBtn">✨ New</button>
+            <button type="button" id="saveBtn">💾 Save</button>
+            <button type="button" id="copyBtn">📋 Copy</button>
+            <button type="button" id="deleteBtn">🗑️ Delete</button>
+            <button type="button" id="printBtn">🖨️ Print</button>
+            <button type="button" id="printAllBtn">🖨️ Print All</button>
+            <button type="button" id="blankBtn">📄 Print Blank</button>
+            <button type="button" id="exportBtn">📤 Export</button>
+            <button type="button" id="importBtn">📥 Import</button>
+            <input type="file" id="importFile" accept=".json,application/json">
+        </div>
+        <p class="sheet-status" id="status" role="status" aria-live="polite"></p>
+        <details class="ddb-panel" id="ddbPanel">
+            <summary>🐉 Import from D&amp;D Beyond</summary>
+            <p>Paste your character's D&amp;D Beyond link (or just its number) and press <strong>Import</strong>. The character must be set to <strong>Public</strong> in its D&amp;D Beyond privacy settings. Importing again later updates the same sheet.</p>
+            <div class="ddb-row">
+                <input type="text" id="ddbUrl" placeholder="https://www.dndbeyond.com/characters/12345678" aria-label="D&amp;D Beyond character link or number">
+                <button type="button" class="primary" id="ddbFetch">Import</button>
+            </div>
+            <details class="ddb-alt">
+                <summary>Link not working? Paste the character data instead</summary>
+                <ol>
+                    <li>Open <a id="ddbJsonLink" href="https://character-service.dndbeyond.com/character/v5/character/" target="_blank" rel="noopener">your character's data page</a> in a new tab (enter your link above first so it points at your character).</li>
+                    <li>Select everything on that page (Ctrl+A or ⌘A), copy it, and paste it below. You can also save the page and use <strong>📥 Import</strong> on the saved file.</li>
+                </ol>
+                <textarea id="ddbJson" rows="4" placeholder='{"id":0,"success":true,"message":"Character successfully received.","data":{…}}' aria-label="Pasted D&amp;D Beyond character data"></textarea>
+                <button type="button" id="ddbPaste">Import Pasted Data</button>
+            </details>
+            <p class="ddb-note">The import fills in everything the sheet has room for: scores, proficiencies and expertise, hit points, armor class, speed, attacks with equipped weapons, equipment and coins, features, traits, backstory and spells with slots. Homebrew and unusual effects may still need a manual touch. D&amp;D Beyond is a trademark of Wizards of the Coast; this tool is unofficial.</p>
+        </details>
+        <div class="tabs" role="tablist" aria-label="Sheet pages">
+            <button type="button" role="tab" id="tab-main" aria-controls="sheet" aria-selected="true" data-page="main">⚔️ Main Sheet</button>
+            <button type="button" role="tab" id="tab-details" aria-controls="sheet" aria-selected="false" data-page="details">📜 Details &amp; Backstory</button>
+            <button type="button" role="tab" id="tab-spells" aria-controls="sheet" aria-selected="false" data-page="spells">✨ Spellcasting</button>
+        </div>
+
+        <form class="dnd-sheet" id="sheet" data-page="main" autocomplete="off" onsubmit="return false">
+            <!-- ===================== PAGE 1: MAIN ===================== -->
+            <div class="page p-main">
+                <div class="head">
+                    <label class="name"><span class="lbl">Character Name</span><input type="text" name="name" maxlength="80" placeholder="Kira Ironshield"></label>
+                    <label><small>Class &amp; Level</small><input type="text" name="classLevel" placeholder="Fighter 3"></label>
+                    <label><small>Background</small><input type="text" name="background" placeholder="Soldier"></label>
+                    <label><small>Player Name</small><input type="text" name="player"></label>
+                    <label><small>Race</small><input type="text" name="race" placeholder="Mountain Dwarf"></label>
+                    <label><small>Alignment</small><input type="text" name="alignment" placeholder="Lawful Good"></label>
+                    <label><small>Experience Points</small><input type="text" name="xp" placeholder="900"></label>
+                </div>
+
+                <div class="main3">
+                    <!-- column 1: abilities, inspiration, proficiency, saves, skills -->
+                    <div class="abil-col">
+                        <div class="abilities" id="abilities"></div>
+                        <div class="stack">
+                            <div class="pill"><input type="checkbox" name="inspiration" aria-label="Inspiration"><span>Inspiration</span></div>
+                            <div class="pill"><label style="display:flex;gap:6px;align-items:center;width:100%"><span style="white-space:nowrap">Level</span><input type="text" name="level" class="num" maxlength="2" inputmode="numeric" placeholder="1" style="width:2.6em"></label></div>
+                            <div class="pill"><span class="out" data-out="prof">+2</span><span>Proficiency Bonus</span></div>
+                            <div class="pill"><input type="checkbox" name="joat" aria-label="Jack of All Trades"><span title="Add half your proficiency bonus (rounded down) to checks you are not proficient in">Jack of All Trades</span></div>
+                            <div class="box"><span class="lbl">Saving Throws</span><div id="saves"></div><label class="misc"><span>All saves +</span><input type="text" name="saveBonus" maxlength="3" placeholder="0" aria-label="Bonus to all saving throws"></label></div>
+                            <div class="box"><span class="lbl">Skills</span><div id="skills"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- column 2: combat -->
+                    <div class="stack">
+                        <div class="trio">
+                            <label class="box"><span class="lbl">Armor Class</span><input type="text" name="ac" placeholder="16"></label>
+                            <div class="box"><span class="lbl">Initiative</span><span class="out" data-out="init">+0</span><label class="misc"><span>misc +</span><input type="text" name="initBonus" maxlength="3" placeholder="0" aria-label="Initiative bonus"></label></div>
+                            <label class="box"><span class="lbl">Speed</span><input type="text" name="speed" placeholder="30 ft"></label>
+                        </div>
+                        <div class="box">
+                            <div class="duo">
+                                <label><span class="lbl">Hit Point Maximum</span><input type="text" name="hpMax" class="num" placeholder="28"></label>
+                                <label><span class="lbl">Temporary HP</span><input type="text" name="hpTemp" class="num" placeholder="0"></label>
+                            </div>
+                            <label><span class="lbl" style="margin-top:4px">Current Hit Points</span><input type="text" name="hpCur" class="num" placeholder="28"></label>
+                        </div>
+                        <div class="duo">
+                            <div class="box hd"><span class="lbl">Hit Dice</span><input type="text" name="hdTotal" placeholder="Total: 3d10"><input type="text" name="hdCur" placeholder="Left: 3"></div>
+                            <div class="box deaths"><span class="lbl">Death Saves</span>
+                                <div>Successes <input type="checkbox" name="ds1" aria-label="Death save success 1"><input type="checkbox" name="ds2" aria-label="Death save success 2"><input type="checkbox" name="ds3" aria-label="Death save success 3"></div>
+                                <div>Failures&nbsp;&nbsp;&nbsp; <input type="checkbox" name="df1" aria-label="Death save failure 1"><input type="checkbox" name="df2" aria-label="Death save failure 2"><input type="checkbox" name="df3" aria-label="Death save failure 3"></div>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <span class="lbl">Attacks &amp; Spellcasting</span>
+                            <table class="attacks">
+                                <thead><tr><th>Name</th><th>Atk Bonus</th><th>Damage / Type</th></tr></thead>
+                                <tbody>
+                                    <tr><td><input type="text" name="a1n" placeholder="Longsword" aria-label="Attack 1 name"></td><td><input type="text" name="a1b" placeholder="+5" aria-label="Attack 1 bonus"></td><td><input type="text" name="a1d" placeholder="1d8+3 slashing" aria-label="Attack 1 damage"></td></tr>
+                                    <tr><td><input type="text" name="a2n" aria-label="Attack 2 name"></td><td><input type="text" name="a2b" aria-label="Attack 2 bonus"></td><td><input type="text" name="a2d" aria-label="Attack 2 damage"></td></tr>
+                                    <tr><td><input type="text" name="a3n" aria-label="Attack 3 name"></td><td><input type="text" name="a3b" aria-label="Attack 3 bonus"></td><td><input type="text" name="a3d" aria-label="Attack 3 damage"></td></tr>
+                                </tbody>
+                            </table>
+                            <textarea name="attackNotes" rows="2" placeholder="Extra attacks, Fighting Style, spell attacks…"></textarea>
+                        </div>
+                        <div class="box grow">
+                            <span class="lbl">Equipment</span>
+                            <div class="coins">
+                                <label><small>CP</small><input type="text" name="cp"></label><label><small>SP</small><input type="text" name="sp"></label><label><small>EP</small><input type="text" name="ep"></label><label><small>GP</small><input type="text" name="gp" placeholder="10"></label><label><small>PP</small><input type="text" name="pp"></label>
+                            </div>
+                            <textarea name="equipment" rows="5" placeholder="Chain mail, shield, longsword, explorer's pack…"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- column 3: personality, features, proficiencies -->
+                    <div class="stack">
+                        <div class="box grow-sm"><span class="lbl">Personality Traits</span><textarea name="traits" rows="2"></textarea></div>
+                        <div class="box grow-sm"><span class="lbl">Ideals</span><textarea name="ideals" rows="2"></textarea></div>
+                        <div class="box grow-sm"><span class="lbl">Bonds</span><textarea name="bonds" rows="2"></textarea></div>
+                        <div class="box grow-sm"><span class="lbl">Flaws</span><textarea name="flaws" rows="2"></textarea></div>
+                        <div class="box grow"><span class="lbl">Features &amp; Traits</span><textarea name="features" rows="6" placeholder="Second Wind, Action Surge, Dwarven Resilience…"></textarea></div>
+                        <div class="box"><span class="lbl">Other Proficiencies &amp; Languages</span><textarea name="profs" rows="3" placeholder="All armor, shields, simple and martial weapons; Common, Dwarvish"></textarea></div>
+                        <div class="pill"><span class="out" data-out="passive">10</span><span>Passive Wisdom (Perception)</span><label class="misc" style="margin-left:auto"><span>misc +</span><input type="text" name="passiveBonus" maxlength="3" placeholder="0" aria-label="Passive Perception bonus"></label></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== PAGE 2: DETAILS ===================== -->
+            <div class="page p-details">
+                <div class="head" style="grid-template-columns: 1.6fr repeat(3, 1fr)">
+                    <div class="name"><span class="lbl">Character Name</span><span class="val" data-mirror="name"></span></div>
+                </div>
+                <div class="looks">
+                    <label><small class="lbl">Age</small><input type="text" name="age"></label>
+                    <label><small class="lbl">Height</small><input type="text" name="height"></label>
+                    <label><small class="lbl">Weight</small><input type="text" name="weight"></label>
+                    <label><small class="lbl">Eyes</small><input type="text" name="eyes"></label>
+                    <label><small class="lbl">Skin</small><input type="text" name="skin"></label>
+                    <label><small class="lbl">Hair</small><input type="text" name="hair"></label>
+                </div>
+                <div class="two">
+                    <div class="stack">
+                        <div class="box grow"><span class="lbl">Character Appearance</span><textarea name="appearance" rows="6" placeholder="What people notice first"></textarea></div>
+                        <div class="box grow-lg"><span class="lbl">Character Backstory</span><textarea name="backstory" rows="12" placeholder="Where you came from and why you adventure"></textarea></div>
+                    </div>
+                    <div class="stack">
+                        <div class="box grow"><span class="lbl">Allies &amp; Organizations</span><input type="text" name="orgName" placeholder="Name and symbol"><textarea name="allies" rows="6"></textarea></div>
+                        <div class="box grow"><span class="lbl">Additional Features &amp; Traits</span><textarea name="moreFeatures" rows="7"></textarea></div>
+                        <div class="box grow"><span class="lbl">Treasure</span><textarea name="treasure" rows="6"></textarea></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== PAGE 3: SPELLCASTING ===================== -->
+            <div class="page p-spells">
+                <div class="spellhead">
+                    <label class="box"><span class="lbl">Spellcasting Class</span><input type="text" name="spellClass" placeholder="Wizard"></label>
+                    <label class="box"><span class="lbl">Spellcasting Ability</span>
+                        <select name="spellAbility"><option value="">—</option><option value="int">Intelligence</option><option value="wis">Wisdom</option><option value="cha">Charisma</option><option value="str">Strength</option><option value="dex">Dexterity</option><option value="con">Constitution</option></select></label>
+                    <div class="box"><span class="lbl">Spell Save DC</span><span class="out" data-out="dc">—</span></div>
+                    <div class="box"><span class="lbl">Spell Attack</span><span class="out" data-out="satk">—</span></div>
+                    <label class="box"><span class="lbl">Prepared</span><input type="text" name="prepCount" placeholder="#"></label>
+                </div>
+                <div class="spells" id="spells"></div>
+            </div>
+        </form>
+
+        <div class="sheet-help">
+            <p><strong>How it works.</strong> A sheet auto-saves in this browser once it has a name. Renaming a sheet renames its save. Use the tabs to move between the three pages. <strong>Print</strong> prints all three pages of the current character, one per US Letter sheet, and <strong>Print Blank</strong> prints an empty set. <strong>Export</strong> downloads every sheet as a JSON file and <strong>Import</strong> merges them back in (a sheet with the same name is replaced). Nothing leaves your browser.</p>
+            <p><strong>Worked out for you.</strong> Ability modifiers are (score − 10) ÷ 2, rounded down. Your proficiency bonus comes from your total character level (+2 at levels 1–4, rising by 1 every four levels to +6). A ticked save or skill adds your proficiency bonus; <strong>E</strong> (expertise) doubles it. Initiative is your Dexterity modifier, passive Perception is 10 + your Perception, spell save DC is 8 + proficiency + your spellcasting modifier, and spell attack is proficiency + that modifier. Tick <strong>Jack of All Trades</strong> to add half your proficiency bonus to checks you aren't proficient in (and initiative), and use the small <strong>misc +</strong> boxes for other bonuses such as the Alert feat or a Cloak of Protection. See <a href="/dnd_char.html">Character Creation</a> for building a character and the <a href="/dnd_dice_roller.html">Dice Roller</a> to roll with these numbers.</p>
+        </div>
+
+        <div class="print-container" id="printContainer"></div>
+    </main>
+
+    <footer>
+<div class="page-nav">
+    <a class="prev" href="/dnd_dice_roller.html">Dice Roller</a>
+    <a class="next" href="/dnd_100.html">Sample Characters</a>
+</div>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+        var KEY = 'dnd-character-sheets';
+        var sheet = document.getElementById('sheet');
+        var select = document.getElementById('sheetSelect');
+        var $ = function (id) { return document.getElementById(id); };
+
+        var ABIL = [['str', 'Strength'], ['dex', 'Dexterity'], ['con', 'Constitution'], ['int', 'Intelligence'], ['wis', 'Wisdom'], ['cha', 'Charisma']];
+        var SKILLS = [['Acrobatics', 'dex'], ['Animal Handling', 'wis'], ['Arcana', 'int'], ['Athletics', 'str'], ['Deception', 'cha'], ['History', 'int'],
+            ['Insight', 'wis'], ['Intimidation', 'cha'], ['Investigation', 'int'], ['Medicine', 'wis'], ['Nature', 'int'], ['Perception', 'wis'],
+            ['Performance', 'cha'], ['Persuasion', 'cha'], ['Religion', 'int'], ['Sleight of Hand', 'dex'], ['Stealth', 'dex'], ['Survival', 'wis']];
+        var SPELL_ROWS = [8, 12, 12, 12, 10, 8, 8, 6, 6, 6]; // cantrips, then levels 1-9
+        var slug = function (s) { return s.toLowerCase().replace(/[^a-z]+/g, ''); };
+
+        // ----- build the repeated parts -----
+        var FIELDS = ['name', 'classLevel', 'background', 'player', 'race', 'alignment', 'xp', 'inspiration', 'level', 'ac', 'speed', 'hpMax', 'hpTemp', 'hpCur', 'hdTotal', 'hdCur',
+            'ds1', 'ds2', 'ds3', 'df1', 'df2', 'df3', 'a1n', 'a1b', 'a1d', 'a2n', 'a2b', 'a2d', 'a3n', 'a3b', 'a3d', 'attackNotes', 'cp', 'sp', 'ep', 'gp', 'pp', 'equipment',
+            'traits', 'ideals', 'bonds', 'flaws', 'features', 'profs',
+            'age', 'height', 'weight', 'eyes', 'skin', 'hair', 'appearance', 'backstory', 'orgName', 'allies', 'moreFeatures', 'treasure',
+            'spellClass', 'spellAbility', 'prepCount', 'joat', 'saveBonus', 'initBonus', 'passiveBonus', 'ddbId'];
+        var BOOLS = { joat: 1, inspiration: 1, ds1: 1, ds2: 1, ds3: 1, df1: 1, df2: 1, df3: 1 };
+
+        var abBox = $('abilities');
+        ABIL.forEach(function (a) {
+            FIELDS.push(a[0]);
+            var d = document.createElement('label'); d.className = 'ab';
+            d.title = a[1];
+            d.innerHTML = '<span class="lbl" aria-hidden="true">' + a[0].toUpperCase() + '</span><span class="mod" data-out="mod_' + a[0] + '">+0</span>' +
+                '<input type="text" name="' + a[0] + '" maxlength="2" inputmode="numeric" placeholder="10" aria-label="' + a[1] + ' score">';
+            abBox.appendChild(d);
+        });
+        var saves = $('saves');
+        ABIL.forEach(function (a) {
+            var n = 'save_' + a[0]; FIELDS.push(n); BOOLS[n] = 1;
+            var r = document.createElement('div'); r.className = 'row';
+            r.innerHTML = '<input type="checkbox" name="' + n + '" aria-label="Proficient in ' + a[1] + ' saves"><span class="out" data-out="' + n + '">+0</span><span>' + a[1] + '</span>';
+            saves.appendChild(r);
+        });
+        var skills = $('skills');
+        SKILLS.forEach(function (s) {
+            var id = 'sk_' + slug(s[0]); FIELDS.push(id + '_p', id + '_e'); BOOLS[id + '_p'] = 1; BOOLS[id + '_e'] = 1;
+            var r = document.createElement('div'); r.className = 'row';
+            r.innerHTML = '<input type="checkbox" name="' + id + '_p" aria-label="Proficient in ' + s[0] + '" title="Proficient">' +
+                '<input type="checkbox" name="' + id + '_e" aria-label="Expertise in ' + s[0] + '" title="Expertise (double proficiency)">' +
+                '<span class="out" data-out="' + id + '">+0</span><span>' + s[0] + '</span><span class="ab3">' + s[1].charAt(0).toUpperCase() + s[1].slice(1) + '</span>';
+            skills.appendChild(r);
+        });
+        var spells = $('spells');
+        SPELL_ROWS.forEach(function (rows, lvl) {
+            var box = document.createElement('div'); box.className = 'lvl';
+            var head = '<div class="lvl-head"><b>' + lvl + '</b>';
+            if (lvl === 0) head += '<span class="lbl" style="margin:0">Cantrips</span>';
+            else {
+                FIELDS.push('slots' + lvl, 'used' + lvl);
+                head += '<small>Slots</small><input type="text" name="slots' + lvl + '" aria-label="Level ' + lvl + ' slots total">' +
+                    '<small>Used</small><input type="text" name="used' + lvl + '" aria-label="Level ' + lvl + ' slots expended">';
+            }
+            var h = head + '</div>';
+            for (var i = 1; i <= rows; i++) {
+                var n = 'sp' + lvl + '_' + i; FIELDS.push(n);
+                if (lvl === 0) h += '<div class="sp cantrip"><input type="text" name="' + n + '" aria-label="Cantrip ' + i + '"></div>';
+                else { FIELDS.push(n + '_p'); BOOLS[n + '_p'] = 1; h += '<div class="sp"><input type="checkbox" name="' + n + '_p" aria-label="Level ' + lvl + ' spell ' + i + ' prepared"><input type="text" name="' + n + '" aria-label="Level ' + lvl + ' spell ' + i + '"></div>'; }
+            }
+            box.innerHTML = h; spells.appendChild(box);
+        });
+
+        // ----- rules -----
+        function mod(score) { var s = parseInt(score, 10); if (isNaN(s)) s = 10; return Math.floor((s - 10) / 2); }
+        function prof(level) { var l = parseInt(level, 10); if (isNaN(l) || l < 1) l = 1; if (l > 20) l = 20; return 2 + Math.floor((l - 1) / 4); }
+        var sgn = function (n) { return (n >= 0 ? '+' : '−') + Math.abs(n); };
+        function derive(get) {
+            var o = {}, pb = prof(get('level'));
+            var num = function (n) { var v = parseInt(get(n), 10); return isNaN(v) ? 0 : v; };
+            var half = get('joat') === true ? Math.floor(pb / 2) : 0;
+            o.prof = sgn(pb);
+            ABIL.forEach(function (a) {
+                var m = mod(get(a[0]));
+                o['mod_' + a[0]] = sgn(m);
+                o['save_' + a[0]] = sgn(m + (get('save_' + a[0]) === true ? pb : 0) + num('saveBonus'));
+            });
+            var percep = 0;
+            SKILLS.forEach(function (s) {
+                var id = 'sk_' + slug(s[0]), m = mod(get(s[1]));
+                var p = get(id + '_e') === true ? 2 * pb : get(id + '_p') === true ? pb : half;
+                o[id] = sgn(m + p);
+                if (s[0] === 'Perception') percep = m + p;
+            });
+            o.init = sgn(mod(get('dex')) + half + num('initBonus'));
+            o.passive = String(10 + percep + num('passiveBonus'));
+            var sa = get('spellAbility');
+            if (sa) { var sm = mod(get(sa)); o.dc = String(8 + pb + sm); o.satk = sgn(pb + sm); } else { o.dc = '—'; o.satk = '—'; }
+            return o;
+        }
+        function paint(root, get) {
+            var o = derive(get);
+            root.querySelectorAll('[data-out]').forEach(function (el) { el.textContent = o[el.getAttribute('data-out')]; });
+            root.querySelectorAll('[data-mirror]').forEach(function (el) { el.textContent = get(el.getAttribute('data-mirror')) || ''; });
+        }
+
+        // ----- form plumbing -----
+        function field(n, root) { return (root || sheet).querySelector('[name="' + n + '"]'); }
+        function getVal(n) { var el = field(n); return !el ? '' : el.type === 'checkbox' ? el.checked : el.value; }
+        function setVal(n, v) { var el = field(n); if (!el) return; if (el.type === 'checkbox') el.checked = v === true || v === 'true'; else el.value = v == null ? '' : String(v); }
+        function currentName() { return String(getVal('name')).trim(); }
+        function say(m) { $('status').textContent = m; }
+        function sanitize(raw) {
+            if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+            var out = {};
+            FIELDS.forEach(function (f) {
+                var v = raw[f];
+                out[f] = BOOLS[f] ? (v === true || v === 'true') : ((typeof v === 'string' || typeof v === 'number') ? String(v).slice(0, 6000) : '');
+            });
+            return out;
+        }
+        function safeName(n) { return typeof n === 'string' && n.trim() !== '' && ['__proto__', 'constructor', 'prototype'].indexOf(n) < 0; }
+        function load() {
+            var out = {};
+            try {
+                var p = JSON.parse(localStorage.getItem(KEY));
+                if (p && typeof p === 'object' && !Array.isArray(p)) Object.keys(p).forEach(function (n) { var c = sanitize(p[n]); if (safeName(n) && c) out[n] = c; });
+            } catch (e) { /* storage blocked or corrupt */ }
+            return out;
+        }
+        function store(all) { try { localStorage.setItem(KEY, JSON.stringify(all)); return true; } catch (e) { say('Could not save: browser storage is unavailable or full.'); return false; } }
+        function read() { var d = {}; FIELDS.forEach(function (f) { d[f] = getVal(f); }); return d; }
+        function repaint() { paint(sheet, getVal); }
+        function clearAll() { FIELDS.forEach(function (f) { setVal(f, BOOLS[f] ? false : ''); }); repaint(); }
+        function fill(d) { clearAll(); FIELDS.forEach(function (f) { setVal(f, d[f]); }); repaint(); }
+        function refreshSelect(sel) {
+            var all = load();
+            select.innerHTML = '<option value="">— Select Sheet —</option>';
+            Object.keys(all).sort().forEach(function (n) { var o = document.createElement('option'); o.value = n; o.textContent = n; if (n === sel) o.selected = true; select.appendChild(o); });
+        }
+        var currentKey = null, timer = null, armed = false;
+        function disarm() { armed = false; $('deleteBtn').classList.remove('armed'); $('deleteBtn').textContent = '🗑️ Delete'; }
+        function storeCurrent(name) {
+            var all = load();
+            if (currentKey && currentKey !== name) delete all[currentKey];
+            all[name] = read();
+            if (!store(all)) return false;
+            currentKey = name; refreshSelect(name); return true;
+        }
+        function autoSave() {
+            timer = null;
+            var name = currentName();
+            if (!safeName(name)) return;
+            var all = load();
+            if (all[name] && name !== currentKey) { say('A sheet named “' + name + '” already exists. Rename this one, or press Save to replace it.'); return; }
+            if (storeCurrent(name)) say('Saved “' + name + '”.');
+        }
+        function flush() { if (timer) { clearTimeout(timer); autoSave(); } }
+        function onEdit(e) {
+            // expertise implies proficiency
+            if (e && e.target && /_e$/.test(e.target.name) && e.target.checked) setVal(e.target.name.replace(/_e$/, '_p'), true);
+            if (e && e.target && /_p$/.test(e.target.name) && !e.target.checked && /^sk_/.test(e.target.name)) setVal(e.target.name.replace(/_p$/, '_e'), false);
+            disarm(); repaint(); clearTimeout(timer); timer = setTimeout(autoSave, 800);
+        }
+        sheet.addEventListener('input', onEdit);
+        sheet.addEventListener('change', onEdit);
+
+        // tabs
+        var tabs = document.querySelectorAll('.tabs [role="tab"]');
+        tabs.forEach(function (t, i) {
+            t.addEventListener('click', function () { show(t.getAttribute('data-page')); });
+            t.addEventListener('keydown', function (e) {
+                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); show(n.getAttribute('data-page'));
+            });
+        });
+        function show(page) {
+            sheet.setAttribute('data-page', page);
+            tabs.forEach(function (t) { var on = t.getAttribute('data-page') === page; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+        }
+
+        $('newBtn').addEventListener('click', function () { flush(); clearAll(); currentKey = null; select.value = ''; disarm(); show('main'); field('name').focus(); say('New blank sheet.'); });
+        $('saveBtn').addEventListener('click', function () {
+            clearTimeout(timer); timer = null;
+            var name = currentName();
+            if (!safeName(name)) { say('Give the character a name first.'); show('main'); field('name').focus(); return; }
+            if (storeCurrent(name)) say('Saved “' + name + '”.');
+        });
+        $('copyBtn').addEventListener('click', function () {
+            flush();
+            var base = currentName();
+            if (!base) { say('Give the character a name first.'); return; }
+            var all = load(), name = base + ' (copy)', i = 2;
+            while (all[name]) name = base + ' (copy ' + (i++) + ')';
+            var d = read(); d.name = name; all[name] = d;
+            if (!store(all)) return;
+            fill(d); currentKey = name; refreshSelect(name); say('Copied as “' + name + '”.');
+        });
+        $('deleteBtn').addEventListener('click', function () {
+            var name = select.value;
+            if (!name) { say('Choose a saved sheet to delete.'); return; }
+            if (!armed) { armed = true; this.classList.add('armed'); this.textContent = '🗑️ Click again to delete'; say('Click Delete again to remove “' + name + '”.'); return; }
+            clearTimeout(timer); timer = null;
+            var all = load(); delete all[name];
+            if (!store(all)) return;
+            clearAll(); currentKey = null; refreshSelect(''); disarm(); say('Deleted “' + name + '”.');
+        });
+        select.addEventListener('change', function () {
+            flush(); disarm();
+            var name = select.value, all = load();
+            if (!name || !all[name]) { clearAll(); currentKey = null; return; }
+            fill(all[name]); currentKey = name; refreshSelect(name); say('Loaded “' + name + '”.');
+        });
+
+        // ----- print: clone the form and turn every field into plain text -----
+        function staticSheet(d) {
+            var c = sheet.cloneNode(true);
+            c.removeAttribute('id'); c.querySelectorAll('[id]').forEach(function (e) { e.removeAttribute('id'); });
+            c.querySelectorAll('input, select, textarea').forEach(function (el) {
+                var n = el.getAttribute('name'), v = d[n];
+                if (el.type === 'checkbox') { var s = document.createElement('span'); s.textContent = v === true ? '☑' : '☐'; s.style.fontSize = '12px'; el.replaceWith(s); return; }
+                var span = document.createElement('span');
+                span.className = 'val' + (el.tagName === 'TEXTAREA' ? ' tx' : '');
+                if (el.tagName === 'SELECT') { var opt = el.querySelector('option[value="' + (v || '') + '"]'); span.textContent = v && opt ? opt.textContent : ''; }
+                else span.textContent = v == null ? '' : String(v);
+                el.replaceWith(span);
+            });
+            paint(c, function (n) { return d[n]; });
+            return c;
+        }
+        function doPrint(list) {
+            var box = $('printContainer'); box.innerHTML = '';
+            list.forEach(function (d) { box.appendChild(staticSheet(d)); });
+            window.print();
+        }
+        window.addEventListener('afterprint', function () { $('printContainer').innerHTML = ''; });
+        $('printBtn').addEventListener('click', function () { if (!currentName()) { say('Give the character a name first.'); return; } doPrint([read()]); });
+        $('printAllBtn').addEventListener('click', function () {
+            var all = load(), names = Object.keys(all).sort();
+            if (!names.length) { say('No saved sheets to print yet.'); return; }
+            doPrint(names.map(function (n) { return all[n]; }));
+        });
+        $('blankBtn').addEventListener('click', function () { doPrint([{}]); });
+
+        // ----- export / import -----
+        $('exportBtn').addEventListener('click', function () {
+            flush();
+            var all = load(), n = Object.keys(all).length;
+            if (!n) { say('No sheets to export yet.'); return; }
+            var url = URL.createObjectURL(new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' }));
+            var a = document.createElement('a'); a.href = url; a.download = 'dnd-character-sheets.json';
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+            say('Exported ' + n + (n === 1 ? ' sheet.' : ' sheets.'));
+        });
+        $('importBtn').addEventListener('click', function () { $('importFile').click(); });
+        $('importFile').addEventListener('change', function (ev) {
+            var file = ev.target.files && ev.target.files[0];
+            ev.target.value = '';
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) { say('That file is too large to be a sheet file.'); return; }
+            flush();
+            var r = new FileReader();
+            r.onload = function () {
+                try {
+                    var data = JSON.parse(r.result);
+                    if (data && (data.data && data.data.stats || data.stats && data.classes)) { importDDB(data); return; }
+                    if (!data || typeof data !== 'object' || Array.isArray(data)) { say('That is not a sheet file.'); return; }
+                    var all = load(), count = 0;
+                    Object.keys(data).forEach(function (k) {
+                        var d = sanitize(data[k]); if (!d) return;
+                        var name = String(d.name || '').trim().slice(0, 200);
+                        if (!safeName(name)) return;
+                        all[name] = d; count++;
+                    });
+                    if (!count) { say('No valid sheets found in that file.'); return; }
+                    if (!store(all)) return;
+                    refreshSelect(currentKey || ''); say('Imported ' + count + (count === 1 ? ' sheet.' : ' sheets.'));
+                } catch (e) { say('Could not read that file.'); }
+            };
+            r.onerror = function () { say('Could not read that file.'); };
+            r.readAsText(file);
+        });
+
+        // ===== D&D Beyond import =====
+        // Converts D&D Beyond's character JSON (character-service v5) into this sheet's fields.
+        var ALIGN = ['', 'Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
+        var FULL = { str: 'strength', dex: 'dexterity', con: 'constitution', int: 'intelligence', wis: 'wisdom', cha: 'charisma' };
+        var MULTI_SLOTS = [[], [2], [3], [4, 2], [4, 3], [4, 3, 2], [4, 3, 3], [4, 3, 3, 1], [4, 3, 3, 2], [4, 3, 3, 3, 1], [4, 3, 3, 3, 2], [4, 3, 3, 3, 2, 1], [4, 3, 3, 3, 2, 1],
+            [4, 3, 3, 3, 2, 1, 1], [4, 3, 3, 3, 2, 1, 1], [4, 3, 3, 3, 2, 1, 1, 1], [4, 3, 3, 3, 2, 1, 1, 1], [4, 3, 3, 3, 2, 1, 1, 1, 1], [4, 3, 3, 3, 3, 1, 1, 1, 1], [4, 3, 3, 3, 3, 2, 1, 1, 1], [4, 3, 3, 3, 3, 2, 2, 1, 1]];
+        function fromDDB(json) {
+            var d = json && json.data && json.data.stats ? json.data : json;
+            if (!d || !Array.isArray(d.stats) || !Array.isArray(d.classes)) throw new Error('not a D&D Beyond character');
+            var out = {}, list = function (a) { return Array.isArray(a) ? a : []; };
+            var vOf = function (m) { var v = m.value != null ? m.value : m.fixedValue; return typeof v === 'number' ? v : 0; };
+            var inv = list(d.inventory);
+            var active = function (it) { return it.equipped && (!(it.definition && it.definition.canAttune) || it.isAttuned); };
+            // character modifiers (race, class, feats...) plus the modifiers of equipped (and attuned) items
+            var mods = [], itemMods = [];
+            ['race', 'class', 'background', 'feat', 'condition'].forEach(function (k) { list(d.modifiers && d.modifiers[k]).forEach(function (m) { mods.push(m); }); });
+            inv.forEach(function (it) { if (active(it)) list(it.definition && it.definition.grantedModifiers).forEach(function (m) { itemMods.push(m); }); });
+            var all = mods.concat(itemMods);
+            var has = function (type, sub) { return all.some(function (m) { return m.type === type && m.subType === sub; }); };
+            var sum = function (arr, type, sub) { return arr.reduce(function (t, m) { return t + (m.type === type && m.subType === sub ? vOf(m) : 0); }, 0); };
+
+            // classes and level
+            var classes = list(d.classes), level = 0;
+            classes.forEach(function (c) { level += c.level || 0; });
+            out.level = String(level || 1);
+            var pb = prof(level);
+            out.classLevel = classes.map(function (c) {
+                var sub = c.subclassDefinition && c.subclassDefinition.name;
+                return (c.definition && c.definition.name || 'Class') + (sub ? ' (' + sub + ')' : '') + ' ' + c.level;
+            }).join(' / ');
+            out.name = String(d.name || '').trim();
+            out.race = d.race && (d.race.fullName || d.race.baseName) || '';
+            out.background = d.background && d.background.definition ? d.background.definition.name : (d.background && d.background.customBackground && d.background.customBackground.name) || '';
+            out.alignment = ALIGN[d.alignmentId] || '';
+            out.xp = d.currentXp != null ? String(d.currentXp) : '';
+            out.player = d.username || '';
+            out.inspiration = !!d.inspiration;
+            out.ddbId = String(d.id || '');
+
+            // ability scores: racial, ASI and feat bonuses cap at 20; item bonuses and "set" items (e.g. Gauntlets of Ogre Power) apply on top
+            var scores = {};
+            ABIL.forEach(function (a, i) {
+                var id = i + 1, pick = function (arr) { var s = list(arr).filter(function (x) { return x.id === id; })[0]; return s ? s.value : null; };
+                var base = pick(d.stats) || 10, other = pick(d.bonusStats) || 0, ov = pick(d.overrideStats);
+                var sc;
+                if (ov != null) sc = ov;
+                else {
+                    sc = Math.min(20, base + other + sum(mods, 'bonus', FULL[a[0]] + '-score')) + sum(itemMods, 'bonus', FULL[a[0]] + '-score');
+                    all.forEach(function (m) { if (m.type === 'set' && m.subType === FULL[a[0]] + '-score') sc = Math.max(sc, vOf(m)); });
+                }
+                scores[a[0]] = sc; out[a[0]] = String(sc);
+            });
+            var M = function (k) { return mod(scores[k]); };
+
+            // proficiencies
+            ABIL.forEach(function (a) { out['save_' + a[0]] = has('proficiency', FULL[a[0]] + '-saving-throws'); });
+            SKILLS.forEach(function (s) {
+                var sub = s[0].toLowerCase().replace(/ /g, '-'), id = 'sk_' + slug(s[0]);
+                out[id + '_e'] = has('expertise', sub);
+                out[id + '_p'] = out[id + '_e'] || has('proficiency', sub);
+            });
+            out.joat = has('half-proficiency', 'ability-checks');
+            var saveB = sum(all, 'bonus', 'saving-throws'), initB = sum(all, 'bonus', 'initiative'), passB = sum(all, 'bonus', 'passive-perception');
+            out.saveBonus = saveB ? String(saveB) : ''; out.initBonus = initB ? String(initB) : ''; out.passiveBonus = passB ? String(passB) : '';
+
+            // hit points and hit dice
+            var hpMax = d.overrideHitPoints != null ? d.overrideHitPoints
+                : (d.baseHitPoints || 0) + (d.bonusHitPoints || 0) + level * (M('con') + sum(all, 'bonus', 'hit-points-per-level'));
+            out.hpMax = String(hpMax);
+            out.hpCur = String(Math.max(0, hpMax - (d.removedHitPoints || 0)));
+            out.hpTemp = d.temporaryHitPoints ? String(d.temporaryHitPoints) : '';
+            var dice = {}, used = 0;
+            classes.forEach(function (c) { var h = c.definition && c.definition.hitDice; if (h) dice[h] = (dice[h] || 0) + c.level; used += c.hitDiceUsed || 0; });
+            out.hdTotal = Object.keys(dice).sort(function (x, y) { return y - x; }).map(function (h) { return dice[h] + 'd' + h; }).join(' + ');
+            out.hdCur = String(Math.max(0, level - used));
+            var ds = d.deathSaves || {};
+            out.ds1 = ds.successCount >= 1; out.ds2 = ds.successCount >= 2; out.ds3 = ds.successCount >= 3;
+            out.df1 = ds.failCount >= 1; out.df2 = ds.failCount >= 2; out.df3 = ds.failCount >= 3;
+
+            // armor class: best equipped armor (or unarmored) + shield + bonuses
+            var dex = M('dex'), armors = [], shield = 0;
+            inv.forEach(function (it) {
+                var df = it.definition || {};
+                if (!active(it) || !df.armorTypeId) return;
+                if (df.armorTypeId === 4) shield = Math.max(shield, df.armorClass || 0);
+                else armors.push((df.armorClass || 0) + (df.armorTypeId === 1 ? dex : df.armorTypeId === 2 ? Math.min(dex, 2) : 0));
+            });
+            var names = classes.map(function (c) { return c.definition && c.definition.name; });
+            var ac;
+            if (armors.length) ac = Math.max.apply(null, armors) + sum(all, 'bonus', 'armored-armor-class');
+            else {
+                ac = 10 + dex + sum(all, 'bonus', 'unarmored-armor-class');
+                if (names.indexOf('Barbarian') >= 0) ac += M('con');
+                else if (names.indexOf('Monk') >= 0 && !shield) ac += M('wis');
+            }
+            ac += shield + sum(all, 'bonus', 'armor-class');
+            out.ac = String(ac);
+            var walk = d.race && d.race.weightSpeeds && d.race.weightSpeeds.normal ? d.race.weightSpeeds.normal.walk : 30;
+            out.speed = (walk + sum(all, 'bonus', 'speed')) + ' ft';
+
+            // attacks with equipped weapons
+            var profList = all.filter(function (m) { return m.type === 'proficiency'; }).map(function (m) { return m.subType; });
+            var row = 0;
+            inv.forEach(function (it) {
+                var df = it.definition || {};
+                if (row >= 3 || !it.equipped || df.filterType !== 'Weapon' || !df.damage) return;
+                var props = list(df.properties).map(function (p) { return p.name; });
+                var abil = df.attackType === 2 ? dex : props.indexOf('Finesse') >= 0 ? Math.max(dex, M('str')) : M('str');
+                var typeSlug = String(df.type || df.name || '').toLowerCase().replace(/[^a-z]+/g, '-');
+                var isProf = (df.categoryId === 1 && profList.indexOf('simple-weapons') >= 0) || (df.categoryId === 2 && profList.indexOf('martial-weapons') >= 0) ||
+                    profList.some(function (p) { return p === typeSlug || p === typeSlug + 's'; });
+                var magic = list(df.grantedModifiers).reduce(function (t, m) { return t + (m.type === 'bonus' && m.subType === 'magic' ? vOf(m) : 0); }, 0);
+                var dmg = abil + magic;
+                row++;
+                out['a' + row + 'n'] = df.name;
+                out['a' + row + 'b'] = sgn(abil + (isProf ? pb : 0) + magic);
+                out['a' + row + 'd'] = df.damage.diceString + (dmg ? (dmg > 0 ? '+' : '−') + Math.abs(dmg) : '') + ' ' + String(df.damageType || '').toLowerCase();
+            });
+
+            // proficiencies and languages
+            var skillSubs = SKILLS.map(function (s) { return s[0].toLowerCase().replace(/ /g, '-'); });
+            var gear = [], tools = [], langs = [];
+            all.forEach(function (m) {
+                var nm = m.friendlySubtypeName || m.subType;
+                if (m.type === 'language') { if (langs.indexOf(nm) < 0) langs.push(nm); return; }
+                if (m.type !== 'proficiency' || /saving-throws$/.test(m.subType) || skillSubs.indexOf(m.subType) >= 0) return;
+                var bucket = /armor|shields|weapons|firearms/.test(m.subType) ? gear : tools;
+                if (bucket.indexOf(nm) < 0) bucket.push(nm);
+            });
+            list(d.customProficiencies).forEach(function (cp) { if (cp && cp.name) tools.push(cp.name); });
+            out.profs = [gear.length ? 'Armor & weapons: ' + gear.join(', ') : '', tools.length ? 'Tools: ' + tools.join(', ') : '', langs.length ? 'Languages: ' + langs.join(', ') : '']
+                .filter(Boolean).join('\n');
+
+            // equipment and coins
+            var c = d.currencies || {};
+            ['cp', 'sp', 'ep', 'gp', 'pp'].forEach(function (k) { out[k] = c[k] ? String(c[k]) : ''; });
+            out.equipment = inv.filter(function (it) { return it.quantity > 0 && it.definition; })
+                .sort(function (x, y) { return (y.equipped ? 1 : 0) - (x.equipped ? 1 : 0); })
+                .map(function (it) { return it.definition.name + (it.quantity > 1 ? ' ×' + it.quantity : ''); }).join(' • ');
+
+            // features
+            var skip = ['Hit Points', 'Proficiencies', 'Equipment', 'Ability Score Improvement', 'Ability Score Increase', 'Age', 'Alignment', 'Size', 'Speed', 'Languages'];
+            out.features = classes.map(function (cl) {
+                var seen = [];
+                list(cl.classFeatures).forEach(function (f) {
+                    var fd = f.definition || {};
+                    if (fd.requiredLevel <= cl.level && skip.indexOf(fd.name) < 0 && seen.indexOf(fd.name) < 0) seen.push(fd.name);
+                });
+                return (cl.definition && cl.definition.name) + ': ' + seen.join(', ');
+            }).join('\n');
+            var traits = list(d.race && d.race.racialTraits).map(function (t) { return t.definition && t.definition.name; }).filter(function (n) { return n && skip.indexOf(n) < 0; });
+            var feats = list(d.feats).map(function (f) { return f.definition && f.definition.name; }).filter(Boolean);
+            var bgf = d.background && d.background.definition && d.background.definition.featureName;
+            out.moreFeatures = [traits.length ? (out.race || 'Racial') + ' traits: ' + traits.join(', ') : '', feats.length ? 'Feats: ' + feats.join(', ') : '', bgf ? 'Background feature: ' + bgf : '']
+                .filter(Boolean).join('\n');
+
+            // personality and details
+            var t = d.traits || {}, n = d.notes || {};
+            out.traits = t.personalityTraits || ''; out.ideals = t.ideals || ''; out.bonds = t.bonds || ''; out.flaws = t.flaws || '';
+            out.appearance = t.appearance || '';
+            ['age', 'height', 'eyes', 'skin', 'hair'].forEach(function (k) { out[k] = d[k] != null ? String(d[k]) : ''; });
+            out.weight = d.weight != null ? d.weight + (typeof d.weight === 'number' ? ' lb' : '') : '';
+            out.orgName = n.organizations ? String(n.organizations).split('\n')[0] : '';
+            out.allies = [n.allies, n.organizations ? 'Organizations: ' + n.organizations : '', n.enemies ? 'Enemies: ' + n.enemies : ''].filter(Boolean).join('\n\n');
+            out.backstory = [n.backstory, n.otherNotes ? 'Notes: ' + n.otherNotes : ''].filter(Boolean).join('\n\n');
+            out.treasure = [n.personalPossessions, n.otherHoldings].filter(Boolean).join('\n\n');
+
+            // spellcasting
+            var casters = classes.filter(function (cl) { return cl.definition && cl.definition.spellCastingAbilityId; });
+            out.spellClass = casters.map(function (cl) { return cl.definition.name; }).join(' / ');
+            out.spellAbility = casters.length ? ABIL[casters[0].definition.spellCastingAbilityId - 1][0] : '';
+            var slots = [];
+            var slotCasters = casters.filter(function (cl) { var r = cl.definition.spellRules; return r && Array.isArray(r.levelSpellSlots) && (r.levelSpellSlots[cl.level] || []).some(function (x) { return x > 0; }); });
+            if (slotCasters.length === 1) slots = slotCasters[0].definition.spellRules.levelSpellSlots[slotCasters[0].level] || [];
+            else if (slotCasters.length > 1) {
+                var cLvl = 0;
+                slotCasters.forEach(function (cl) {
+                    var r = cl.definition.spellRules, div = r.multiClassSpellSlotDivisor || 1;
+                    cLvl += r.multiClassSpellSlotRounding === 2 ? Math.ceil(cl.level / div) : Math.floor(cl.level / div);
+                });
+                slots = MULTI_SLOTS[Math.min(20, cLvl)] || [];
+            }
+            var usedSlots = {};
+            list(d.spellSlots).forEach(function (sl) { usedSlots[sl.level] = sl.used; });
+            for (var L = 1; L <= 9; L++) { out['slots' + L] = slots[L - 1] ? String(slots[L - 1]) : ''; out['used' + L] = slots[L - 1] && usedSlots[L] ? String(usedSlots[L]) : ''; }
+            var warlock = classes.filter(function (cl) { return cl.definition && cl.definition.name === 'Warlock'; })[0];
+            if (warlock) {
+                var wl = warlock.level, pc = wl >= 17 ? 4 : wl >= 11 ? 3 : wl >= 2 ? 2 : 1, pl = Math.min(5, Math.ceil(wl / 2));
+                out.spellClass += ' (Pact Magic: ' + pc + ' × level-' + pl + ' slots)';
+            }
+            var byLvl = {}, extra = [], prepared = 0, seenSp = {};
+            function addSpell(sp, tag) {
+                var df = sp.definition || {}, lv = df.level || 0, key = df.name + '|' + lv;
+                if (!df.name || seenSp[key]) return;
+                seenSp[key] = 1;
+                var isPrep = lv > 0 && (sp.prepared || sp.alwaysPrepared || tag);
+                (byLvl[lv] = byLvl[lv] || []).push({ name: df.name + (tag ? ' (' + tag + ')' : ''), prep: !!isPrep });
+                if (isPrep && !tag) prepared++;
+            }
+            list(d.classSpells).forEach(function (cs) { list(cs.spells).forEach(function (sp) { addSpell(sp, ''); }); });
+            ['race', 'class', 'background', 'feat', 'item'].forEach(function (k) {
+                var tag = k === 'item' ? 'item' : k === 'race' ? 'racial' : k === 'feat' ? 'feat' : '';
+                list(d.spells && d.spells[k]).forEach(function (sp) { addSpell(sp, tag); });
+            });
+            Object.keys(byLvl).forEach(function (lv) {
+                byLvl[lv].forEach(function (sp, i) {
+                    if (i < SPELL_ROWS[lv]) { out['sp' + lv + '_' + (i + 1)] = sp.name; if (+lv > 0) out['sp' + lv + '_' + (i + 1) + '_p'] = sp.prep; }
+                    else extra.push(sp.name + ' (level ' + lv + ')');
+                });
+            });
+            if (extra.length) out.moreFeatures += (out.moreFeatures ? '\n' : '') + 'More spells: ' + extra.join(', ');
+            out.prepCount = prepared ? String(prepared) : '';
+            return sanitize(out);
+        }
+        window.dndBeyond = { fromDDB: fromDDB };
+
+        function ddbIdFrom(text) { var m = String(text || '').match(/(\d{4,})/); return m ? m[1] : ''; }
+        function importDDB(json) {
+            var d = fromDDB(json), name = d.name;
+            if (!safeName(name)) throw new Error('This character has no name.');
+            var all = load(), existed = !!all[name];
+            all[name] = d;
+            if (!store(all)) return;
+            fill(d); currentKey = name; refreshSelect(name); show('main');
+            say((existed ? 'Updated “' : 'Imported “') + name + '” from D&D Beyond.');
+            $('ddbPanel').open = false;
+        }
+        $('ddbUrl').addEventListener('input', function () {
+            var id = ddbIdFrom(this.value);
+            $('ddbJsonLink').href = 'https://character-service.dndbeyond.com/character/v5/character/' + id;
+        });
+        $('ddbFetch').addEventListener('click', function () {
+            var id = ddbIdFrom($('ddbUrl').value);
+            if (!id) { say('Paste a D&D Beyond character link, or its number.'); $('ddbUrl').focus(); return; }
+            var btn = this; btn.disabled = true; say('Contacting D&D Beyond…');
+            fetch('/ddb/character/' + id, { headers: { Accept: 'application/json' } })
+                .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(function (j) {
+                    if (j && j.success === false) throw new Error(j.message || 'refused');
+                    flush(); importDDB(j);
+                })
+                .catch(function () {
+                    say('Could not load that character. Check that it is set to Public on D&D Beyond, or use “Paste the character data instead”.');
+                    $('ddbPanel').querySelector('.ddb-alt').open = true;
+                })
+                .then(function () { btn.disabled = false; });
+        });
+        $('ddbPaste').addEventListener('click', function () {
+            var txt = $('ddbJson').value.trim();
+            if (!txt) { say('Paste the character data first.'); return; }
+            try { flush(); importDDB(JSON.parse(txt)); $('ddbJson').value = ''; }
+            catch (e) { say('That does not look like D&D Beyond character data.'); }
+        });
+
+        window.dndSheet = { mod: mod, prof: prof, derive: derive };
+        clearAll(); refreshSelect('');
+    })();
+    </script>
+<div class="site-footer">&copy; 2026 Ray de la Paz. The Dungeons &amp; Dragons 5e Guide. All rights reserved. &middot; <a href="https://rays-home.netlify.app/">Ray's House of Fun</a><br>Dungeons &amp; Dragons is a registered trademark of Wizards of the Coast. This guide is an unofficial fan resource.</div>
+</body>
+</html>

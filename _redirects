@@ -5,3 +5,6 @@
 # Old fragment of the sample-characters page (removed 2026-10-04)
 /dnd_100inc.html    /dnd_100    301
 /dnd_100inc    /dnd_100    301
+
+# D&D Beyond character import: same-origin proxy (their API sends no CORS header)
+/ddb/character/:id    https://character-service.dndbeyond.com/character/v5/character/:id    200
