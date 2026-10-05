@@ -111,9 +111,11 @@
         .dnd-sheet .looks { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px 10px; margin-bottom: 10px; }
         .dnd-sheet .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-        .dnd-sheet .spellhead { display: grid; grid-template-columns: 1.4fr 1fr repeat(3, 0.8fr); gap: 6px 10px; margin-bottom: 10px; align-items: end; }
+        .dnd-sheet .spellhead { display: grid; grid-template-columns: 1.5fr 1.3fr 1fr repeat(3, 0.8fr); gap: 6px 10px; margin-bottom: 10px; align-items: end; }
         .dnd-sheet .spellhead .box { text-align: center; }
         .dnd-sheet .spellhead .out { font-size: 1.2rem; }
+        .dnd-sheet .spellhead .sh-name .val { font-weight: 700; font-size: 1.05rem; border-bottom: 0; }
+        @media print { .print-container .dnd-sheet .spellhead .sh-name .val { font-size: 1em; min-height: 0; } }
         .dnd-sheet .spells { columns: 3 230px; column-gap: 10px; }
         .dnd-sheet .lvl { break-inside: avoid; border: 1.5px solid var(--line); border-radius: 5px; padding: 4px 6px; margin: 0 0 8px; }
         .dnd-sheet .lvl-head { display: flex; gap: 6px; align-items: center; border-bottom: 1.5px solid var(--ink); padding-bottom: 2px; margin-bottom: 2px; }
@@ -333,11 +335,12 @@
             <!-- ===================== PAGE 3: SPELLCASTING ===================== -->
             <div class="page p-spells">
                 <div class="spellhead">
-                    <label class="box"><span class="lbl">Spellcasting Class</span><input type="text" name="spellClass" placeholder="Wizard"></label>
-                    <label class="box"><span class="lbl">Spellcasting Ability</span>
+                    <div class="box sh-name"><span class="lbl">Character Name</span><span class="val" data-mirror="name"></span></div>
+                    <label class="box"><span class="lbl">Class</span><input type="text" name="spellClass" placeholder="Wizard"></label>
+                    <label class="box"><span class="lbl">Ability</span>
                         <select name="spellAbility"><option value="">—</option><option value="int">Intelligence</option><option value="wis">Wisdom</option><option value="cha">Charisma</option><option value="str">Strength</option><option value="dex">Dexterity</option><option value="con">Constitution</option></select></label>
-                    <div class="box"><span class="lbl">Spell Save DC</span><span class="out" data-out="dc">—</span></div>
-                    <div class="box"><span class="lbl">Spell Attack</span><span class="out" data-out="satk">—</span></div>
+                    <div class="box"><span class="lbl">Save DC</span><span class="out" data-out="dc">—</span></div>
+                    <div class="box"><span class="lbl">Attack</span><span class="out" data-out="satk">—</span></div>
                     <label class="box"><span class="lbl">Prepared</span><input type="text" name="prepCount" placeholder="#"></label>
                 </div>
                 <div class="spells" id="spells"></div>
