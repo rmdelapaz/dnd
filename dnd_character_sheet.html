@@ -229,13 +229,13 @@
             <!-- ===================== PAGE 1: MAIN ===================== -->
             <div class="page p-main">
                 <div class="head">
-                    <label class="name"><span class="lbl">Character Name</span><input type="text" name="name" maxlength="80" placeholder="Kira Ironshield"></label>
-                    <label><small>Class &amp; Level</small><input type="text" name="classLevel" placeholder="Fighter 3"></label>
-                    <label><small>Background</small><input type="text" name="background" placeholder="Soldier"></label>
+                    <label class="name"><span class="lbl">Character Name</span><input type="text" name="name" maxlength="80"></label>
+                    <label><small>Class &amp; Level</small><input type="text" name="classLevel"></label>
+                    <label><small>Background</small><input type="text" name="background"></label>
                     <label><small>Player Name</small><input type="text" name="player"></label>
-                    <label><small>Race</small><input type="text" name="race" placeholder="Mountain Dwarf"></label>
-                    <label><small>Alignment</small><input type="text" name="alignment" placeholder="Lawful Good"></label>
-                    <label><small>Experience Points</small><input type="text" name="xp" placeholder="900"></label>
+                    <label><small>Race</small><input type="text" name="race"></label>
+                    <label><small>Alignment</small><input type="text" name="alignment"></label>
+                    <label><small>Experience Points</small><input type="text" name="xp"></label>
                 </div>
 
                 <div class="main3">
@@ -244,7 +244,7 @@
                         <div class="abilities" id="abilities"></div>
                         <div class="stack">
                             <div class="pill"><input type="checkbox" name="inspiration" aria-label="Inspiration"><span>Inspiration</span></div>
-                            <div class="pill"><label style="display:flex;gap:6px;align-items:center;width:100%"><span style="white-space:nowrap">Level</span><input type="text" name="level" class="num" maxlength="2" inputmode="numeric" placeholder="1" style="width:2.6em"></label></div>
+                            <div class="pill"><label style="display:flex;gap:6px;align-items:center;width:100%"><span style="white-space:nowrap">Level</span><input type="text" name="level" class="num" maxlength="2" inputmode="numeric" style="width:2.6em"></label></div>
                             <div class="pill"><span class="out" data-out="prof">+2</span><span>Proficiency Bonus</span></div>
                             <div class="pill"><input type="checkbox" name="joat" aria-label="Jack of All Trades"><span title="Add half your proficiency bonus (rounded down) to checks you are not proficient in">Jack of All Trades</span></div>
                             <div class="box"><span class="lbl">Saving Throws</span><div id="saves"></div><label class="misc"><span>All saves +</span><input type="text" name="saveBonus" maxlength="3" placeholder="0" aria-label="Bonus to all saving throws"></label></div>
@@ -255,19 +255,19 @@
                     <!-- column 2: combat -->
                     <div class="stack">
                         <div class="trio">
-                            <label class="box"><span class="lbl">Armor Class</span><input type="text" name="ac" placeholder="16"></label>
+                            <label class="box"><span class="lbl">Armor Class</span><input type="text" name="ac"></label>
                             <div class="box"><span class="lbl">Initiative</span><span class="out" data-out="init">+0</span><label class="misc"><span>misc +</span><input type="text" name="initBonus" maxlength="3" placeholder="0" aria-label="Initiative bonus"></label></div>
-                            <label class="box"><span class="lbl">Speed</span><input type="text" name="speed" placeholder="30 ft"></label>
+                            <label class="box"><span class="lbl">Speed</span><input type="text" name="speed"></label>
                         </div>
                         <div class="box">
                             <div class="duo">
-                                <label><span class="lbl">Hit Point Maximum</span><input type="text" name="hpMax" class="num" placeholder="28"></label>
+                                <label><span class="lbl">Hit Point Maximum</span><input type="text" name="hpMax" class="num"></label>
                                 <label><span class="lbl">Temporary HP</span><input type="text" name="hpTemp" class="num" placeholder="0"></label>
                             </div>
-                            <label><span class="lbl" style="margin-top:4px">Current Hit Points</span><input type="text" name="hpCur" class="num" placeholder="28"></label>
+                            <label><span class="lbl" style="margin-top:4px">Current Hit Points</span><input type="text" name="hpCur" class="num"></label>
                         </div>
                         <div class="duo">
-                            <div class="box hd"><span class="lbl">Hit Dice</span><input type="text" name="hdTotal" placeholder="Total: 3d10"><input type="text" name="hdCur" placeholder="Left: 3"></div>
+                            <div class="box hd"><span class="lbl">Hit Dice</span><input type="text" name="hdTotal"><input type="text" name="hdCur"></div>
                             <div class="box deaths"><span class="lbl">Death Saves</span>
                                 <div>Successes <input type="checkbox" name="ds1" aria-label="Death save success 1"><input type="checkbox" name="ds2" aria-label="Death save success 2"><input type="checkbox" name="ds3" aria-label="Death save success 3"></div>
                                 <div>Failures&nbsp;&nbsp;&nbsp; <input type="checkbox" name="df1" aria-label="Death save failure 1"><input type="checkbox" name="df2" aria-label="Death save failure 2"><input type="checkbox" name="df3" aria-label="Death save failure 3"></div>
@@ -278,7 +278,7 @@
                             <table class="attacks">
                                 <thead><tr><th>Name</th><th>Atk Bonus</th><th>Damage / Type</th></tr></thead>
                                 <tbody>
-                                    <tr><td><input type="text" name="a1n" placeholder="Longsword" aria-label="Attack 1 name"></td><td><input type="text" name="a1b" placeholder="+5" aria-label="Attack 1 bonus"></td><td><input type="text" name="a1d" placeholder="1d8+3 slashing" aria-label="Attack 1 damage"></td></tr>
+                                    <tr><td><input type="text" name="a1n" aria-label="Attack 1 name"></td><td><input type="text" name="a1b" aria-label="Attack 1 bonus"></td><td><input type="text" name="a1d" aria-label="Attack 1 damage"></td></tr>
                                     <tr><td><input type="text" name="a2n" aria-label="Attack 2 name"></td><td><input type="text" name="a2b" aria-label="Attack 2 bonus"></td><td><input type="text" name="a2d" aria-label="Attack 2 damage"></td></tr>
                                     <tr><td><input type="text" name="a3n" aria-label="Attack 3 name"></td><td><input type="text" name="a3b" aria-label="Attack 3 bonus"></td><td><input type="text" name="a3d" aria-label="Attack 3 damage"></td></tr>
                                 </tbody>
@@ -288,9 +288,9 @@
                         <div class="box grow">
                             <span class="lbl">Equipment</span>
                             <div class="coins">
-                                <label><small>CP</small><input type="text" name="cp"></label><label><small>SP</small><input type="text" name="sp"></label><label><small>EP</small><input type="text" name="ep"></label><label><small>GP</small><input type="text" name="gp" placeholder="10"></label><label><small>PP</small><input type="text" name="pp"></label>
+                                <label><small>CP</small><input type="text" name="cp"></label><label><small>SP</small><input type="text" name="sp"></label><label><small>EP</small><input type="text" name="ep"></label><label><small>GP</small><input type="text" name="gp"></label><label><small>PP</small><input type="text" name="pp"></label>
                             </div>
-                            <textarea name="equipment" rows="5" placeholder="Chain mail, shield, longsword, explorer's pack…"></textarea>
+                            <textarea name="equipment" rows="5"></textarea>
                         </div>
                     </div>
 
@@ -300,8 +300,8 @@
                         <div class="box grow-sm"><span class="lbl">Ideals</span><textarea name="ideals" rows="2"></textarea></div>
                         <div class="box grow-sm"><span class="lbl">Bonds</span><textarea name="bonds" rows="2"></textarea></div>
                         <div class="box grow-sm"><span class="lbl">Flaws</span><textarea name="flaws" rows="2"></textarea></div>
-                        <div class="box grow"><span class="lbl">Features &amp; Traits</span><textarea name="features" rows="6" placeholder="Second Wind, Action Surge, Dwarven Resilience…"></textarea></div>
-                        <div class="box"><span class="lbl">Other Proficiencies &amp; Languages</span><textarea name="profs" rows="3" placeholder="All armor, shields, simple and martial weapons; Common, Dwarvish"></textarea></div>
+                        <div class="box grow"><span class="lbl">Features &amp; Traits</span><textarea name="features" rows="6"></textarea></div>
+                        <div class="box"><span class="lbl">Other Proficiencies &amp; Languages</span><textarea name="profs" rows="3"></textarea></div>
                         <div class="pill"><span class="out" data-out="passive">10</span><span>Passive Wisdom (Perception)</span><label class="misc" style="margin-left:auto"><span>misc +</span><input type="text" name="passiveBonus" maxlength="3" placeholder="0" aria-label="Passive Perception bonus"></label></div>
                     </div>
                 </div>
@@ -337,7 +337,7 @@
             <div class="page p-spells">
                 <div class="spellhead">
                     <div class="box sh-name"><span class="lbl">Character Name</span><span class="val" data-mirror="name"></span></div>
-                    <label class="box"><span class="lbl">Class</span><input type="text" name="spellClass" placeholder="Wizard"></label>
+                    <label class="box"><span class="lbl">Class</span><input type="text" name="spellClass"></label>
                     <label class="box"><span class="lbl">Ability</span>
                         <select name="spellAbility"><option value="">—</option><option value="int">Intelligence</option><option value="wis">Wisdom</option><option value="cha">Charisma</option><option value="str">Strength</option><option value="dex">Dexterity</option><option value="con">Constitution</option></select></label>
                     <div class="box"><span class="lbl">Save DC</span><span class="out" data-out="dc">—</span></div>
@@ -393,7 +393,7 @@
             var d = document.createElement('label'); d.className = 'ab';
             d.title = a[1];
             d.innerHTML = '<span class="lbl" aria-hidden="true">' + a[0].toUpperCase() + '</span><span class="mod" data-out="mod_' + a[0] + '">+0</span>' +
-                '<input type="text" name="' + a[0] + '" maxlength="2" inputmode="numeric" placeholder="10" aria-label="' + a[1] + ' score">';
+                '<input type="text" name="' + a[0] + '" maxlength="2" inputmode="numeric" aria-label="' + a[1] + ' score">';
             abBox.appendChild(d);
         });
         var saves = $('saves');
